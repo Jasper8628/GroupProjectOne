@@ -4,50 +4,70 @@
 <head>
   <meta charset="utf-8">
   <title>Weather Dashboard</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+    <div >
+      <ul >
+        <li>
+          <button value="c%3Aw+">White</button>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+        <li >
+          <button value="c%3Au+">Blue</button>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+        <li >
+          <button value="c%3Ab+">Black</button>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+        <li>
+          <button value="c%3Ar+">Red</button>
+        </li>
+        <li >
+          <button value="c%3Ag+">Green</button>
+        </li>
+        <li >
+          <button value="t%3Aplaneswalker+">planeswalker</button>
+        </li>
+        <li >
+          <button value="t%3Acreature+">Creature</button>
+        </li>
+        <li >
+          <button value="t%3Ainstant+">Instant</button>
+        </li>
+        <li >
+          <button value="t%3Asorcery+">Sorcery</button>
+        </li>
+        <li >
+          <button value="t%3Aenchantment">Enchantment</button>
+        </li>
+        <li >
+          <button value="t%3Aartifact+">Artifact</button>
+        </li>
+        <li >
+          <button value="cmc%3D1+">1</button>
+        </li>
+        <li>
+          <button value="cmc%3D2+">2</button>
+        </li>
+        <li >
+          <button value="cmc%3D3+">3</button>
+        </li>
+        <li >
+          <button value="cmc%3D4+">4</button>
+        </li>
+        <li >
+          <button value="cmc%3D5+">5</button>
+        </li>
+        <li >
+          <button value="cmc%3D6+">6</button>
+        </li>
+        <li >
+          <button value="cmc%3E6+">6+</button>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
     </div>
   </nav>
-  <div class="container">
-    <div class="row" id="collection">
+  <div >
+    <div >
 
     </div>
   </div>
@@ -55,28 +75,90 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="dom1.js"></script>
   <script type="text/javascript" src="dom2.js"></script>
-  
+
   <script type="text/javascript" src="dom3.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
-      var cards=dom1.concat(dom2);
-      cards=cards.concat(dom3);
+      var queryURL = "https://api.scryfall.com/cards/search?order=cmc&q=e%3Adom+";
+      var white = "c%3Aw+";
+      var blue = "c%3Au+";
+      var black = "c%3Ab+";
+      var red = "c%3Ar+";
+      var green = "c%3Ag+";
+      var creature = "t%3Acreature+";
+      var instant = "t%3Ainstant+";
+      var sorcery = "t%3Asorcery+";
+      var enchantment = "t%3Aenchantment+";
+      var artifact = "t%3Aartifact+";
+      var planeswalker = "t%3Aplaneswalker+";
+      var land = "%3Aland+";
+      var zero="cmc%3D0+";
+      var one="cmc%3D1+";
+      var two="cmc%3D2+";
+      var three="cmc%3D3+";
+      var four="cmc%3D4+";
+      var five="cmc%3D5+";
+      var six="cmc%3D6+";
+      var sevenPlus="cmc%3E6+";
+
+
+      var cards = dom1.concat(dom2);
+      cards = cards.concat(dom3);
       console.log(cards);
+      $("button").on("click",function(){
+        var filter=$(this).attr("value");
+        queryURL=queryURL+filter;
+        
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+          .then(function (response) {
+            console.log(response);
+            console.log(queryURL);
 
 
-
-
-
-      for (i = 0; i < cards.length; i++) {
-        var createImg = $('<img>');
-        createImg.attr("src", cards[i].imageUrl);
-        createImg.addClass("col-md-2");
-        $("#collection").append(createImg);
-
-      }
- 
-
+      });
     });
+  });
+  
+
+    /*   $("button").toggle(function () {
+        var filter = $(this).attr("value");
+        queryURL = queryURL + filter;
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+          .then(function (response) {
+            var results = response.data;
+            console.log(results);
+            for (i = 0; i < results.length; i++) {
+              var createImg = $('<img>');
+              createImg.attr("src", results[i].image_uris.normal);
+              createImg.addClass("col-md-2");
+              $("#collection").append(createImg);
+            }
+          });
+      }, function(){
+        var filter = $(this).attr("value");
+        queryURL = queryURL - filter;
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+          .then(function (response) {
+            var results = response.data;
+            console.log(results);
+            for (i = 0; i < results.length; i++) {
+              var createImg = $('<img>');
+              createImg.attr("src", results[i].image_uris.normal);
+              createImg.addClass("col-md-2");
+              $("#collection").append(createImg);
+            }
+          });
+      }); */
+    
 
   </script>
 </body>
