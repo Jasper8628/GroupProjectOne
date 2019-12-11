@@ -50,33 +50,99 @@
     <div class="row" id="collection">
 
     </div>
+    <div id="listingTable"></div>
+    <a href="#" id="btn_prev">Prev</a>
+    <a href="#" id="btn_next">Next</a>
+    Page: <span id="page"></span>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="dom1.js"></script>
   <script type="text/javascript" src="dom2.js"></script>
-  
+
   <script type="text/javascript" src="dom3.js"></script>
   <script type="text/javascript">
+
     $(document).ready(function () {
-      var cards=dom1.concat(dom2);
-      cards=cards.concat(dom3);
-      console.log(cards);
 
+      var exampleQueryURL = "https://api.scryfall.com/cards/search?order=color&q=e%3Adom";
+      var responseData;
 
+      $.ajax({
+        url: exampleQueryURL,
+        method: "GET"
+      }).then(function(response) {
+        responseData = response.data; //the cards data
+      var current_page = 1; //sets current page variable
+      var records_per_page = 27; //each page holds 27 card images
+      $("#btn_prev").on("click", prevPage);
+      $("#btn_next").on("click", nextPage);
 
-
-
-      for (i = 0; i < cards.length; i++) {
-        var createImg = $('<img>');
-        createImg.attr("src", cards[i].imageUrl);
-        createImg.addClass("col-md-2");
-        $("#collection").append(createImg);
-
+      function prevPage() {
+        if (current_page > 1) { //decrements current page variable unless current page is first page
+          current_page--;
+          changePage(current_page); //change the page to be one page below if current page is not first page
+        }
       }
- 
 
+      function nextPage() {
+        if (current_page < numPages()) { //increment current page unless already at max num of pages, otherwise do nothing
+          current_page++;
+          console.log("Current page: " + current_page);
+          changePage(current_page);
+        }
+      }
+
+      function changePage(page) {
+        $("#collection").text(""); //clear the DOM
+        var btn_next = $("#btn_next");
+        var btn_prev = $("#btn_prev");
+        var listing_table = $("#listingTable");
+        var page_span = $("#page");
+
+        // Validate page to make sure it is within correct range
+        if (page < 1) {
+          page = 1;
+        };
+
+        if (page > numPages()) {
+          page = numPages();
+        };
+        
+        for (var i = (page - 1) * records_per_page; i < (page * records_per_page); i++) { 
+          var createImg = $('<img>');
+          createImg.attr("src", responseData[i].image_uris.normal);
+          createImg.addClass("col-md-2");
+          $("#collection").append(createImg); //add images to collection div
+
+          if ((i+1)===responseData.length) { //get out of loop in the last page so it breaks before looping over non existent image urls
+            break;
+          };
+        };
+        page_span.text(page); //change the page text to show the current page
+
+        if (page === 1) {  
+          btn_prev.hide();
+        } else { 
+          btn_prev.show();
+        };
+
+        if (page === numPages()) {
+          btn_next.hide();
+        } else {
+          btn_next.show();
+        };
+      };
+
+      function numPages() { //get total num of pages after dividing total object length by records_per_page
+        console.log(responseData.length)
+        return Math.ceil(responseData.length / records_per_page);
+      };
+
+      changePage(1);  //loads first page of cards as soon as window loads
     });
+    });
+
 
   </script>
 </body>
