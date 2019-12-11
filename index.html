@@ -65,7 +65,7 @@
 
     $(document).ready(function () {
 
-      var exampleQueryURL = "https://api.scryfall.com/cards/search?order=color&q=e%3Adom";
+      var exampleQueryURL = "https://api.scryfall.com/cards/search?order=color&q=e%3Adom"; //first queryURL then depend on user search filters this will get updated and ajax call will be run again
       var responseData;
       var current_page = 1; //sets current page variable
       var records_per_page = 27; //each page holds 27 card images
@@ -118,13 +118,13 @@
         };
         page_span.text(page); //change the page text to show the current page
 
-        if (page === 1) {
+        if (page === 1) { //when current page is 1 then do not show Previous page link
           btn_prev.hide();
         } else {
           btn_prev.show();
         };
 
-        if (page === numPages()) {
+        if (page === numPages()) { //when current page is equal to max num of pages then hide the Next Page link
           btn_next.hide();
         } else {
           btn_next.show();
