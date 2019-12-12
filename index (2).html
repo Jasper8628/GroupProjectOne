@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Arena Collections</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body style="background-color: black;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <button value="+c%3Aw" style="background-image:url('./Assets/download.png')">white</button>
+          
+        </li> <li class="nav-item active">
+            <button value="+c%3Au" style="background-image:url('./Assets/blue.png')">blue</button>
+            
+          </li> <li class="nav-item active">
+              <button value="+c%3Ab" style="background-image:url('./Assets/black.png')">black</button>
+              
+            </li> <li class="nav-item active">
+                <button value="+c%3Ar" style="background-image:url('./Assets/red.png')">red</button>
+                
+              </li> <li class="nav-item active">
+                  <button value="+c%3Ag" style="background-image:url('./Assets/green.png')">green</button>
+                  
+                </li>
+                <li>
+                  <button class="clear">Clear</button>
+                </li>
+       
+       
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control ml-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="container">
+            <div class="row" id="collection">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+      
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      var QueryURL = "https://api.scryfall.com/cards/search?order=color&q=e%3Adom"; //first queryURL then depend on user search filters this will get updated and ajax call will be run again
+      var responseData;
+      var current_page = 1; //sets current page variable
+      var records_per_page = 27; //each page holds 27 card images
+      $(".filter").on("click",function(){
+        $(".card").remove();
+        $(".new-slide").remove();
+        var filter=$(this).attr("value");
+        QueryURL=QueryURL+filter;
+        API_CALL();
+      });
+      $(".clear").on("click",function(){
+        $(".card").remove();
+        $(".new-slide").remove();
+        API_CALL();
+
+      });
+      
+      function API_CALL(){
+      $.ajax({
+        url:QueryURL,
+        method: "GET"
+      }).then(function (response) {
+        responseData = response.data;
+        while(responseData==null){}
+        var numSlide= response.data.length/18;
+        for(var i=0;i<18;i++){
+          var createImg = $('<img>');
+          createImg.attr("style","background-color:black");
+          createImg.attr("src", responseData[i].image_uris.border_crop);
+          createImg.addClass("col-md-2 card");
+          $("#collection").append(createImg); 
+        }
+
+        for (var i=1;i<Math.ceil(numSlide);i++){
+          var createCarousel=$('<div>');
+          createCarousel.addClass("carousel-item new-slide")
+          var createContainer=$('<div>');
+          var createRow=$('<div>');
+          createContainer.addClass("container");
+          createRow.addClass("row");
+          $(".carousel-inner").append(createCarousel);
+          createCarousel.append(createContainer);
+          createContainer.append(createRow);
+
+          for (var j = i*18; j < (i+1)*18; j++) {
+            var createImg = $('<img>');
+            createImg.attr("style","background-color:black");
+            createImg.attr("src", responseData[j].image_uris.border_crop);
+            createImg.addClass("col-md-2 card");
+            createRow.append(createImg); //add images to collection div
+          }
+        }
+      });
+
+      }
+
+      $("#carouselExampleControls").carousel();
+      $(".left").on("click",function(){
+        $("#carouselExampleControls").carousel("prev");
+      });
+
+      $(".right").on("click",function(){
+        $("#carouselExampleControls").carousel("next");
+      });
+    });
+        /*
+              function prevPage() {
+                if (current_page > 1) { //decrements current page variable unless current page is first page
+                  current_page--;
+                  changePage(current_page); //change the page to be one page below if current page is not first page
+                }
+              };
+        
+              function nextPage() {
+                if (current_page < numPages()) { //increment current page unless already at max num of pages, otherwise do nothing
+                  current_page++;
+                  console.log("Current page: " + current_page);
+                  changePage(current_page);
+                }
+              };
+        
+              function numPages() { //get total num of pages after dividing total object length by records_per_page
+                console.log(responseData.length)
+                return Math.ceil(responseData.length / records_per_page);
+              };
+        
+              function changePage(page) {
+                $("#collection").text(""); //clear the DOM
+                var btn_next = $("#btn_next");
+                var btn_prev = $("#btn_prev");
+                var listing_table = $("#listingTable");
+                var page_span = $("#page");
+        
+                // Validate page to make sure it is within correct range
+                if (page < 1) {
+                  page = 1;
+                };
+        
+                if (page > numPages()) {
+                  page = numPages();
+                };
+        
+                for (var i = (page - 1) * records_per_page; i < (page * records_per_page); i++) {
+                  var createImg = $('<img>');
+                  createImg.attr("src", responseData[i].image_uris.normal);
+                  createImg.addClass("col-md-2");
+                  $("#collection").append(createImg); //add images to collection div
+        
+                  if ((i + 1) === responseData.length) { //get out of loop in the last page so it breaks before looping over non existent image urls
+                    break;
+                  };
+                };
+                page_span.text(page); //change the page text to show the current page
+        
+                if (page === 1) { //when current page is 1 then do not show Previous page link
+                  btn_prev.hide();
+                } else {
+                  btn_prev.show();
+                };
+        
+                if (page === numPages()) { //when current page is equal to max num of pages then hide the Next Page link
+                  btn_next.hide();
+                } else {
+                  btn_next.show();
+                };
+              };
+         //the cards data
+        
+                $("#btn_prev").on("click", prevPage);
+                $("#btn_next").on("click", nextPage);
+        
+                changePage(1);  //loads first page of cards as soon as window loads
+              });*/
+      
+
+
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
