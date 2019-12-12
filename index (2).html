@@ -18,20 +18,24 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <button value="+c%3Aw" style="background-image:url('./Assets/download.png')">white</button>
+        <li >
+          <button class="filter" value="+c%3Aw" >white</button>
           
-        </li> <li class="nav-item active">
-            <button value="+c%3Au" style="background-image:url('./Assets/blue.png')">blue</button>
+        </li> 
+        <li >
+            <button class="filter" value="+c%3Au" >blue</button>
             
-          </li> <li class="nav-item active">
-              <button value="+c%3Ab" style="background-image:url('./Assets/black.png')">black</button>
+          </li>
+           <li >
+              <button class="filter" value="+c%3Ab" >black</button>
               
-            </li> <li class="nav-item active">
-                <button value="+c%3Ar" style="background-image:url('./Assets/red.png')">red</button>
+            </li>
+             <li >
+                <button class="filter" value="+c%3Ar" >red</button>
                 
-              </li> <li class="nav-item active">
-                  <button value="+c%3Ag" style="background-image:url('./Assets/green.png')">green</button>
+              </li>
+               <li >
+                  <button class="filter" value="+c%3Ag" >green</button>
                   
                 </li>
                 <li>
@@ -72,14 +76,14 @@
 
     $(document).ready(function () {
 
-      var QueryURL = "https://api.scryfall.com/cards/search?order=color&q=e%3Adom"; //first queryURL then depend on user search filters this will get updated and ajax call will be run again
+      var QueryURL = "https://api.scryfall.com/cards/search?order=color&q=e%3Adom"; //first queryURL then depend on user  this will get updated and ajax call will be run again
       var responseData;
       var current_page = 1; //sets current page variable
       var records_per_page = 27; //each page holds 27 card images
-      $(".filter").on("click",function(){
+$(".filter").on("click",function(){
         $(".card").remove();
         $(".new-slide").remove();
-        var filter=$(this).attr("value");
+  var filter=$(this).attr("value");
         QueryURL=QueryURL+filter;
         API_CALL();
       });
@@ -137,6 +141,7 @@
       $(".right").on("click",function(){
         $("#carouselExampleControls").carousel("next");
       });
+      API_CALL();
     });
         /*
               function prevPage() {
