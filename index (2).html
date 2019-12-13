@@ -171,15 +171,15 @@
               searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
             }
           }
-         /*  var colorPool=["W","U","B","R","G"];
-          var newBuffer=[];
-          for(var h=0; h<colorPool.length;h++){
-            for(var k=0;k<searchPool.length;k++){
-              if(searchPool[k].colors.indexOf(colorPool[h])!=-1){
-                newBuffer.push(searchPool[k].imgUrl);
-              }
-            }
-          } */
+          /*  var colorPool=["W","U","B","R","G"];
+           var newBuffer=[];
+           for(var h=0; h<colorPool.length;h++){
+             for(var k=0;k<searchPool.length;k++){
+               if(searchPool[k].colors.indexOf(colorPool[h])!=-1){
+                 newBuffer.push(searchPool[k].imgUrl);
+               }
+             }
+           } */
           firstSearch = false;
         }
         else {
@@ -227,8 +227,8 @@
         $(".card").remove();
         $(".new-slide").remove();
         searchPool = [];
-        buffer=[];
-        cardPool=[];
+        buffer = [];
+        cardPool = [];
         firstSearch = true;
         API_CALL();
       });
@@ -311,6 +311,13 @@
                 createRow.append(createImg);
               }
             }
+          });
+
+          $(".left").on("click", function () {
+            $("#carouselExampleControls").carousel("prev");
+          });
+          $(".right").on("click", function () {
+            $("#carouselExampleControls").carousel("next");
           });
         });
         console.log(white);
