@@ -28,21 +28,17 @@ var cardPool = [];
 var colorless = [];
 var lands = [];
 var searchPool = [];
-
 var firstSearch = true;
 
 $(".color-filter").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
   var filter = $(this).attr("value");
-  console.log("0")
   if (firstSearch) {
-    console.log("1")
     searchPool = [];
     //5 is the highest possible number of colors
     //this 2-level for-loop is to sort cards by color while placing the multicolored cards at the end of the array
     for (var j = 1; j < 5; j++) {
-      console.log("2")
       for (var i = 0; i < responseData.length; i++) {
         if (responseData[i].colors.length == j && responseData[i].colors.indexOf(filter) != -1) {
           searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
@@ -50,30 +46,23 @@ $(".color-filter").on("click", function () {
         //saving potentially useful data of each card for later when interactability is needed
       }
     }
-    console.log("3")
     firstSearch = false;
   }
   else {
-    console.log("4")
-    console.log(searchPool);
     var buffer = [];
     for (var j = 0; j < searchPool.length; j++) {
       if (searchPool[j].colors.indexOf(filter) != -1) {
-        console.log(searchPool[j].imgUrl);
         buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
         //saving potentially useful data of each card for later when interactability is needed
       }
     }
-    console.log("5")
     searchPool = buffer;
   }
-  console.log("6")
 
  
   //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
   var slideActive=false;
   for (var i = 0; i < Math.ceil(searchPool.length / 18); i++) {
-    console.log(searchPool.length / 18)
     var createCarousel = $('<div>');
     createCarousel.addClass("carousel-item");
     if(slideActive==false){
@@ -117,7 +106,6 @@ $(".type-filter").on("click", function () {
     var buffer = [];
     for (var j = 0; j < searchPool.length; j++) {
       if (searchPool[j].type.indexOf(filter) != -1 || searchPool[j].name.indexOf(filter) != -1 || searchPool[j].oracle.indexOf(filter) != -1) {
-        console.log(searchPool[j].imgUrl);
         buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
       }
     }
@@ -127,7 +115,6 @@ $(".type-filter").on("click", function () {
   // these for-loops display cards from the searchPool in the first carousel slide;
   var slideActive=false;
   for (var i = 0; i < Math.ceil(searchPool.length / 18); i++) {
-    console.log(searchPool.length / 18)
     var createCarousel = $('<div>');
     createCarousel.addClass("carousel-item");
     if(slideActive==false){
@@ -158,6 +145,15 @@ $(".type-filter").on("click", function () {
 $(".reset").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
+  white=[];
+  blue=[];
+  black=[];
+  red=[];
+  green=[];
+  multiColor=[];
+  colorless=[];
+  lands=[];
+  responseData=[];
   searchPool = [];
   buffer = [];
   cardPool = [];
@@ -198,7 +194,6 @@ function sortByColor() {
   cardPool = cardPool.concat(multiColor);
   cardPool = cardPool.concat(colorless);
   cardPool = cardPool.concat(lands);
-  console.log(cardPool);
 }
 
 function API_CALL() {
@@ -247,11 +242,6 @@ function API_CALL() {
     });
 
   });
-  console.log(white);
-  console.log(blue);
-  console.log(black);
-  console.log(red);
-  console.log(green);
 
   //$("#carouselExampleControls").carousel();
 
