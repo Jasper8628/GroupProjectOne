@@ -313,18 +313,21 @@
             }
           });
 
-          $(".left").on("click", function () {
-            $("#carouselExampleControls").carousel("prev");
-          });
-          $(".right").on("click", function () {
-            $("#carouselExampleControls").carousel("next");
-          });
         });
         console.log(white);
         console.log(blue);
         console.log(black);
         console.log(red);
         console.log(green);
+        
+        $("#carouselExampleControls").carousel();
+
+        $(".left").on("click", function () {
+          $("#carouselExampleControls").carousel("prev");
+        });
+        $(".right").on("click", function () {
+          $("#carouselExampleControls").carousel("next");
+        });
       }
 
       // $("#carouselExampleControls").carousel();
