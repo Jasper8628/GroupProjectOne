@@ -3,124 +3,144 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Weather Dashboard</title>
+  <title>Magic the gathering</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href=" https://github.com/FortAwesome/Font-Awesome/issues/5019" rel="stylesheet">
+  <link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <div >
-      <ul >
-        <li>
-          <button value="c%3Aw+">White</button>
-        </li>
-        <li >
-          <button value="c%3Au+">Blue</button>
-        </li>
-        <li >
-          <button value="c%3Ab+">Black</button>
-        </li>
-        <li>
-          <button value="c%3Ar+">Red</button>
-        </li>
-        <li >
-          <button value="c%3Ag+">Green</button>
-        </li>
-        <li >
-          <button value="t%3Aplaneswalker+">planeswalker</button>
-        </li>
-        <li >
-          <button value="t%3Acreature+">Creature</button>
-        </li>
-        <li >
-          <button value="t%3Ainstant+">Instant</button>
-        </li>
-        <li >
-          <button value="t%3Asorcery+">Sorcery</button>
-        </li>
-        <li >
-          <button value="t%3Aenchantment">Enchantment</button>
-        </li>
-        <li >
-          <button value="t%3Aartifact+">Artifact</button>
-        </li>
-        <li >
-          <button value="cmc%3D1+">1</button>
-        </li>
-        <li>
-          <button value="cmc%3D2+">2</button>
-        </li>
-        <li >
-          <button value="cmc%3D3+">3</button>
-        </li>
-        <li >
-          <button value="cmc%3D4+">4</button>
-        </li>
-        <li >
-          <button value="cmc%3D5+">5</button>
-        </li>
-        <li >
-          <button value="cmc%3D6+">6</button>
-        </li>
-        <li >
-          <button value="cmc%3E6+">6+</button>
-        </li>
-      </ul>
+  <div class="top-bar foundation-5-top-bar">
+    <div class="top-bar-title">
     </div>
-  </nav>
-  <div >
-    <div >
-
+    <div id="responsive-menu">
+      <div class="top-bar-left">
+        <ul class=" medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown" data-auto-height="true"
+          data-animate-height="true">
+          <li id="white"><a href="#"><img alt="{S}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/5/56/S.svg?version=55873f0e44f157bf7a3fa18542de2873"
+                width="25" height="25"></a></li>
+          <li id="blue"><a href="#"><img alt="{U}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/9/9f/U.svg?version=242e3a0c1616389c9f09510d598dc5c0"
+                width="25" height="25"></a></li>
+          <li id="black"><a href="#"><img alt="{B}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/2/2f/B.svg?version=019551d4756f33e6432aaa8dcc0966f8"
+                width="25" height="25"></a></li>
+          <li id="red"><a href="#"><img alt="{R}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/87/R.svg?version=5549fbad7279775e94ad0ae307a289a1"
+                width="25" height="25"></a></li>
+          <li id="green"><a href="#"><img alt="{G}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
+                width="25" height="25"></a></li>
+          <li id="colorless"><a href="#"><img alt="{C}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
+                width="25" height="25"></a></li>
+          <li id="multi-color"><a href="#"><img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
+                alt="Image result for multi color icon  Magic the gathering mana symbols" width="25" height="25"></a>
+          </li>
+          <li id="advancedSearch"><a href="#">advanced</a></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><input type="search" placeholder="Search"></li>
+          <li><button type="button" class="button mainSearchButton ">Search</button></li>
+        </ul>
+      </div>
     </div>
   </div>
+  <div class="row" id="collection">
+  </div>
 
+  <div class="modal">
+      <div class="modal-header">
+        <span class="close-btn">&times;</span>
+      </div>
+      <div class="modal-content">
+        <h1>Advanced Filters</h1>
+        <div class="iconButtons">
+          <button>
+            <img alt="{S}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/5/56/S.svg?version=55873f0e44f157bf7a3fa18542de2873"
+              width="50" height="50">
+          </button>
+          <button>
+            <img alt="{U}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/9/9f/U.svg?version=242e3a0c1616389c9f09510d598dc5c0"
+              width="50" height="50">
+          </button>
+          <button>
+            <img alt="{B}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/2/2f/B.svg?version=019551d4756f33e6432aaa8dcc0966f8"
+              width="50" height="50">
+          </button>
+          <button>
+            <img alt="{R}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/87/R.svg?version=5549fbad7279775e94ad0ae307a289a1"
+              width="50" height="50">
+          </button>
+          <button>
+            <img alt="{G}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
+              width="50" height="50">
+          </button>
+          <button>
+            <img alt="{C}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
+              width="50" height="50">
+          </button>
+          <button>
+            <img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
+              alt="Image result for multi color icon  Magic the gathering mana symbols" width="50" height="50">
+          </button>
+          </br>
+          <button class="modalNumButtons">0</button>
+          <button class="modalNumButtons">1</button>
+          <button class="modalNumButtons">2</button>
+          <button class="modalNumButtons">3</button>
+          <button class="modalNumButtons">4</button>
+          <button class="modalNumButtons">5</button>
+          <button class="modalNumButtons">6</button>
+          <button class="modalNumButtons">7+</button>
+        </br>
+          <button class="modalAdvanceButtons">Basic Lands</button>
+          <button class="modalAdvanceButtons">Common</button>
+          <button class="modalAdvanceButtons">Uncommon</button>
+          <button class="modalAdvanceButtons">Rare</button>
+          <button class="modalAdvanceButtons">Mythic Rare</button>
+        </br>
+          <button class="modalAdvanceButtons">Creature</button>
+          <button class="modalAdvanceButtons">Planes Walker</button>
+          <button class="modalAdvanceButtons">Instant</button>
+          <button class="modalAdvanceButtons">Sorcery</button>
+          <button class="modalAdvanceButtons">Enchantment</button>
+          <button class="modalAdvanceButtons">Artifact</button>
+          <button class="modalAdvanceButtons">Land</button>
+          <button class="modalAdvanceButtons">Commanders</button>
+      </div>
+    </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="dom1.js"></script>
   <script type="text/javascript" src="dom2.js"></script>
-
   <script type="text/javascript" src="dom3.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+  
   <script type="text/javascript">
     $(document).ready(function () {
-      var queryURL = "https://api.scryfall.com/cards/search?order=cmc&q=e%3Adom+";
-      var white = "c%3Aw+";
-      var blue = "c%3Au+";
-      var black = "c%3Ab+";
-      var red = "c%3Ar+";
-      var green = "c%3Ag+";
-      var creature = "t%3Acreature+";
-      var instant = "t%3Ainstant+";
-      var sorcery = "t%3Asorcery+";
-      var enchantment = "t%3Aenchantment+";
-      var artifact = "t%3Aartifact+";
-      var planeswalker = "t%3Aplaneswalker+";
-      var land = "%3Aland+";
-      var zero="cmc%3D0+";
-      var one="cmc%3D1+";
-      var two="cmc%3D2+";
-      var three="cmc%3D3+";
-      var four="cmc%3D4+";
-      var five="cmc%3D5+";
-      var six="cmc%3D6+";
-      var sevenPlus="cmc%3E6+";
-
-
       var cards = dom1.concat(dom2);
       cards = cards.concat(dom3);
-      console.log(cards);
-      $("button").on("click",function(){
-        var filter=$(this).attr("value");
-        queryURL=queryURL+filter;
-        
-        $.ajax({
-          url: queryURL,
-          method: "GET"
-        })
-          .then(function (response) {
-            console.log(response);
-            console.log(queryURL);
-
-
-      });
+      // console.log(cards);
+      for (i = 0; i < cards.length; i++) {
+        var createImg = $('<img>');
+        createImg.attr("src", cards[i].imageUrl);
+        createImg.addClass("small-4 large-2 columns cardImgs");
+        $("#collection").append(createImg);
+      }
     });
-  });
+  
   
 
     /*   $("button").toggle(function () {
