@@ -1,15 +1,15 @@
-$("#advancedSearch").click(function(){
-    openAdvancedSearchModal();
+$("#advancedSearch").click(function () {
+  openAdvancedSearchModal();
 });
-$( ".close-btn").click(function(){
-    closeModal();
+$(".close-btn").click(function () {
+  closeModal();
 });
 
-function openAdvancedSearchModal(){
-    $(".modal").css("display","block");
+function openAdvancedSearchModal() {
+  $(".modal").css("display", "block");
 }
-function closeModal(){
-    $(".modal").css("display","none");
+function closeModal() {
+  $(".modal").css("display", "none");
 }
 
 
@@ -29,6 +29,38 @@ var colorless = [];
 var lands = [];
 var searchPool = [];
 var firstSearch = true;
+$("#search").on("click", function () {
+  $(".card").remove();
+  $(".new-slide").remove();
+  var input = $("#input").val();
+  var searchTerm =input.charAt(0).toUpperCase() + input.slice(1);
+  //var searchTerm=input.charAt(0).toUpperCase();
+  console.log(searchTerm);
+  if (firstSearch) {
+    searchPool = [];
+    for (var i = 0; i < responseData.length; i++) {
+      if (responseData[i].type_line.indexOf(searchTerm) != -1 || responseData[i].name.indexOf(searchTerm) != -1 || responseData[i].oracle_text.indexOf(searchTerm) != -1) {
+        searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
+
+      }
+      console.log(searchPool);
+    }
+    firstSearch = false;
+  }
+  else {
+    var buffer = [];
+    for (var j = 0; j < searchPool.length; j++) {
+      if (searchPool[j].type.indexOf(searchTerm) != -1 || searchPool[j].name.indexOf(searchTerm) != -1 || searchPool[j].oracle.indexOf(searchTerm) != -1) {
+        buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
+      }
+    }
+
+    searchPool = buffer;
+  }
+  display(searchPool);
+
+
+});
 
 $(".color-filter").on("click", function () {
   $(".card").remove();
@@ -58,35 +90,7 @@ $(".color-filter").on("click", function () {
     }
     searchPool = buffer;
   }
-
- 
-  //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
-  var slideActive=false;
-  for (var i = 0; i < Math.ceil(searchPool.length / 18); i++) {
-    var createCarousel = $('<div>');
-    createCarousel.addClass("carousel-item");
-    if(slideActive==false){
-      createCarousel.addClass("new-slide active");
-      slideActive=true;
-    }
-    else{
-      createCarousel.addClass("new-slide");
-    }
-    var createContainer = $('<div>');
-    var createRow = $('<div>');
-    createContainer.addClass("container");
-    createRow.addClass("row");
-    $(".carousel-inner").append(createCarousel);
-    createCarousel.append(createContainer);
-    createContainer.append(createRow);
-    for (var j = i * 18; j < (i + 1) * 18 ; j++) {
-      var createImg = $('<img>');
-      createImg.attr("style", "background-color:black");
-      createImg.attr("src", searchPool[j].imgUrl);
-      createImg.addClass("col-md-2 card cardImgs");
-      createRow.append(createImg);
-    }
-  }
+  display(searchPool);
 });
 
 $(".type-filter").on("click", function () {
@@ -111,49 +115,21 @@ $(".type-filter").on("click", function () {
     }
     searchPool = buffer;
   }
-
-  // these for-loops display cards from the searchPool in the first carousel slide;
-  var slideActive=false;
-  for (var i = 0; i < Math.ceil(searchPool.length / 18); i++) {
-    var createCarousel = $('<div>');
-    createCarousel.addClass("carousel-item");
-    if(slideActive==false){
-      createCarousel.addClass("new-slide active");
-      slideActive=true;
-    }
-    else{
-      createCarousel.addClass("new-slide");
-    }
-    var createContainer = $('<div>');
-    var createRow = $('<div>');
-    createContainer.addClass("container");
-    createRow.addClass("row");
-    $(".carousel-inner").append(createCarousel);
-    createCarousel.append(createContainer);
-    createContainer.append(createRow);
-    for (var j = i * 18; j < (i + 1) * 18 ; j++) {
-      var createImg = $('<img>');
-      createImg.attr("style", "background-color:black");
-      createImg.attr("src", searchPool[j].imgUrl);
-      createImg.addClass("col-md-2 card cardImgs");
-      createRow.append(createImg);
-    }
-  }
+  display(searchPool);
 });
-
 
 $(".reset").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
-  white=[];
-  blue=[];
-  black=[];
-  red=[];
-  green=[];
-  multiColor=[];
-  colorless=[];
-  lands=[];
-  responseData=[];
+  white = [];
+  blue = [];
+  black = [];
+  red = [];
+  green = [];
+  multiColor = [];
+  colorless = [];
+  lands = [];
+  responseData = [];
   searchPool = [];
   buffer = [];
   cardPool = [];
@@ -196,6 +172,36 @@ function sortByColor() {
   cardPool = cardPool.concat(lands);
 }
 
+function display(array) {
+  numSlide = array.length / 18;
+  var slideActive = false;
+  for (var i = 0; i < Math.ceil(numSlide); i++) {
+    var createCarousel = $('<div>');
+    createCarousel.addClass("carousel-item")
+    if (slideActive == false) {
+      createCarousel.addClass("active new-slide");
+      slideActive = true;
+    }
+    else {
+      createCarousel.addClass("new-slide")
+    }
+    var createContainer = $('<div>');
+    var createRow = $('<div>');
+    createContainer.addClass("container");
+    createRow.addClass("row");
+    $(".carousel-inner").append(createCarousel);
+    createCarousel.append(createContainer);
+    createContainer.append(createRow);
+    for (var j = i * 18; j < (i + 1) * 18; j++) {
+      var createImg = $('<img>');
+      createImg.attr("style", "background-color:transparent");
+      createImg.attr("src", array[j].imgUrl);
+      createImg.addClass("col-md-2 card cardImgs");
+      createRow.append(createImg);
+    }
+  }
+}
+
 function API_CALL() {
   $.ajax({
     url: QueryURL,
@@ -210,46 +216,8 @@ function API_CALL() {
       var newResponseData = feed.data;
       responseData = responseData.concat(newResponseData);
       sortByColor();
-
-      numSlide = responseData.length / 18;
-      var slideActive=false;
-     
-      for (var i = 0; i < Math.ceil(numSlide); i++) {
-        var createCarousel = $('<div>');
-        createCarousel.addClass("carousel-item")
-        if(slideActive==false){
-          createCarousel.addClass("active new-slide");
-          slideActive=true;
-        }
-        else{
-          createCarousel.addClass("new-slide")
-        }
-        var createContainer = $('<div>');
-        var createRow = $('<div>');
-        createContainer.addClass("container");
-        createRow.addClass("row");
-        $(".carousel-inner").append(createCarousel);
-        createCarousel.append(createContainer);
-        createContainer.append(createRow);
-        for (var j = i * 18; j < (i + 1) * 18; j++) {
-          var createImg = $('<img>');
-          createImg.attr("style", "background-color:transparent");
-          createImg.attr("src", cardPool[j].imgUrl);
-          createImg.addClass("col-md-2 card cardImgs");
-          createRow.append(createImg);
-        }
-      }
+      display(cardPool);
     });
-
-  });
-
-  //$("#carouselExampleControls").carousel();
-
-  $(".left").on("click", function () {
-    $("#carouselExampleControls").carousel("prev");
-  });
-  $(".right").on("click", function () {
-    $("#carouselExampleControls").carousel("next");
   });
 }
 
