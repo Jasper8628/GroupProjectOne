@@ -6,57 +6,54 @@
   <title>Arena Collections</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href=" https://github.com/FortAwesome/Font-Awesome/issues/5019" rel="stylesheet">
+  <link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
-<body style="background-color: black;">
-  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li>
-          <button class="color-filter" value="W">white</button>
-        </li>
-        <li>
-          <button class="color-filter" value="U">blue</button>
-        </li>
-        <li>
-          <button class="color-filter" value="B">black</button>
-        </li>
-        <li>
-          <button class="color-filter" value="R">red</button>
-        </li>
-        <li>
-          <button class="color-filter" value="G">green</button>
-        </li>
-
-        <li><button class="type-filter" value="Creature">Creature</button></li>
-
-        <li><button class="type-filter" value="Planeswalker">Planeswalker</button></li>
-
-        <li><button class="type-filter" value="Instant">Instant</button></li>
-
-        <li><button class="type-filter" value="Sorcery">Sorcery</button></li>
-
-        <li><button class="type-filter" value="Enchantment">Enchantment</button></li>
-
-        <li><button class="type-filter" value="Artifact">Artifact</button></li>
-
-        <li>
-          <button class="reset">Reset</button>
-        </li>
-
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control ml-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+<body>
+  <div class="top-bar foundation-5-top-bar">
+    <div class="top-bar-title">
     </div>
-  </nav>
+    <div id="responsive-menu">
+      <div class="top-bar-left">
+        <ul class=" medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown" data-auto-height="true"
+          data-animate-height="true">
+          <li class="color-filter" id="white" value="W" role="button"><a href="#">
+              <img alt="{W}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/8e/W.svg?version=4cfe7054aba65596dc7cd79cf9d61d01"
+                decoding="async" width="25" height="25"></a></li>
+          <li class="color-filter" id="blue" value="U" role="button"><a href="#"><img alt="{U}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/9/9f/U.svg?version=242e3a0c1616389c9f09510d598dc5c0"
+                width="25" height="25"></a></li>
+          <li class="color-filter" id="black" value="B" role="button"><a href="#"><img alt="{B}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/2/2f/B.svg?version=019551d4756f33e6432aaa8dcc0966f8"
+                width="25" height="25"></a></li>
+          <li class="color-filter" id="red" value="R" role="button"><a href="#"><img alt="{R}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/87/R.svg?version=5549fbad7279775e94ad0ae307a289a1"
+                width="25" height="25"></a></li>
+          <li class="color-filter" id="green" value="G" role="button"><a href="#"><img alt="{G}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
+                width="25" height="25"></a></li>
+          <li class="color-filter" id="colorless" role="button"><a href="#"><img alt="{C}"
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
+                width="25" height="25"></a></li>
+          <li class="color-filter" id="multi-color" role="button"><a href="#"><img
+                src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
+                alt="Image result for multi color icon  Magic the gathering mana symbols" width="25" height="25"></a>
+          </li>
+          <li id="advancedSearch"><a href="#" role="button">advanced</a></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><input type="search" placeholder="Search"></li>
+          <li><button type="button" class="button mainSearchButton ">Search</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
@@ -68,6 +65,9 @@
       </div>
     </div>
 
+
+
+
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
@@ -78,277 +78,349 @@
     </a>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-btn">&times;</span>
+    </div>
+    <div class="modal-content">
+      <h1>Advanced Filters</h1>
+      <div class="iconButtons">
+        <button class="color-filter" value="W">
 
-    $(document).ready(function () {
+          <img alt="{W}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/8e/W.svg?version=4cfe7054aba65596dc7cd79cf9d61d01"
+            decoding="async" width="50" height="50">
+        </button>
+        <button class="color-filter" value="U">
+          <img alt="{U}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/9/9f/U.svg?version=242e3a0c1616389c9f09510d598dc5c0"
+            width="50" height="50">
+        </button>
+        <button class="color-filter" value="B">
+          <img alt="{B}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/2/2f/B.svg?version=019551d4756f33e6432aaa8dcc0966f8"
+            width="50" height="50">
+        </button>
+        <button class="color-filter" value="R">
+          <img alt="{R}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/87/R.svg?version=5549fbad7279775e94ad0ae307a289a1"
+            width="50" height="50">
+        </button>
+        <button class="color-filter" value="G">
+          <img alt="{G}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
+            width="50" height="50">
+        </button>
+        <button>
+          <img alt="{C}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
+            width="50" height="50">
+        </button>
+        <button>
+          <img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
+            alt="Image result for multi color icon  Magic the gathering mana symbols" width="50" height="50">
+        </button>
+        </br>
+        <button class="modalNumButtons">0</button>
+        <button class="modalNumButtons">1</button>
+        <button class="modalNumButtons">2</button>
+        <button class="modalNumButtons">3</button>
+        <button class="modalNumButtons">4</button>
+        <button class="modalNumButtons">5</button>
+        <button class="modalNumButtons">6</button>
+        <button class="modalNumButtons">7+</button>
+        </br>
+        <button class="modalAdvanceButtons">Basic Lands</button>
+        <button class="modalAdvanceButtons">Common</button>
+        <button class="modalAdvanceButtons">Uncommon</button>
+        <button class="modalAdvanceButtons">Rare</button>
+        <button class="modalAdvanceButtons">Mythic Rare</button>
+        </br>
+        <button class="modalAdvanceButtons">Creature</button>
+        <button class="modalAdvanceButtons">Planes Walker</button>
+        <button class="modalAdvanceButtons">Instant</button>
+        <button class="modalAdvanceButtons">Sorcery</button>
+        <button class="modalAdvanceButtons">Enchantment</button>
+        <button class="modalAdvanceButtons">Artifact</button>
+        <button class="modalAdvanceButtons">Land</button>
+        <button class="modalAdvanceButtons">Commanders</button>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 
-      var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom";
-      var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom&page=2"; //first queryURL then depend on user  this will get updated and ajax call will be run again
-      var responseData;
-      var numSlide;
-      var white = [];
-      var blue = [];
-      var black = [];
-      var red = [];
-      var green = [];
-      var multiColor = [];
-      var cardPool = [];
-      var colorless = [];
-      var lands = [];
-      var searchPool = [];
+    <script type="text/javascript">
 
-      var firstSearch = true;
+      $(document).ready(function () {
 
-      $(".color-filter").on("click", function () {
-        $(".card").remove();
-        $(".new-slide").remove();
-        var filter = $(this).attr("value");
-        if (firstSearch) {
-          searchPool = [];
-          //5 is the highest possible number of colors
-          //this 2-level for-loop is to sort cards by color while placing the multicolored cards at the end of the array
-          for (var j = 1; j < 5; j++) {
-            for (var i = 0; i < responseData.length; i++) {
-              if (responseData[i].colors.length == j && responseData[i].colors.indexOf(filter) != -1) {
-                searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
+        var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom";
+        var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom&page=2"; //first queryURL then depend on user  this will get updated and ajax call will be run again
+        var responseData;
+        var numSlide;
+        var white = [];
+        var blue = [];
+        var black = [];
+        var red = [];
+        var green = [];
+        var multiColor = [];
+        var cardPool = [];
+        var colorless = [];
+        var lands = [];
+        var searchPool = [];
+
+        var firstSearch = true;
+
+        $(".color-filter").on("click", function () {
+          $(".card").remove();
+          $(".new-slide").remove();
+          var filter = $(this).attr("value");
+          console.log(filter);
+          if (firstSearch) {
+            searchPool = [];
+            //5 is the highest possible number of colors
+            //this 2-level for-loop is to sort cards by color while placing the multicolored cards at the end of the array
+            for (var j = 1; j < 5; j++) {
+              for (var i = 0; i < responseData.length; i++) {
+                if (responseData[i].colors.length == j && responseData[i].colors.indexOf(filter) != -1) {
+                  searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
+                }
+                //saving potentially useful data of each card for later when interactability is needed
               }
-              //saving potentially useful data of each card for later when interactability is needed
             }
-          }
-          firstSearch = false;
-        }
-        else {
-          console.log(searchPool);
-          var buffer = [];
-          for (var j = 0; j < searchPool.length; j++) {
-            if (searchPool[j].colors.indexOf(filter) != -1) {
-              console.log(searchPool[j].imgUrl);
-              buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
-              //saving potentially useful data of each card for later when interactability is needed
-            }
-          }
-          searchPool = buffer;
-        }
-
-        // these for-loops display cards from the searchPool in the first carousel slide;
-        for (var i = 0; i < 18; i++) {
-          var createImg = $('<img>');
-          createImg.attr("style", "background-color:black");
-          createImg.attr("src", searchPool[i].imgUrl);
-          createImg.addClass("col-md-2 card");
-          $("#collection").append(createImg);
-        }
-        //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
-        for (var i = 1; i < Math.ceil(numSlide); i++) {
-          var createCarousel = $('<div>');
-          createCarousel.addClass("carousel-item new-slide")
-          var createContainer = $('<div>');
-          var createRow = $('<div>');
-          createContainer.addClass("container");
-          createRow.addClass("row");
-          $(".carousel-inner").append(createCarousel);
-          createCarousel.append(createContainer);
-          createContainer.append(createRow);
-          for (var j = i * 18; j < (i + 1) * 18; j++) {
-            var createImg = $('<img>');
-            createImg.attr("style", "background-color:black");
-            createImg.attr("src", searchPool[j].imgUrl);
-            createImg.addClass("col-md-2 card");
-            createRow.append(createImg);
-          }
-        }
-      });
-
-      $(".type-filter").on("click", function () {
-        $(".card").remove();
-        $(".new-slide").remove();
-        var filter = $(this).attr("value");
-        if (firstSearch) {
-          searchPool = [];
-          for (var i = 0; i < responseData.length; i++) {
-            if (responseData[i].type_line.indexOf(filter) != -1 || responseData[i].name.indexOf(filter) != -1 || responseData[i].oracle_text.indexOf(filter) != -1) {
-              searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
-            }
-          }
-          /*  var colorPool=["W","U","B","R","G"];
-           var newBuffer=[];
-           for(var h=0; h<colorPool.length;h++){
-             for(var k=0;k<searchPool.length;k++){
-               if(searchPool[k].colors.indexOf(colorPool[h])!=-1){
-                 newBuffer.push(searchPool[k].imgUrl);
-               }
-             }
-           } */
-          firstSearch = false;
-        }
-        else {
-          var buffer = [];
-          for (var j = 0; j < searchPool.length; j++) {
-            if (searchPool[j].type.indexOf(filter) != -1 || searchPool[j].name.indexOf(filter) != -1 || searchPool[j].oracle.indexOf(filter) != -1) {
-              console.log(searchPool[j].imgUrl);
-              buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
-            }
-          }
-          searchPool = buffer;
-        }
-
-        // these for-loops display cards from the searchPool in the first carousel slide;
-        for (var i = 0; i < 18; i++) {
-          var createImg = $('<img>');
-          createImg.attr("style", "background-color:black");
-          createImg.attr("src", searchPool[i].imgUrl);
-          createImg.addClass("col-md-2 card");
-          $("#collection").append(createImg);
-        }
-        //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
-        for (var i = 1; i < Math.ceil(numSlide); i++) {
-          var createCarousel = $('<div>');
-          createCarousel.addClass("carousel-item new-slide")
-          var createContainer = $('<div>');
-          var createRow = $('<div>');
-          createContainer.addClass("container");
-          createRow.addClass("row");
-          $(".carousel-inner").append(createCarousel);
-          createCarousel.append(createContainer);
-          createContainer.append(createRow);
-          for (var j = i * 18; j < (i + 1) * 18; j++) {
-            var createImg = $('<img>');
-            createImg.attr("style", "background-color:black");
-            createImg.attr("src", searchPool[j].imgUrl);
-            createImg.addClass("col-md-2 card");
-            createRow.append(createImg);
-          }
-        }
-      });
-
-
-      $(".reset").on("click", function () {
-        $(".card").remove();
-        $(".new-slide").remove();
-        searchPool = [];
-        buffer = [];
-        cardPool = [];
-        firstSearch = true;
-        API_CALL();
-      });
-
-      function sortByColor() {
-        for (var i = 0; i < responseData.length; i++) {
-          if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "W") {
-            white.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
-          }
-          else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "U") {
-            blue.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
-          }
-          else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "B") {
-            black.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
-          }
-          else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "R") {
-            red.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
-          }
-          else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "G") {
-            green.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
-          }
-          else if (responseData[i].colors.length == 0 && (responseData[i].type_line.indexOf("Artifact") != -1 || responseData[i].type_line.indexOf("Planeswalker") != -1)) {
-            colorless.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
-          } else if (responseData[i].colors.length > 1) {
-            multiColor.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            firstSearch = false;
           }
           else {
-            lands.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
-          }
-        }
-        cardPool = white.concat(blue);
-        cardPool = cardPool.concat(black);
-        cardPool = cardPool.concat(red);
-        cardPool = cardPool.concat(green);
-        cardPool = cardPool.concat(multiColor);
-        cardPool = cardPool.concat(colorless);
-        cardPool = cardPool.concat(lands);
-        console.log(cardPool);
-      }
-
-      function API_CALL() {
-        $.ajax({
-          url: QueryURL,
-          method: "GET"
-        }).then(function (response) {
-          responseData = response.data;
-          $.ajax({
-            url: QueryURL2,
-            //the api call only returns 175 results, therefore a second api call for the second page of the same search term is required
-            method: "GET"
-          }).then(function (feed) {
-            var newResponseDate = feed.data;
-            responseData = responseData.concat(newResponseDate);
-            sortByColor();
-
-            numSlide = responseData.length / 18;
-            for (var i = 0; i < 18; i++) {
-              var createImg = $('<img>');
-              createImg.attr("style", "background-color:black");
-              createImg.attr("src", cardPool[i].imgUrl);
-              console.log(createImg.attr("src"));
-              createImg.addClass("col-md-2 card");
-              $("#collection").append(createImg);
-            }
-            for (var i = 1; i < Math.ceil(numSlide); i++) {
-              var createCarousel = $('<div>');
-              createCarousel.addClass("carousel-item new-slide")
-              var createContainer = $('<div>');
-              var createRow = $('<div>');
-              createContainer.addClass("container");
-              createRow.addClass("row");
-              $(".carousel-inner").append(createCarousel);
-              createCarousel.append(createContainer);
-              createContainer.append(createRow);
-              for (var j = i * 18; j < (i + 1) * 18; j++) {
-                var createImg = $('<img>');
-                createImg.attr("style", "background-color:black");
-                createImg.attr("src", cardPool[j].imgUrl);
-                createImg.addClass("col-md-2 card");
-                createRow.append(createImg);
+            console.log(searchPool);
+            var buffer = [];
+            for (var j = 0; j < searchPool.length; j++) {
+              if (searchPool[j].colors.indexOf(filter) != -1) {
+                console.log(searchPool[j].imgUrl);
+                buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
+                //saving potentially useful data of each card for later when interactability is needed
               }
             }
-          });
+            searchPool = buffer;
+          }
 
+          // these for-loops display cards from the searchPool in the first carousel slide;
+          for (var i = 0; i < 18; i++) {
+            var createImg = $('<img>');
+            createImg.attr("style", "background-color:black");
+            createImg.attr("src", searchPool[i].imgUrl);
+            createImg.addClass("col-md-2 card cardImgs");
+            $("#collection").append(createImg);
+          }
+          //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
+          for (var i = 1; i < Math.ceil(searchPool.length / 18) - 1; i++) {
+            var createCarousel = $('<div>');
+            createCarousel.addClass("carousel-item new-slide")
+            var createContainer = $('<div>');
+            var createRow = $('<div>');
+            createContainer.addClass("container");
+            createRow.addClass("row");
+            $(".carousel-inner").append(createCarousel);
+            createCarousel.append(createContainer);
+            createContainer.append(createRow);
+            for (var j = i * 18; j < (i + 1) * 18; j++) {
+              var createImg = $('<img>');
+              createImg.attr("style", "background-color:black");
+              createImg.attr("src", searchPool[j].imgUrl);
+              createImg.addClass("col-md-2 card cardImgs");
+              createRow.append(createImg);
+            }
+          }
         });
-        console.log(white);
-        console.log(blue);
-        console.log(black);
-        console.log(red);
-        console.log(green);
-        
-        $("#carouselExampleControls").carousel();
 
+        $(".type-filter").on("click", function () {
+          $(".card").remove();
+          $(".new-slide").remove();
+          var filter = $(this).attr("value");
+          if (firstSearch) {
+            searchPool = [];
+            for (var i = 0; i < responseData.length; i++) {
+              if (responseData[i].type_line.indexOf(filter) != -1 || responseData[i].name.indexOf(filter) != -1 || responseData[i].oracle_text.indexOf(filter) != -1) {
+                searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
+              }
+            }
+            /*  var colorPool=["W","U","B","R","G"];
+             var newBuffer=[];
+             for(var h=0; h<colorPool.length;h++){
+               for(var k=0;k<searchPool.length;k++){
+                 if(searchPool[k].colors.indexOf(colorPool[h])!=-1){
+                   newBuffer.push(searchPool[k].imgUrl);
+                 }
+               }
+             } */
+            firstSearch = false;
+          }
+          else {
+            var buffer = [];
+            for (var j = 0; j < searchPool.length; j++) {
+              if (searchPool[j].type.indexOf(filter) != -1 || searchPool[j].name.indexOf(filter) != -1 || searchPool[j].oracle.indexOf(filter) != -1) {
+                console.log(searchPool[j].imgUrl);
+                buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
+              }
+            }
+            searchPool = buffer;
+          }
+
+          // these for-loops display cards from the searchPool in the first carousel slide;
+          for (var i = 0; i < 18; i++) {
+            var createImg = $('<img>');
+            createImg.attr("style", "background-color:black");
+            createImg.attr("src", searchPool[i].imgUrl);
+            createImg.addClass("col-md-2 card cardImgs");
+            $("#collection").append(createImg);
+          }
+          //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
+          for (var i = 1; i < Math.ceil(searchPool.length / 18) - 1; i++) {
+            var createCarousel = $('<div>');
+            createCarousel.addClass("carousel-item new-slide")
+            var createContainer = $('<div>');
+            var createRow = $('<div>');
+            createContainer.addClass("container");
+            createRow.addClass("row");
+            $(".carousel-inner").append(createCarousel);
+            createCarousel.append(createContainer);
+            createContainer.append(createRow);
+            for (var j = i * 18; j < (i + 1) * 18; j++) {
+              var createImg = $('<img>');
+              createImg.attr("style", "background-color:black");
+              createImg.attr("src", searchPool[j].imgUrl);
+              createImg.addClass("col-md-2 card cardImgs");
+              createRow.append(createImg);
+            }
+          }
+        });
+
+
+        $(".reset").on("click", function () {
+          $(".card").remove();
+          $(".new-slide").remove();
+          searchPool = [];
+          buffer = [];
+          cardPool = [];
+          firstSearch = true;
+          API_CALL();
+        });
+
+        function sortByColor() {
+          for (var i = 0; i < responseData.length; i++) {
+            if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "W") {
+              white.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            }
+            else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "U") {
+              blue.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            }
+            else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "B") {
+              black.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            }
+            else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "R") {
+              red.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            }
+            else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "G") {
+              green.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            }
+            else if (responseData[i].colors.length == 0 && (responseData[i].type_line.indexOf("Artifact") != -1 || responseData[i].type_line.indexOf("Planeswalker") != -1)) {
+              colorless.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            } else if (responseData[i].colors.length > 1) {
+              multiColor.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            }
+            else {
+              lands.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+            }
+          }
+          cardPool = white.concat(blue);
+          cardPool = cardPool.concat(black);
+          cardPool = cardPool.concat(red);
+          cardPool = cardPool.concat(green);
+          cardPool = cardPool.concat(multiColor);
+          cardPool = cardPool.concat(colorless);
+          cardPool = cardPool.concat(lands);
+          console.log(cardPool);
+        }
+
+        function API_CALL() {
+          $.ajax({
+            url: QueryURL,
+            method: "GET"
+          }).then(function (response) {
+            responseData = response.data;
+            $.ajax({
+              url: QueryURL2,
+              //the api call only returns 175 results, therefore a second api call for the second page of the same search term is required
+              method: "GET"
+            }).then(function (feed) {
+              var newResponseDate = feed.data;
+              responseData = responseData.concat(newResponseDate);
+              sortByColor();
+
+              numSlide = responseData.length / 18;
+              for (var i = 0; i < 18; i++) {
+                var createImg = $('<img>');
+
+                createImg.attr("style", "background-color:transparent");
+                createImg.attr("src", cardPool[i].imgUrl);
+                console.log(createImg.attr("src"));
+                createImg.addClass("col-md-2 card cardImgs");
+                $("#collection").append(createImg);
+              }
+              for (var i = 1; i < Math.ceil(numSlide) - 1; i++) {
+                var createCarousel = $('<div>');
+                createCarousel.addClass("carousel-item new-slide")
+                var createContainer = $('<div>');
+                var createRow = $('<div>');
+                createContainer.addClass("container");
+                createRow.addClass("row");
+                $(".carousel-inner").append(createCarousel);
+                createCarousel.append(createContainer);
+                createContainer.append(createRow);
+                for (var j = i * 18; j < (i + 1) * 18; j++) {
+                  var createImg = $('<img>');
+                  createImg.attr("style", "background-color:transparent");
+                  createImg.attr("src", cardPool[j].imgUrl);
+                  createImg.addClass("col-md-2 card cardImgs");
+                  createRow.append(createImg);
+                }
+              }
+            });
+
+          });
+          console.log(white);
+          console.log(blue);
+          console.log(black);
+          console.log(red);
+          console.log(green);
+
+          $("#carouselExampleControls").carousel();
+
+          $(".left").on("click", function () {
+            $("#carouselExampleControls").carousel("prev");
+          });
+          $(".right").on("click", function () {
+            $("#carouselExampleControls").carousel("next");
+          });
+        }
+
+        // $("#carouselExampleControls").carousel();
         $(".left").on("click", function () {
           $("#carouselExampleControls").carousel("prev");
         });
         $(".right").on("click", function () {
           $("#carouselExampleControls").carousel("next");
         });
-      }
-
-      // $("#carouselExampleControls").carousel();
-      $(".left").on("click", function () {
-        $("#carouselExampleControls").carousel("prev");
+        API_CALL();
       });
-      $(".right").on("click", function () {
-        $("#carouselExampleControls").carousel("next");
-      });
-      API_CALL();
-    });
 
 
-  </script>
+    </script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
 </body>
 
 </html>
