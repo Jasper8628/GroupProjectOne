@@ -69,20 +69,20 @@ $(".color-filter").on("click", function () {
   }
   console.log("6")
 
-  // these for-loops display cards from the searchPool in the first carousel slide;
-  for (var i = 0; i < 18; i++) {
-    var createImg = $('<img>');
-    createImg.attr("style", "background-color:black");
-    createImg.attr("src", searchPool[i].imgUrl);
-    createImg.addClass("col-md-2 card cardImgs");
-    $("#collection").append(createImg);
-  }
-  console.log("7")
+ 
   //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
-  for (var i = 1; i < Math.ceil(searchPool.length / 18)-1; i++) {
+  var slideActive=false;
+  for (var i = 0; i < Math.ceil(searchPool.length / 18); i++) {
     console.log(searchPool.length / 18)
     var createCarousel = $('<div>');
-    createCarousel.addClass("carousel-item new-slide")
+    createCarousel.addClass("carousel-item");
+    if(slideActive==false){
+      createCarousel.addClass("new-slide active");
+      slideActive=true;
+    }
+    else{
+      createCarousel.addClass("new-slide");
+    }
     var createContainer = $('<div>');
     var createRow = $('<div>');
     createContainer.addClass("container");
@@ -90,16 +90,14 @@ $(".color-filter").on("click", function () {
     $(".carousel-inner").append(createCarousel);
     createCarousel.append(createContainer);
     createContainer.append(createRow);
-    for (var j = i * 18; j < (i + 1) * 18 || j < searchPool.length; j++) {
+    for (var j = i * 18; j < (i + 1) * 18 ; j++) {
       var createImg = $('<img>');
       createImg.attr("style", "background-color:black");
-
       createImg.attr("src", searchPool[j].imgUrl);
       createImg.addClass("col-md-2 card cardImgs");
       createRow.append(createImg);
     }
   }
-  console.log("9")
 });
 
 $(".type-filter").on("click", function () {
@@ -113,15 +111,6 @@ $(".type-filter").on("click", function () {
         searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
       }
     }
-    /*  var colorPool=["W","U","B","R","G"];
-     var newBuffer=[];
-     for(var h=0; h<colorPool.length;h++){
-       for(var k=0;k<searchPool.length;k++){
-         if(searchPool[k].colors.indexOf(colorPool[h])!=-1){
-           newBuffer.push(searchPool[k].imgUrl);
-         }
-       }
-     } */
     firstSearch = false;
   }
   else {
@@ -136,18 +125,18 @@ $(".type-filter").on("click", function () {
   }
 
   // these for-loops display cards from the searchPool in the first carousel slide;
-  numSlide = searchPool.length / 18;
-  for (var i = 0; i < 18; i++) {
-    var createImg = $('<img>');
-    createImg.attr("style", "background-color:black");
-    createImg.attr("src", searchPool[i].imgUrl);
-    createImg.addClass("col-md-2 card cardImgs");
-    $("#collection").append(createImg);
-  }
-  //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
-  for (var i = 1; i < Math.ceil(searchPool.length / 18)-1; i++) {
+  var slideActive=false;
+  for (var i = 0; i < Math.ceil(searchPool.length / 18); i++) {
+    console.log(searchPool.length / 18)
     var createCarousel = $('<div>');
-    createCarousel.addClass("carousel-item new-slide")
+    createCarousel.addClass("carousel-item");
+    if(slideActive==false){
+      createCarousel.addClass("new-slide active");
+      slideActive=true;
+    }
+    else{
+      createCarousel.addClass("new-slide");
+    }
     var createContainer = $('<div>');
     var createRow = $('<div>');
     createContainer.addClass("container");
@@ -155,7 +144,7 @@ $(".type-filter").on("click", function () {
     $(".carousel-inner").append(createCarousel);
     createCarousel.append(createContainer);
     createContainer.append(createRow);
-    for (var j = i * 18; j < (i + 1) * 18 || j < searchPool.length; j++) {
+    for (var j = i * 18; j < (i + 1) * 18 ; j++) {
       var createImg = $('<img>');
       createImg.attr("style", "background-color:black");
       createImg.attr("src", searchPool[j].imgUrl);
@@ -228,17 +217,18 @@ function API_CALL() {
       sortByColor();
 
       numSlide = responseData.length / 18;
-      for (var i = 0; i < 18; i++) {
-        var createImg = $('<img>');
-        createImg.attr("style", "background-color:transparent");
-        createImg.attr("src", cardPool[i].imgUrl);
-        console.log(createImg.attr("src"));
-        createImg.addClass("col-md-2 card cardImgs");
-        $("#collection").append(createImg);
-      }
-      for (var i = 1; i < Math.ceil(numSlide)-1; i++) {
+      var slideActive=false;
+     
+      for (var i = 0; i < Math.ceil(numSlide); i++) {
         var createCarousel = $('<div>');
-        createCarousel.addClass("carousel-item new-slide")
+        createCarousel.addClass("carousel-item")
+        if(slideActive==false){
+          createCarousel.addClass("active new-slide");
+          slideActive=true;
+        }
+        else{
+          createCarousel.addClass("new-slide")
+        }
         var createContainer = $('<div>');
         var createRow = $('<div>');
         createContainer.addClass("container");
