@@ -1,4 +1,4 @@
-
+ 
 .foundation-5-top-bar {
     background: #333;
     color: #fefefe;
@@ -34,12 +34,11 @@
   color: black;
     background-color: rgba(240, 197, 57, 0.938);
     border-radius: 2em;
-    widows: 50px;
+    width: fit-content;
     
   }
 
   .cardImgs{
-    margin:25px;
    transition: transform .2s;
    overflow: hidden;
   }
@@ -68,7 +67,7 @@
     padding: 20px; 
     margin: auto; 
     width: 70%;  
-    height: 50%;
+    height: 70%;
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
@@ -92,7 +91,9 @@
     from {top:-300px; opacity:0}
     to {top:0; opacity:1}
   }
-  .modalNumButtons{
+ 
+
+  .modalNumButtons {
  border-radius: 2em;
  width: 60px;
  height: 60px;
@@ -115,7 +116,7 @@ margin-top: 10px;
    border-radius: .5em;
   }
   
-  .mainSearchButton{
+  .mainSearchButton , .openbtn{
 
     background: rgba(240, 197, 57, 0.938) ;
     border-radius: 1em;
@@ -123,5 +124,43 @@ margin-top: 10px;
     font-display: bolder;
     font-size: medium;
   }
+
+  .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  .sidebar div {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidebar div:hover {
+    color: #f1f1f1;
+  }
+
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    font-size: 36px;
+    margin-right: 50px;
+  }
+
+  
+  
+  
   
   

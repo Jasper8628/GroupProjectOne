@@ -48,100 +48,108 @@
         <ul class="menu">
           <li><input type="search" placeholder="Search"></li>
           <li><button type="button" class="button mainSearchButton ">Search</button></li>
+          <li><button class="button openbtn openDeck" onclick="openNav()">CardDeck</button></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="row" id="collection">
   </div>
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <div class="CardDeck">
+      <h4>Card Deck</h4>
+    </div>
+  </div>
+
 
   <div class="modal">
-      <div class="modal-header">
-        <span class="close-btn">&times;</span>
-      </div>
-      <div class="modal-content">
-        <h1>Advanced Filters</h1>
-        <div class="iconButtons">
-          <button>
-            <img alt="{S}"
-              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/5/56/S.svg?version=55873f0e44f157bf7a3fa18542de2873"
-              width="50" height="50">
-          </button>
-          <button>
-            <img alt="{U}"
-              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/9/9f/U.svg?version=242e3a0c1616389c9f09510d598dc5c0"
-              width="50" height="50">
-          </button>
-          <button>
-            <img alt="{B}"
-              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/2/2f/B.svg?version=019551d4756f33e6432aaa8dcc0966f8"
-              width="50" height="50">
-          </button>
-          <button>
-            <img alt="{R}"
-              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/87/R.svg?version=5549fbad7279775e94ad0ae307a289a1"
-              width="50" height="50">
-          </button>
-          <button>
-            <img alt="{G}"
-              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
-              width="50" height="50">
-          </button>
-          <button>
-            <img alt="{C}"
-              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
-              width="50" height="50">
-          </button>
-          <button>
-            <img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
-              alt="Image result for multi color icon  Magic the gathering mana symbols" width="50" height="50">
-          </button>
-          </br>
-          <button class="modalNumButtons">0</button>
-          <button class="modalNumButtons">1</button>
-          <button class="modalNumButtons">2</button>
-          <button class="modalNumButtons">3</button>
-          <button class="modalNumButtons">4</button>
-          <button class="modalNumButtons">5</button>
-          <button class="modalNumButtons">6</button>
-          <button class="modalNumButtons">7+</button>
+    <div class="modal-header">
+      <span class="close-btn">&times;</span>
+    </div>
+    <div class="modal-content">
+      <h1>Advanced Filters</h1>
+      <div class="iconButtons">
+        <button>
+          <img alt="{S}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/5/56/S.svg?version=55873f0e44f157bf7a3fa18542de2873"
+            width="50" height="50">
+        </button>
+        <button>
+          <img alt="{U}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/9/9f/U.svg?version=242e3a0c1616389c9f09510d598dc5c0"
+            width="50" height="50">
+        </button>
+        <button>
+          <img alt="{B}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/2/2f/B.svg?version=019551d4756f33e6432aaa8dcc0966f8"
+            width="50" height="50">
+        </button>
+        <button>
+          <img alt="{R}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/87/R.svg?version=5549fbad7279775e94ad0ae307a289a1"
+            width="50" height="50">
+        </button>
+        <button>
+          <img alt="{G}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
+            width="50" height="50">
+        </button>
+        <button>
+          <img alt="{C}"
+            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
+            width="50" height="50">
+        </button>
+        <button>
+          <img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
+            alt="Image result for multi color icon  Magic the gathering mana symbols" width="50" height="50">
+        </button>
         </br>
-          <button class="modalAdvanceButtons">Basic Lands</button>
-          <button class="modalAdvanceButtons">Common</button>
-          <button class="modalAdvanceButtons">Uncommon</button>
-          <button class="modalAdvanceButtons">Rare</button>
-          <button class="modalAdvanceButtons">Mythic Rare</button>
+        <button class="modalNumButtons">0</button>
+        <button class="modalNumButtons">1</button>
+        <button class="modalNumButtons">2</button>
+        <button class="modalNumButtons">3</button>
+        <button class="modalNumButtons">4</button>
+        <button class="modalNumButtons">5</button>
+        <button class="modalNumButtons">6</button>
+        <button class="modalNumButtons">7+</button>
         </br>
-          <button class="modalAdvanceButtons">Creature</button>
-          <button class="modalAdvanceButtons">Planes Walker</button>
-          <button class="modalAdvanceButtons">Instant</button>
-          <button class="modalAdvanceButtons">Sorcery</button>
-          <button class="modalAdvanceButtons">Enchantment</button>
-          <button class="modalAdvanceButtons">Artifact</button>
-          <button class="modalAdvanceButtons">Land</button>
-          <button class="modalAdvanceButtons">Commanders</button>
+        <button class="modalAdvanceButtons">Basic Lands</button>
+        <button class="modalAdvanceButtons">Common</button>
+        <button class="modalAdvanceButtons">Uncommon</button>
+        <button class="modalAdvanceButtons">Rare</button>
+        <button class="modalAdvanceButtons">Mythic Rare</button>
+        </br>
+        <button class="modalAdvanceButtons">Creature</button>
+        <button class="modalAdvanceButtons">Planes Walker</button>
+        <button class="modalAdvanceButtons">Instant</button>
+        <button class="modalAdvanceButtons">Sorcery</button>
+        <button class="modalAdvanceButtons">Enchantment</button>
+        <button class="modalAdvanceButtons">Artifact</button>
+        <button class="modalAdvanceButtons">Land</button>
+        <button class="modalAdvanceButtons">Commanders</button>
       </div>
     </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="dom1.js"></script>
-  <script type="text/javascript" src="dom2.js"></script>
-  <script type="text/javascript" src="dom3.js"></script>
-  <script type="text/javascript" src="script.js"></script>
-  
-  <script type="text/javascript">
-    $(document).ready(function () {
-      var cards = dom1.concat(dom2);
-      cards = cards.concat(dom3);
-      // console.log(cards);
-      for (i = 0; i < cards.length; i++) {
-        var createImg = $('<img>');
-        createImg.attr("src", cards[i].imageUrl);
-        createImg.addClass("small-4 large-2 columns cardImgs");
-        $("#collection").append(createImg);
-      }
-    });
+  </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="dom1.js"></script>
+    <script type="text/javascript" src="dom2.js"></script>
+    <script type="text/javascript" src="dom3.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var cards = dom1.concat(dom2);
+        cards = cards.concat(dom3);
+        // console.log(cards);
+        for (i = 0; i < cards.length; i++) {
+          var createImg = $('<img>');
+          createImg.attr("src", cards[i].imageUrl);
+          createImg.addClass("medium-6 large-2 columns cardImgs");
+          $("#collection").append(createImg);
+        }
+      });
 
-  </script>
+    </script>
 </body>
 
 </html>
