@@ -35,10 +35,10 @@
           <li id="green" class="color-filter" value="G"><a href="#"><img alt="{G}"
                 src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
                 width="25" height="25"></a></li>
-          <li id="colorless"><a href="#"><img alt="{C}"
+          <li id="colorless" class="color-filter" value="C"><a href="#"><img alt="{C}"
                 src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
                 width="25" height="25"></a></li>
-          <li id="multi-color"><a href="#"><img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
+          <li id="multi-color" class="color-filter" value="M"><a href="#"><img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
                 alt="Image result for multi color icon  Magic the gathering mana symbols" width="25" height="25"></a>
           </li>
           <li id="advancedSearch"><a href="#">advanced</a></li>
@@ -102,30 +102,30 @@
             src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
             width="50" height="50">
         </button>
-        <button>
+        <button class="color-filter" value="C">
           <img alt="{C}"
             src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
             width="50" height="50">
         </button>
-        <button>
+        <button class="color-filter" value="M">
           <img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
             alt="Image result for multi color icon  Magic the gathering mana symbols" width="50" height="50">
         </button>
         </br>
-        <button class="modalNumButtons">0</button>
-        <button class="modalNumButtons">1</button>
-        <button class="modalNumButtons">2</button>
-        <button class="modalNumButtons">3</button>
-        <button class="modalNumButtons">4</button>
-        <button class="modalNumButtons">5</button>
-        <button class="modalNumButtons">6</button>
-        <button class="modalNumButtons">7+</button>
+        <button class="modalNumButtons number-filter" value=0>0</button>
+        <button class="modalNumButtons number-filter" value=1>1</button>
+        <button class="modalNumButtons number-filter" value=2>2</button>
+        <button class="modalNumButtons number-filter" value=3>3</button>
+        <button class="modalNumButtons number-filter" value=4>4</button>
+        <button class="modalNumButtons number-filter" value=5>5</button>
+        <button class="modalNumButtons number-filter" value=6>6</button>
+        <button class="modalNumButtons number-filter" value=[7,8,9,10,11,12,13,14,15]>7+</button>
         </br>
-        <button class="modalAdvanceButtons">Basic Lands</button>
-        <button class="modalAdvanceButtons">Common</button>
-        <button class="modalAdvanceButtons">Uncommon</button>
-        <button class="modalAdvanceButtons">Rare</button>
-        <button class="modalAdvanceButtons">Mythic Rare</button>
+        <button class="modalAdvanceButtons rarity-filter" value="basic">Basic Lands</button>
+        <button class="modalAdvanceButtons rarity-filter" value="common">Common</button>
+        <button class="modalAdvanceButtons rarity-filter" value="uncommon">Uncommon</button>
+        <button class="modalAdvanceButtons rarity-filter" value="rare">Rare</button>
+        <button class="modalAdvanceButtons rarity-filter" value="mythic">Mythic Rare</button>
         </br>
         <button class="modalAdvanceButtons type-filter" value="Creature">Creature</button>
         <button class="modalAdvanceButtons type-filter" value="Planeswalker">Planes Walker</button>
@@ -133,7 +133,7 @@
         <button class="modalAdvanceButtons type-filter" value="Sorcery">Sorcery</button>
         <button class="modalAdvanceButtons type-filter" value="Enchantment">Enchantment</button>
         <button class="modalAdvanceButtons type-filter" value="Artifact">Artifact</button>
-        <button class="modalAdvanceButtons type-filter" value="land">Land</button>
+        <button class="modalAdvanceButtons type-filter" value="Land">Land</button>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

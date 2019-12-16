@@ -125,5 +125,8 @@ margin-top: 10px;
   body{
     background-color:black;
   }
+  .carousel-item{
+    height:100%;
+  }
   
   
