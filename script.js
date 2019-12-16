@@ -16,6 +16,7 @@ var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e
 var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom&page=2"; //first queryURL then depend on user  this will get updated and ajax call will be run again
 var responseData;
 var numSlide;
+var cardsFound=0;
 var classColor = ".color-filter";
 var classType = ".type-filter";
 var classRarity = ".rarity-filter";
@@ -102,17 +103,22 @@ function addFilters(buttonClass, filterArray) {
     searchPool = [];
     firstSearch = false;
     var filter = $(this).attr("value");
-    if (filter == "7") {
-      filterArray.push("7", "8", "9", "10", "11", "12", "13", "14", "15")
+
+    if (filterArray.indexOf(filter) == -1) {
+      if (filter == "7") {
+        filterArray.push("7", "8", "9", "10", "11", "12", "13", "14", "15", "16");
+      }
+      else {
+        filterArray.push(filter);
+      }
     }
     else {
-      if (filterArray.indexOf(filter) == -1) {
-        filterArray.push(filter);
+      if (filter == "7") {
+        filterArray.splice(filterArray.indexOf(filter), 10);
       }
       else {
         filterArray.splice(filterArray.indexOf(filter), 1);
       }
-
     }
     console.log(arrayOfFilters);
     displaySearch(cardPool, arrayOfFilters);
@@ -248,6 +254,7 @@ function sortByColor() {
 }
 
 function displaySearch(array, arrayOfFilters) {
+  cardsFound=0;
   for (var i = 0; i < array.length; i++) {
     featureArray = [];
     if (array[i].colors.length < 1) {
@@ -282,6 +289,7 @@ function displaySearch(array, arrayOfFilters) {
       }
     }
     if (counter >= 4) {
+      cardsFound++;
       searchPool.push(
         {
           "imgUrl": array[i].imgUrl,
@@ -298,6 +306,8 @@ function displaySearch(array, arrayOfFilters) {
 }
 
 function display(array) {
+  cardsFound=array.length;
+  $(".found").text("Cards Found: "+cardsFound);
   numSlide = array.length / 18;
   var slideActive = false;
   for (var i = 0; i < Math.ceil(numSlide); i++) {
