@@ -11,12 +11,13 @@ function openAdvancedSearchModal() {
 function closeModal() {
   $(".modal").css("display", "none");
 }
-
+var apiUrl= "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
+var apiUrl2= "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
 var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom";
-var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom&page=2"; //first queryURL then depend on user  this will get updated and ajax call will be run again
+var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e%3Adom"; //first queryURL then depend on user  this will get updated and ajax call will be run again
 var responseData;
 var numSlide;
-var cardsFound=0;
+var cardsFound = 0;
 var classColor = ".color-filter";
 var classType = ".type-filter";
 var classRarity = ".rarity-filter";
@@ -103,7 +104,6 @@ function addFilters(buttonClass, filterArray) {
     searchPool = [];
     firstSearch = false;
     var filter = $(this).attr("value");
-
     if (filterArray.indexOf(filter) == -1) {
       if (filter == "7") {
         filterArray.push("7", "8", "9", "10", "11", "12", "13", "14", "15", "16");
@@ -124,11 +124,24 @@ function addFilters(buttonClass, filterArray) {
     displaySearch(cardPool, arrayOfFilters);
   });
 }
-
 addFilters(classColor, colorFilter);
 addFilters(classType, typeFilter);
 addFilters(classRarity, rarityFilter);
 addFilters(classCost, costFilter);
+
+$(".set-filter").on("click", function () {
+  apiUrl= "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
+  apiUrl2= "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
+  var filter = $(this).attr("value");
+  apiUrl = apiUrl + filter;
+  apiUrl2 = apiUrl2 + filter;
+});
+
+$("#go").on("click", function () {
+  $(".card").remove();
+  $(".new-slide").remove();
+  API_CALL(apiUrl,apiUrl2);
+});
 
 $(".reset").on("click", function () {
   $(".card").remove();
@@ -142,6 +155,7 @@ $(".reset").on("click", function () {
   rarityFilter = [];
   typeFilter = [];
   costFilter = [];
+  featureArray = [];
   display(cardPool);
 });
 
@@ -254,7 +268,7 @@ function sortByColor() {
 }
 
 function displaySearch(array, arrayOfFilters) {
-  cardsFound=0;
+  cardsFound = 0;
   for (var i = 0; i < array.length; i++) {
     featureArray = [];
     if (array[i].colors.length < 1) {
@@ -306,8 +320,8 @@ function displaySearch(array, arrayOfFilters) {
 }
 
 function display(array) {
-  cardsFound=array.length;
-  $(".found").text("Cards Found: "+cardsFound);
+  cardsFound = array.length;
+  $(".found").text("Cards Found: " + cardsFound);
   numSlide = array.length / 18;
   var slideActive = false;
   for (var i = 0; i < Math.ceil(numSlide); i++) {
@@ -341,14 +355,14 @@ function display(array) {
     }
   }
 }
-function API_CALL() {
+function API_CALL(url1,url2) {
   $.ajax({
-    url: QueryURL,
+    url: url1,
     method: "GET"
   }).then(function (response) {
     responseData = response.data;
     $.ajax({
-      url: QueryURL2,
+      url: url2,
       //the api call only returns 175 results, therefore a second api call for the second page of the same search term is required
       method: "GET"
     }).then(function (feed) {
@@ -366,4 +380,4 @@ $(".left").on("click", function () {
 $(".right").on("click", function () {
   $("#carouselExampleControls").carousel("next");
 });
-API_CALL();
+API_CALL(QueryURL,QueryURL2);
