@@ -12,8 +12,6 @@ function closeModal() {
   $(".modal").css("display", "none");
 }
 
-
-
 var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom";
 var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom&page=2"; //first queryURL then depend on user  this will get updated and ajax call will be run again
 var responseData;
@@ -41,6 +39,7 @@ var searchPool = [];
 var secondSearch = []
 var firstSearch = true;
 var firstTypeSearch = true;
+
 $("#search").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
@@ -101,14 +100,21 @@ function addFilters(buttonClass, filterArray) {
     $(".card").remove();
     $(".new-slide").remove();
     searchPool = [];
-    firstSearch=false;
+    firstSearch = false;
     var filter = $(this).attr("value");
-    if (filterArray.indexOf(filter) == -1) {
-      filterArray.push(filter);
+    if (filter == "7") {
+      filterArray.push("7", "8", "9", "10", "11", "12", "13", "14", "15")
     }
     else {
-      filterArray.splice(filterArray.indexOf(filter), 1);
+      if (filterArray.indexOf(filter) == -1) {
+        filterArray.push(filter);
+      }
+      else {
+        filterArray.splice(filterArray.indexOf(filter), 1);
+      }
+
     }
+    console.log(arrayOfFilters);
     displaySearch(cardPool, arrayOfFilters);
   });
 }
@@ -118,31 +124,18 @@ addFilters(classType, typeFilter);
 addFilters(classRarity, rarityFilter);
 addFilters(classCost, costFilter);
 
-
-/* $(".color-filter").on("click", function () {
-  var filter = $(this).attr("value");
-  colorFilter.push(filter);
-  if (arrayOfFilters.indexOf(colorFilter) != -1) {
-    arrayOfFilters = arrayOfFilters;
-  }
-  else {
-    arrayOfFilters.push(colorFilter);
-  }
-}); */
-
-
-
 $(".reset").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
   searchPool = [];
   secondSearch = [];
+  thirdSearch = [];
   firstSearch = true;
   firstTypeSearch = true;
-  classCost=[];
-  classRarity=[];
-  classType=[];
-  classColor=[];
+  colorFilter = [];
+  rarityFilter = [];
+  typeFilter = [];
+  costFilter = [];
   display(cardPool);
 });
 
@@ -271,9 +264,9 @@ function displaySearch(array, arrayOfFilters) {
     }
     featureArray.push(array[i].cmc.toString());
     var typeLine = array[i].type;
-    var words=typeLine.split(" ");
-    for(var p=0;p<words.length;p++){
-    featureArray.push(words[p]);
+    var words = typeLine.split(" ");
+    for (var p = 0; p < words.length; p++) {
+      featureArray.push(words[p]);
     }
     featureArray.push(array[i].rarity);
     var counter = 0;
@@ -283,12 +276,11 @@ function displaySearch(array, arrayOfFilters) {
       }
       for (k = 0; k < arrayOfFilters[j].length; k++) {
         var feature = arrayOfFilters[j][k];
-          if (featureArray.indexOf(feature) != -1) {
-            counter++;
-          }
+        if (featureArray.indexOf(feature) != -1) {
+          counter++;
+        }
       }
     }
-    console.log(counter);
     if (counter >= 4) {
       searchPool.push(
         {
@@ -339,7 +331,6 @@ function display(array) {
     }
   }
 }
-
 function API_CALL() {
   $.ajax({
     url: QueryURL,
@@ -359,7 +350,6 @@ function API_CALL() {
   });
 }
 
-// $("#carouselExampleControls").carousel();
 $(".left").on("click", function () {
   $("#carouselExampleControls").carousel("prev");
 });

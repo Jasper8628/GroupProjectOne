@@ -63,7 +63,7 @@
   }
   .modal-content {
     position: relative; 
-    background-color: rgba(240, 197, 57, 0.938);
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 20px; 
     margin: auto; 
     width: 70%;  
@@ -127,6 +127,9 @@ margin-top: 10px;
   }
   .carousel-item{
     height:100%;
+  }
+  h2{
+    color:white;
   }
   
   
