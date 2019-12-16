@@ -146,8 +146,6 @@ $(".reset").on("click", function () {
   display(cardPool);
 });
 
-
-
 function sortByColor() {
   for (var i = 0; i < responseData.length; i++) {
     if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "W") {
