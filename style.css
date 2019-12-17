@@ -1,166 +1,215 @@
+ .foundation-5-top-bar {
+   background: #333;
+   color: #fefefe;
+ }
  
-.foundation-5-top-bar {
-    background: #333;
-    color: #fefefe;
-  }
-  
-  .foundation-5-top-bar .menu {
-    background: #333;
-  }
-  
-  
-  .foundation-5-top-bar .is-dropdown-submenu {
-    border: 0;
-  }
-  
-  .foundation-5-top-bar .is-dropdown-submenu-item.opens-right a::after {
-    border-color: transparent transparent transparent #fefefe;
-  }
-  
-  .foundation-5-top-bar .js-drilldown-back > a::before {
-    border-color: transparent #fefefe transparent transparent;
-  }
-  
-  .foundation-5-top-bar .is-drilldown-submenu-parent > a::after {
-    border-color: transparent transparent transparent #fefefe;
-  }
-  
-  .foundation-5-top-bar .dropdown.menu.medium-horizontal > li.is-dropdown-submenu-parent > a::after {
-    border-color: #fefefe transparent transparent;
-  }
+ .foundation-5-top-bar .menu {
+   background: #333;
+ }
+ 
+ .foundation-5-top-bar .is-dropdown-submenu {
+   border: 0;
+ }
+ 
+ .foundation-5-top-bar .is-dropdown-submenu-item.opens-right a::after {
+   border-color: transparent transparent transparent #fefefe;
+ }
+ 
+ .foundation-5-top-bar .js-drilldown-back > a::before {
+   border-color: transparent #fefefe transparent transparent;
+ }
+ 
+ .foundation-5-top-bar .is-drilldown-submenu-parent > a::after {
+   border-color: transparent transparent transparent #fefefe;
+ }
+ 
+ .foundation-5-top-bar .dropdown.menu.medium-horizontal > li.is-dropdown-submenu-parent > a::after {
+   border-color: #fefefe transparent transparent;
+ }
 
-  #advancedSearch
-  {
+ li{
+  margin: 2px;
+ }
+ 
+ #advancedSearch {
+  background: rgba(240, 197, 57, 0.938);
+  border-radius: 1em;
   color: black;
-    background-color: rgba(240, 197, 57, 0.938);
-    border-radius: 2em;
-    width: fit-content;
-    
-  }
-
-  .cardImgs{
+  font-display: bolder;
+  font-size: medium;
+ }
+ 
+ .cardImgs {
    transition: transform .2s;
    overflow: hidden;
-  }
-  .cardImgs:hover {
-    -ms-transform: scale(2); 
-    -webkit-transform: scale(2);
-    transform: scale(2); 
-    position:relative;
-    z-index:999;
-  }
-
-  .modal {
-    display: none;
-    position: fixed; 
-    padding-top: 50px;
-    left: 0; 
-    top: 0;
-    width: 100%;
-    height: 100%; 
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  .modal-content {
-    position: relative; 
-    background-color: rgba(240, 197, 57, 0.938);
-    padding: 20px; 
-    margin: auto; 
-    width: 70%;  
-    height: 70%;
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s;
-    text-align: center;
-  }
-  .close-btn {
-    float: right; 
-    color: lightgray; 
-    font-size: 24px;  
-    font-weight: bold;
-  }
-  .close-btn:hover {
-    color: darkgray;
-  }
-  @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-  }
-  @keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-  }
+   margin-top: 20px;
+   margin-bottom: 20px;
+ }
+ .cardImgs:hover {
+   
+  -webkit-transform:scale(2);
+  -moz-transform:scale(2);
+  -ms-transform:scale(2);
+  -o-transform:scale(2);
+  transform:scale(2);
+   position: relative;
+   z-index: 1;
+ }
+ .modal {
+   display: none;
+   position: fixed;
+   padding-top: 50px;
+   margin: auto;
+   width: 80%;
+   height: 80%;
+   background-color: rgb(0, 0, 0);
+   background-color: rgba(0, 0, 0, 0.5);
+ }
+ .modal-content {
+   position: relative;
+   background-color: rgba(240, 197, 57, 0.938);
+   padding: 20px;
+   margin: auto;
+   width: 70%;
+   height: 70%;
+   -webkit-animation-name: animatetop;
+   -webkit-animation-duration: 0.4s;
+   animation-name: animatetop;
+   animation-duration: 0.4s;
+   text-align: center;
+ }
+ .close-btn {
+   float: right;
+   color: lightgray;
+   font-size: 24px;
+   font-weight: bold;
+ }
+ .close-btn:hover {
+   color: darkgray;
+ }
+ @-webkit-keyframes animatetop {
+   from {
+     top: -300px;
+     opacity: 0
+   }
+   to {
+     top: 0;
+     opacity: 1
+   }
+ }
  
-
-  .modalNumButtons {
- border-radius: 2em;
- width: 60px;
- height: 60px;
- background-color: white;
- font-display: bolder;
- margin: 5px;
-font-size: large;
-margin-top: 10px;
-  }
-
-  .modalAdvanceButtons{
-    border: 1px solid white;
-    width: max-content;
-    color:white;
-    padding: 3px;
-    margin: 5px;
-    margin-top: 10px;
-    font-display: bold;
-    font-size: large;
+ @keyframes animatetop {
+   from {
+     top: -300px;
+     opacity: 0
+   }
+   to {
+     top: 0;
+     opacity: 1
+   }
+ }
+ .modalNumButtons {
+   border-radius: 2em;
+   width: 60px;
+   height: 60px;
+   background-color: white;
+   font-display: bolder;
+   margin: 5px;
+   font-size: large;
+   margin-top: 10px;
+ }
+ .modalAdvanceButtons {
+   border: 1px solid white;
+   width: max-content;
+   color: white;
+   padding: 3px;
+   margin: 5px;
+   margin-top: 10px;
+   font-display: bold;
+   font-size: large;
    border-radius: .5em;
-  }
-  
-  .mainSearchButton , .openbtn{
+ }
+ 
+ .modalAdvanceButtons:visited {
+   border: 1px solid black;
+   border-radius: .5em;
+   color: black;
+ }
+ 
+ #resetButton {
+ 
+   width: max-content;
+   color: black;
+   background: white;
+   padding: 10px;
+   margin: auto;
+   font-display: bolder;
+   font-size: large;
+   border-radius: .5em;
+ }
+ 
+ .mainSearchButton, .openbtn {
+   background: rgba(240, 197, 57, 0.938);
+   border-radius: 1em;
+   color: black;
+   font-display: bolder;
+   font-size: medium;
+ }
+ 
+ .sidebar {
+   height: 100%;
+   width: 0;
+   position: fixed;
+   z-index: 1;
+   top: 0;
+   right: 0;
+   background-color: #333;
+   overflow-x: hidden;
+   transition: 0.5s;
+   padding-top: 62px;
+ }
+ 
+ .sidebar div {
+   padding: 8px 8px 8px 32px;
+   text-decoration: none;
+   font-size: 25px;
+   color: #818181;
+   display: block;
+   transition: 0.3s;
+ }
+ 
+ .sidebar div:hover {
+   color: #f1f1f1;
+ }
+ 
+ .sidebar .closebtn {
+   position: absolute;
+   top: 0;
+   left: 25px;
+   font-size: 36px;
+   margin-right: 50px;
+ }
+ .sidebar .saveButton{
+  position: absolute;
+  top: 10px;
+  Right: 25px;
+  margin-left: 50px;
+  width: 100px;
+  height: 80;
+  background: rgba(240, 197, 57, 0.938);
+  border-radius: 1em;
+  color: black;
+  font-display: bold;
+  font-size: medium;
+ }
+ 
+ body {
+   background-color: black;
 
-    background: rgba(240, 197, 57, 0.938) ;
-    border-radius: 1em;
-    color: black;
-    font-display: bolder;
-    font-size: medium;
-  }
+ }
 
-  .sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    background-color: #333;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-  }
-
-  .sidebar div {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-
-  .sidebar div:hover {
-    color: #f1f1f1;
-  }
-
-  .sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    left: 25px;
-    font-size: 36px;
-    margin-right: 50px;
-  }
-
+ @media only screen and (max-width: 1024px) {
   
   
   
-  
-  
+}
