@@ -11,23 +11,27 @@ function openAdvancedSearchModal() {
 function closeModal() {
   $(".modal").css("display", "none");
 }
-var apiUrl= "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
-var apiUrl2= "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
+var apiUrl = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
+var apiUrl2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
 var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom";
 var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e%3Adom"; //first queryURL then depend on user  this will get updated and ajax call will be run again
 var responseData;
 var numSlide;
 var cardsFound = 0;
+var classMulticolor = ".multi-color";
 var classColor = ".color-filter";
 var classType = ".type-filter";
 var classRarity = ".rarity-filter";
 var classCost = ".number-filter";
+var featureArray2 = [];
 var featureArray = [];
+var searchTermFilter = [];
+var multiColorFilter = [];
 var colorFilter = [];
 var costFilter = [];
 var typeFilter = [];
 var rarityFilter = [];
-var arrayOfFilters = [colorFilter, costFilter, typeFilter, rarityFilter];
+var arrayOfFilters = [colorFilter, multiColorFilter, costFilter, typeFilter, rarityFilter];
 var white = [];
 var blue = [];
 var black = [];
@@ -47,7 +51,17 @@ $("#search").on("click", function () {
   $(".new-slide").remove();
   var input = $("#input").val();
   var searchTerm = input.charAt(0).toUpperCase() + input.slice(1);
-  if (firstSearch && firstTypeSearch) {
+  searchTermFilter.push(input, searchTerm);
+});
+
+
+
+$("#search").on("click", function () {
+  $(".card").remove();
+  $(".new-slide").remove();
+  var input = $("#input").val();
+  var searchTerm = input.charAt(0).toUpperCase() + input.slice(1);
+  if (firstSearch) {
     searchPool = [];
     for (var i = 0; i < responseData.length; i++) {
       if (responseData[i].type_line.indexOf(searchTerm) != -1 || responseData[i].name.indexOf(searchTerm) != -1 || responseData[i].oracle_text.indexOf(searchTerm) != -1 || responseData[i].oracle_text.search(input) != -1) {
@@ -57,14 +71,17 @@ $("#search").on("click", function () {
           "manaCost": responseData[i].mana_cost,
           "colors": responseData[i].colors,
           "oracle": responseData[i].oracle_text,
-          "type": responseData[i].type_line
+          "type": responseData[i].type_line,
+          "cmc": responseData[i].cmc,
+          "rarity": responseData[i].rarity
         });
       }
     }
-    firstSearch = false;
+    firstTypeSearch = false;
     display(searchPool);
   }
-  else if ((firstSearch && firstTypeSearch == false) || (firstSearch == false && firstTypeSearch == true)) {
+  else {
+    console.log(searchPool);
     for (var j = 0; j < searchPool.length; j++) {
       if (searchPool[j].type.indexOf(searchTerm) != -1 || searchPool[j].name.indexOf(searchTerm) != -1 || searchPool[j].oracle.indexOf(searchTerm) != -1 || searchPool[j].oracle.search(input) != -1) {
         secondSearch.push({
@@ -73,27 +90,13 @@ $("#search").on("click", function () {
           "manaCost": searchPool[j].manaCost,
           "colors": searchPool[j].colors,
           "oracle": searchPool[j].oracle,
-          "type": searchPool[j].type
+          "type": searchPool[j].type,
+          "cmc": searchPool[j].cmc,
+          "rarity": searchPool[j].rarity
         });
       }
     }
     display(secondSearch);
-  }
-  else if (firstSearch == false && firstTypeSearch == false) {
-    var thirdSearch = []
-    for (var j = 0; j < secondSearch.length; j++) {
-      if (secondSearch[j].type.indexOf(searchTerm) != -1 || secondSearch[j].name.indexOf(searchTerm) != -1 || secondSearch[j].oracle.indexOf(searchTerm) != -1 || secondSearch[j].oracle.search(input) != -1) {
-        thirdSearch.push({
-          "imgUrl": secondSearch[j].imgUrl,
-          "name": secondSearch[j].name,
-          "manaCost": secondSearch[j].manaCost,
-          "colors": secondSearch[j].colors,
-          "oracle": secondSearch[j].oracle,
-          "type": secondSearch[j].type
-        });
-      }
-    }
-    display(thirdSearch);
   }
 });
 
@@ -101,10 +104,9 @@ function addFilters(buttonClass, filterArray) {
   $(buttonClass).on("click", function () {
     $(".card").remove();
     $(".new-slide").remove();
-    searchPool = [];
-    firstSearch = false;
     var filter = $(this).attr("value");
     if (filterArray.indexOf(filter) == -1) {
+      $(this).attr("style","border-color: gold");
       if (filter == "7") {
         filterArray.push("7", "8", "9", "10", "11", "12", "13", "14", "15", "16");
       }
@@ -113,6 +115,8 @@ function addFilters(buttonClass, filterArray) {
       }
     }
     else {
+      
+      $(this).attr("style","border-color:white");
       if (filter == "7") {
         filterArray.splice(filterArray.indexOf(filter), 10);
       }
@@ -120,18 +124,26 @@ function addFilters(buttonClass, filterArray) {
         filterArray.splice(filterArray.indexOf(filter), 1);
       }
     }
-    console.log(arrayOfFilters);
-    displaySearch(cardPool, arrayOfFilters);
+    if (firstTypeSearch) {
+      searchPool = [];
+      firstSearch = false;
+      displaySearch(cardPool, arrayOfFilters, searchPool);
+    }
+    else {
+      secondSearch = [];
+      displaySearch(searchPool, arrayOfFilters, secondSearch);
+    }
   });
 }
+addFilters(classMulticolor, multiColorFilter);
 addFilters(classColor, colorFilter);
 addFilters(classType, typeFilter);
 addFilters(classRarity, rarityFilter);
 addFilters(classCost, costFilter);
 
 $(".set-filter").on("click", function () {
-  apiUrl= "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
-  apiUrl2= "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
+  apiUrl = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
+  apiUrl2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
   var filter = $(this).attr("value");
   apiUrl = apiUrl + filter;
   apiUrl2 = apiUrl2 + filter;
@@ -140,22 +152,23 @@ $(".set-filter").on("click", function () {
 $("#go").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
-  API_CALL(apiUrl,apiUrl2);
+  API_CALL(apiUrl, apiUrl2);
 });
 
-$(".reset").on("click", function () {
+$("#reset").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
   searchPool = [];
   secondSearch = [];
-  thirdSearch = [];
   firstSearch = true;
   firstTypeSearch = true;
   colorFilter = [];
+  costFilter = [];
   rarityFilter = [];
   typeFilter = [];
-  costFilter = [];
   featureArray = [];
+  filterArray = [];
+  console.log(arrayOfFilters);
   display(cardPool);
 });
 
@@ -267,7 +280,7 @@ function sortByColor() {
   console.log(cardPool);
 }
 
-function displaySearch(array, arrayOfFilters) {
+function displaySearch(array, arrayOfFilters, array2) {
   cardsFound = 0;
   for (var i = 0; i < array.length; i++) {
     featureArray = [];
@@ -302,21 +315,24 @@ function displaySearch(array, arrayOfFilters) {
         }
       }
     }
-    if (counter >= 4) {
+    if (counter >= 5) {
       cardsFound++;
-      searchPool.push(
+      array2.push(
         {
           "imgUrl": array[i].imgUrl,
           "name": array[i].name,
           "manaCost": array[i].manaCost,
           "colors": array[i].colors,
           "oracle": array[i].oracle,
-          "type": array[i].type
+          "type": array[i].type,
+          "cmc": array[i].cmc,
+          "rarity": array[i].rarity
+
         }
       );
     }
   }
-  display(searchPool);
+  display(array2);
 }
 
 function display(array) {
@@ -355,7 +371,7 @@ function display(array) {
     }
   }
 }
-function API_CALL(url1,url2) {
+function API_CALL(url1, url2) {
   $.ajax({
     url: url1,
     method: "GET"
@@ -380,4 +396,4 @@ $(".left").on("click", function () {
 $(".right").on("click", function () {
   $("#carouselExampleControls").carousel("next");
 });
-API_CALL(QueryURL,QueryURL2);
+API_CALL(QueryURL, QueryURL2);
