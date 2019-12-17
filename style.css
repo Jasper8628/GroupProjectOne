@@ -63,7 +63,7 @@
   }
   .modal-content {
     position: relative; 
-    background-color: rgba(240, 197, 57, 0.938);
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 20px; 
     margin: auto; 
     width: 70%;  
@@ -92,6 +92,7 @@
     to {top:0; opacity:1}
   }
   .modalNumButtons{
+    border: 5px solid white;
  border-radius: 2em;
  width: 60px;
  height: 60px;
@@ -124,6 +125,54 @@ margin-top: 10px;
   }
   body{
     background-color:black;
+  }
+  .carousel-item{
+    height:100%;
+  }
+  h2{
+    color:white;
+  }
+  button{
+    margin:5px;
+  }
+  .found{
+    margin-left: 20px;
+  }
+  .modal-color-button{
+    border:solid 5px;
+    border-color: white;
+    border-radius: 50%;
+
+  }
+  .nav-filter{
+    
+    border:solid 3px;
+    border-color: white;
+    border-radius: 50%;
+
+  }
+  
+  
+  .number-filter:focus{
+    border:solid 5px;
+    border-color: gold;
+    border-radius: 50%;
+  }
+  .type-filter:focus{
+    border:solid 3px;
+    border-color: gold;
+    border-radius: .5em;
+  }
+  .rarity-filter:focus{
+    border:solid 3px;
+    border-color: gold;
+    border-radius: .5em;
+  }
+  
+  .set-filter:focus{
+    border:solid 3px;
+    border-color: gold;
+    border-radius: .5em;
   }
   
   

@@ -1,23 +1,37 @@
-$("#advancedSearch").click(function(){
-    openAdvancedSearchModal();
+$("#advancedSearch").click(function () {
+  openAdvancedSearchModal();
 });
-$( ".close-btn").click(function(){
-    closeModal();
+$(".close-btn").click(function () {
+  closeModal();
 });
 
-function openAdvancedSearchModal(){
-    $(".modal").css("display","block");
+function openAdvancedSearchModal() {
+  $(".modal").css("display", "block");
 }
-function closeModal(){
-    $(".modal").css("display","none");
+function closeModal() {
+  $(".modal").css("display", "none");
 }
-
-
-
+var apiUrl = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
+var apiUrl2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
 var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom";
-var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom&page=2"; //first queryURL then depend on user  this will get updated and ajax call will be run again
+var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e%3Adom"; //first queryURL then depend on user  this will get updated and ajax call will be run again
 var responseData;
 var numSlide;
+var cardsFound = 0;
+var classMulticolor = ".multi-color";
+var classColor = ".color-filter";
+var classType = ".type-filter";
+var classRarity = ".rarity-filter";
+var classCost = ".number-filter";
+var featureArray2 = [];
+var featureArray = [];
+var searchTermFilter = [];
+var multiColorFilter = [];
+var colorFilter = [];
+var costFilter = [];
+var typeFilter = [];
+var rarityFilter = [];
+var arrayOfFilters = [colorFilter, multiColorFilter, costFilter, typeFilter, rarityFilter];
 var white = [];
 var blue = [];
 var black = [];
@@ -28,178 +42,232 @@ var cardPool = [];
 var colorless = [];
 var lands = [];
 var searchPool = [];
-
+var secondSearch = []
 var firstSearch = true;
+var firstTypeSearch = true;
 
-$(".color-filter").on("click", function () {
+$("#search").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
-  var filter = $(this).attr("value");
-  console.log("0")
-  if (firstSearch) {
-    console.log("1")
-    searchPool = [];
-    //5 is the highest possible number of colors
-    //this 2-level for-loop is to sort cards by color while placing the multicolored cards at the end of the array
-    for (var j = 1; j < 5; j++) {
-      console.log("2")
-      for (var i = 0; i < responseData.length; i++) {
-        if (responseData[i].colors.length == j && responseData[i].colors.indexOf(filter) != -1) {
-          searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
-        }
-        //saving potentially useful data of each card for later when interactability is needed
-      }
-    }
-    console.log("3")
-    firstSearch = false;
-  }
-  else {
-    console.log("4")
-    console.log(searchPool);
-    var buffer = [];
-    for (var j = 0; j < searchPool.length; j++) {
-      if (searchPool[j].colors.indexOf(filter) != -1) {
-        console.log(searchPool[j].imgUrl);
-        buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
-        //saving potentially useful data of each card for later when interactability is needed
-      }
-    }
-    console.log("5")
-    searchPool = buffer;
-  }
-  console.log("6")
-
-  // these for-loops display cards from the searchPool in the first carousel slide;
-  for (var i = 0; i < 18; i++) {
-    var createImg = $('<img>');
-    createImg.attr("style", "background-color:black");
-    createImg.attr("src", searchPool[i].imgUrl);
-    createImg.addClass("col-md-2 card cardImgs");
-    $("#collection").append(createImg);
-  }
-  console.log("7")
-  //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
-  for (var i = 1; i < Math.ceil(searchPool.length / 18)-1; i++) {
-    console.log(searchPool.length / 18)
-    var createCarousel = $('<div>');
-    createCarousel.addClass("carousel-item new-slide")
-    var createContainer = $('<div>');
-    var createRow = $('<div>');
-    createContainer.addClass("container");
-    createRow.addClass("row");
-    $(".carousel-inner").append(createCarousel);
-    createCarousel.append(createContainer);
-    createContainer.append(createRow);
-    for (var j = i * 18; j < (i + 1) * 18 || j < searchPool.length; j++) {
-      var createImg = $('<img>');
-      createImg.attr("style", "background-color:black");
-
-      createImg.attr("src", searchPool[j].imgUrl);
-      createImg.addClass("col-md-2 card cardImgs");
-      createRow.append(createImg);
-    }
-  }
-  console.log("9")
+  var input = $("#input").val();
+  var searchTerm = input.charAt(0).toUpperCase() + input.slice(1);
+  searchTermFilter.push(input, searchTerm);
 });
 
-$(".type-filter").on("click", function () {
+
+
+$("#search").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
-  var filter = $(this).attr("value");
+  var input = $("#input").val();
+  var searchTerm = input.charAt(0).toUpperCase() + input.slice(1);
   if (firstSearch) {
     searchPool = [];
     for (var i = 0; i < responseData.length; i++) {
-      if (responseData[i].type_line.indexOf(filter) != -1 || responseData[i].name.indexOf(filter) != -1 || responseData[i].oracle_text.indexOf(filter) != -1) {
-        searchPool.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost, "colors": responseData[i].colors, "oracle": responseData[i].oracle_text, "type": responseData[i].type_line });
+      if (responseData[i].type_line.indexOf(searchTerm) != -1 || responseData[i].name.indexOf(searchTerm) != -1 || responseData[i].oracle_text.indexOf(searchTerm) != -1 || responseData[i].oracle_text.search(input) != -1) {
+        searchPool.push({
+          "imgUrl": responseData[i].image_uris.border_crop,
+          "name": responseData[i].name,
+          "manaCost": responseData[i].mana_cost,
+          "colors": responseData[i].colors,
+          "oracle": responseData[i].oracle_text,
+          "type": responseData[i].type_line,
+          "cmc": responseData[i].cmc,
+          "rarity": responseData[i].rarity
+        });
       }
     }
-    /*  var colorPool=["W","U","B","R","G"];
-     var newBuffer=[];
-     for(var h=0; h<colorPool.length;h++){
-       for(var k=0;k<searchPool.length;k++){
-         if(searchPool[k].colors.indexOf(colorPool[h])!=-1){
-           newBuffer.push(searchPool[k].imgUrl);
-         }
-       }
-     } */
-    firstSearch = false;
+    firstTypeSearch = false;
+    display(searchPool);
   }
   else {
-    var buffer = [];
+    console.log(searchPool);
     for (var j = 0; j < searchPool.length; j++) {
-      if (searchPool[j].type.indexOf(filter) != -1 || searchPool[j].name.indexOf(filter) != -1 || searchPool[j].oracle.indexOf(filter) != -1) {
-        console.log(searchPool[j].imgUrl);
-        buffer.push({ "imgUrl": searchPool[j].imgUrl, "name": searchPool[j].name, "manaCost": searchPool[j].manaCost, "colors": searchPool[j].colors, "oracle": searchPool[j].oracle, "type": searchPool[j].type });
+      if (searchPool[j].type.indexOf(searchTerm) != -1 || searchPool[j].name.indexOf(searchTerm) != -1 || searchPool[j].oracle.indexOf(searchTerm) != -1 || searchPool[j].oracle.search(input) != -1) {
+        secondSearch.push({
+          "imgUrl": searchPool[j].imgUrl,
+          "name": searchPool[j].name,
+          "manaCost": searchPool[j].manaCost,
+          "colors": searchPool[j].colors,
+          "oracle": searchPool[j].oracle,
+          "type": searchPool[j].type,
+          "cmc": searchPool[j].cmc,
+          "rarity": searchPool[j].rarity
+        });
       }
     }
-    searchPool = buffer;
-  }
-
-  // these for-loops display cards from the searchPool in the first carousel slide;
-  numSlide = searchPool.length / 18;
-  for (var i = 0; i < 18; i++) {
-    var createImg = $('<img>');
-    createImg.attr("style", "background-color:black");
-    createImg.attr("src", searchPool[i].imgUrl);
-    createImg.addClass("col-md-2 card cardImgs");
-    $("#collection").append(createImg);
-  }
-  //this 2-level for-loop dynamically creates new carousel slides then append images to the slides
-  for (var i = 1; i < Math.ceil(searchPool.length / 18)-1; i++) {
-    var createCarousel = $('<div>');
-    createCarousel.addClass("carousel-item new-slide")
-    var createContainer = $('<div>');
-    var createRow = $('<div>');
-    createContainer.addClass("container");
-    createRow.addClass("row");
-    $(".carousel-inner").append(createCarousel);
-    createCarousel.append(createContainer);
-    createContainer.append(createRow);
-    for (var j = i * 18; j < (i + 1) * 18 || j < searchPool.length; j++) {
-      var createImg = $('<img>');
-      createImg.attr("style", "background-color:black");
-      createImg.attr("src", searchPool[j].imgUrl);
-      createImg.addClass("col-md-2 card cardImgs");
-      createRow.append(createImg);
-    }
+    display(secondSearch);
   }
 });
 
+function addFilters(buttonClass, filterArray) {
+  $(buttonClass).on("click", function () {
+    $(".card").remove();
+    $(".new-slide").remove();
+    var filter = $(this).attr("value");
+    if (filterArray.indexOf(filter) == -1) {
+      $(this).attr("style","border-color: gold");
+      if (filter == "7") {
+        filterArray.push("7", "8", "9", "10", "11", "12", "13", "14", "15", "16");
+      }
+      else {
+        filterArray.push(filter);
+      }
+    }
+    else {
+      
+      $(this).attr("style","border-color:white");
+      if (filter == "7") {
+        filterArray.splice(filterArray.indexOf(filter), 10);
+      }
+      else {
+        filterArray.splice(filterArray.indexOf(filter), 1);
+      }
+    }
+    if (firstTypeSearch) {
+      searchPool = [];
+      firstSearch = false;
+      displaySearch(cardPool, arrayOfFilters, searchPool);
+    }
+    else {
+      secondSearch = [];
+      displaySearch(searchPool, arrayOfFilters, secondSearch);
+    }
+  });
+}
+addFilters(classMulticolor, multiColorFilter);
+addFilters(classColor, colorFilter);
+addFilters(classType, typeFilter);
+addFilters(classRarity, rarityFilter);
+addFilters(classCost, costFilter);
 
-$(".reset").on("click", function () {
+$(".set-filter").on("click", function () {
+  apiUrl = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
+  apiUrl2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
+  var filter = $(this).attr("value");
+  apiUrl = apiUrl + filter;
+  apiUrl2 = apiUrl2 + filter;
+});
+
+$("#go").on("click", function () {
+  $(".card").remove();
+  $(".new-slide").remove();
+  API_CALL(apiUrl, apiUrl2);
+});
+
+$("#reset").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
   searchPool = [];
-  buffer = [];
-  cardPool = [];
+  secondSearch = [];
   firstSearch = true;
-  API_CALL();
+  firstTypeSearch = true;
+  colorFilter = [];
+  costFilter = [];
+  rarityFilter = [];
+  typeFilter = [];
+  featureArray = [];
+  filterArray = [];
+  console.log(arrayOfFilters);
+  display(cardPool);
 });
 
 function sortByColor() {
   for (var i = 0; i < responseData.length; i++) {
     if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "W") {
-      white.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+      white.push({
+        "imgUrl": responseData[i].image_uris.border_crop,
+        "name": responseData[i].name,
+        "type": responseData[i].type_line,
+        "oracle": responseData[i].oracle_text,
+        "manaCost": responseData[i].mana_cost,
+        "colors": responseData[i].colors,
+        "rarity": responseData[i].rarity,
+        "cmc": responseData[i].cmc
+      });
     }
     else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "U") {
-      blue.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+      blue.push({
+        "imgUrl": responseData[i].image_uris.border_crop,
+        "name": responseData[i].name,
+        "type": responseData[i].type_line,
+        "oracle": responseData[i].oracle_text,
+        "manaCost": responseData[i].mana_cost,
+        "colors": responseData[i].colors,
+        "rarity": responseData[i].rarity,
+        "cmc": responseData[i].cmc
+      });
     }
     else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "B") {
-      black.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+      black.push({
+        "imgUrl": responseData[i].image_uris.border_crop,
+        "name": responseData[i].name,
+        "type": responseData[i].type_line,
+        "oracle": responseData[i].oracle_text,
+        "manaCost": responseData[i].mana_cost,
+        "colors": responseData[i].colors,
+        "rarity": responseData[i].rarity,
+        "cmc": responseData[i].cmc
+      });
     }
     else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "R") {
-      red.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+      red.push({
+        "imgUrl": responseData[i].image_uris.border_crop,
+        "name": responseData[i].name,
+        "type": responseData[i].type_line,
+        "oracle": responseData[i].oracle_text,
+        "manaCost": responseData[i].mana_cost,
+        "colors": responseData[i].colors,
+        "rarity": responseData[i].rarity,
+        "cmc": responseData[i].cmc
+      });
     }
     else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "G") {
-      green.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+      green.push({
+        "imgUrl": responseData[i].image_uris.border_crop,
+        "name": responseData[i].name,
+        "type": responseData[i].type_line,
+        "oracle": responseData[i].oracle_text,
+        "manaCost": responseData[i].mana_cost,
+        "colors": responseData[i].colors,
+        "rarity": responseData[i].rarity,
+        "cmc": responseData[i].cmc
+      });
     }
     else if (responseData[i].colors.length == 0 && (responseData[i].type_line.indexOf("Artifact") != -1 || responseData[i].type_line.indexOf("Planeswalker") != -1)) {
-      colorless.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+      colorless.push({
+        "imgUrl": responseData[i].image_uris.border_crop,
+        "name": responseData[i].name,
+        "type": responseData[i].type_line,
+        "oracle": responseData[i].oracle_text,
+        "manaCost": responseData[i].mana_cost,
+        "colors": responseData[i].colors,
+        "rarity": responseData[i].rarity,
+        "cmc": responseData[i].cmc
+      });
     } else if (responseData[i].colors.length > 1) {
-      multiColor.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+      multiColor.push({
+        "imgUrl": responseData[i].image_uris.border_crop,
+        "name": responseData[i].name,
+        "type": responseData[i].type_line,
+        "oracle": responseData[i].oracle_text,
+        "manaCost": responseData[i].mana_cost,
+        "colors": responseData[i].colors,
+        "rarity": responseData[i].rarity,
+        "cmc": responseData[i].cmc
+      });
     }
     else {
-      lands.push({ "imgUrl": responseData[i].image_uris.border_crop, "name": responseData[i].name, "manaCost": responseData[i].mana_cost });
+      lands.push({
+        "imgUrl": responseData[i].image_uris.border_crop,
+        "name": responseData[i].name,
+        "type": responseData[i].type_line,
+        "oracle": responseData[i].oracle_text,
+        "manaCost": responseData[i].mana_cost,
+        "colors": responseData[i].colors,
+        "rarity": responseData[i].rarity,
+        "cmc": responseData[i].cmc
+      });
     }
   }
   cardPool = white.concat(blue);
@@ -212,72 +280,120 @@ function sortByColor() {
   console.log(cardPool);
 }
 
-function API_CALL() {
+function displaySearch(array, arrayOfFilters, array2) {
+  cardsFound = 0;
+  for (var i = 0; i < array.length; i++) {
+    featureArray = [];
+    if (array[i].colors.length < 1) {
+      featureArray.push("C");
+    }
+    else if (array[i].colors.length == 1) {
+      featureArray.push(array[i].colors[0]);
+    }
+    else {
+      for (var m = 0; m < array[i].colors.length; m++) {
+        featureArray.push(array[i].colors[m]);
+      }
+      featureArray.push("M");
+    }
+    featureArray.push(array[i].cmc.toString());
+    var typeLine = array[i].type;
+    var words = typeLine.split(" ");
+    for (var p = 0; p < words.length; p++) {
+      featureArray.push(words[p]);
+    }
+    featureArray.push(array[i].rarity);
+    var counter = 0;
+    for (var j = 0; j < arrayOfFilters.length; j++) {
+      if (arrayOfFilters[j].length == 0) {
+        counter++
+      }
+      for (k = 0; k < arrayOfFilters[j].length; k++) {
+        var feature = arrayOfFilters[j][k];
+        if (featureArray.indexOf(feature) != -1) {
+          counter++;
+        }
+      }
+    }
+    if (counter >= 5) {
+      cardsFound++;
+      array2.push(
+        {
+          "imgUrl": array[i].imgUrl,
+          "name": array[i].name,
+          "manaCost": array[i].manaCost,
+          "colors": array[i].colors,
+          "oracle": array[i].oracle,
+          "type": array[i].type,
+          "cmc": array[i].cmc,
+          "rarity": array[i].rarity
+
+        }
+      );
+    }
+  }
+  display(array2);
+}
+
+function display(array) {
+  cardsFound = array.length;
+  $(".found").text("Cards Found: " + cardsFound);
+  numSlide = array.length / 18;
+  var slideActive = false;
+  for (var i = 0; i < Math.ceil(numSlide); i++) {
+    var createCarousel = $('<div>');
+    createCarousel.addClass("carousel-item")
+    if (slideActive == false) {
+      createCarousel.addClass("active new-slide");
+      slideActive = true;
+    }
+    else {
+      createCarousel.addClass("new-slide")
+    }
+    var createContainer = $('<div>');
+    var createRow = $('<div>');
+    createContainer.addClass("container");
+    createRow.addClass("row");
+    $(".carousel-inner").append(createCarousel);
+    createCarousel.append(createContainer);
+    createContainer.append(createRow);
+    for (var j = i * 18; j < (i + 1) * 18; j++) {
+      var createImg = $('<img>');
+      createImg.attr("style", "background-color:transparent");
+      createImg.attr("src", array[j].imgUrl);
+      createImg.attr("data-cost", array[j].manaCost);
+      createImg.attr("data-name", array[j].name);
+      for (h = 0; h < array[j].colors.length; h++) {
+        createImg.addClass(array[j].colors[h]);
+      }
+      createImg.addClass("col-md-2 card cardImgs");
+      createRow.append(createImg);
+    }
+  }
+}
+function API_CALL(url1, url2) {
   $.ajax({
-    url: QueryURL,
+    url: url1,
     method: "GET"
   }).then(function (response) {
     responseData = response.data;
     $.ajax({
-      url: QueryURL2,
+      url: url2,
       //the api call only returns 175 results, therefore a second api call for the second page of the same search term is required
       method: "GET"
     }).then(function (feed) {
       var newResponseData = feed.data;
       responseData = responseData.concat(newResponseData);
       sortByColor();
-
-      numSlide = responseData.length / 18;
-      for (var i = 0; i < 18; i++) {
-        var createImg = $('<img>');
-        createImg.attr("style", "background-color:transparent");
-        createImg.attr("src", cardPool[i].imgUrl);
-        console.log(createImg.attr("src"));
-        createImg.addClass("col-md-2 card cardImgs");
-        $("#collection").append(createImg);
-      }
-      for (var i = 1; i < Math.ceil(numSlide)-1; i++) {
-        var createCarousel = $('<div>');
-        createCarousel.addClass("carousel-item new-slide")
-        var createContainer = $('<div>');
-        var createRow = $('<div>');
-        createContainer.addClass("container");
-        createRow.addClass("row");
-        $(".carousel-inner").append(createCarousel);
-        createCarousel.append(createContainer);
-        createContainer.append(createRow);
-        for (var j = i * 18; j < (i + 1) * 18; j++) {
-          var createImg = $('<img>');
-          createImg.attr("style", "background-color:transparent");
-          createImg.attr("src", cardPool[j].imgUrl);
-          createImg.addClass("col-md-2 card cardImgs");
-          createRow.append(createImg);
-        }
-      }
+      display(cardPool);
     });
-
-  });
-  console.log(white);
-  console.log(blue);
-  console.log(black);
-  console.log(red);
-  console.log(green);
-
-  //$("#carouselExampleControls").carousel();
-
-  $(".left").on("click", function () {
-    $("#carouselExampleControls").carousel("prev");
-  });
-  $(".right").on("click", function () {
-    $("#carouselExampleControls").carousel("next");
   });
 }
 
-// $("#carouselExampleControls").carousel();
 $(".left").on("click", function () {
   $("#carouselExampleControls").carousel("prev");
 });
 $(".right").on("click", function () {
   $("#carouselExampleControls").carousel("next");
 });
-API_CALL();
+API_CALL(QueryURL, QueryURL2);
