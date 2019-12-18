@@ -32,7 +32,6 @@ $(".color-filter").click(function(){
   $(this).css('border', '2px solid yellow');
   $(this).css('border-radius', '3em');
 })
-
 $(".modalNumButtons").click(function () {
   $(this).css('color', 'yellow');
   $(this).css('border', '1px solid yellow');
@@ -48,7 +47,6 @@ function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("collection").style.marginRight = "auto";
 }
-
 /* Get the documentElement (<html>) to display the page in fullscreen */
 var elem = document.documentElement;
 
