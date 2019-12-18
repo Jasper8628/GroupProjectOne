@@ -342,13 +342,14 @@ function display(array) {
   var slideActive = false;
   for (var i = 0; i < Math.ceil(numSlide); i++) {
     var createCarousel = $('<div>');
-    createCarousel.addClass("carousel-item")
+    createCarousel.addClass("carousel-item");
     if (slideActive == false) {
       createCarousel.addClass("active new-slide");
+      
       slideActive = true;
     }
     else {
-      createCarousel.addClass("new-slide")
+      createCarousel.addClass("new-slide");
     }
     var createContainer = $('<div>');
     var createRow = $('<div>');
