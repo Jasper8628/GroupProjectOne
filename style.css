@@ -94,14 +94,14 @@
   }
   .modalNumButtons{
     border: 5px solid white;
- border-radius: 2em;
- width: 60px;
- height: 60px;
- background-color: white;
- font-display: bolder;
- margin: 5px;
-font-size: large;
-margin-top: 10px;
+    border-radius: 2em;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    font-display: bolder;
+    margin: 5px;
+    font-size: large;
+    margin-top: 10px;
   }
 
   .modalAdvanceButtons{
@@ -128,7 +128,7 @@ margin-top: 10px;
     background-color:black;
   }
   .carousel-item{
-    height:100%;
+    height:800px;
   }
   h2{
     color:white;
