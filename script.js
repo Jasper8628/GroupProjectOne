@@ -126,14 +126,6 @@ var secondSearch = []
 var firstSearch = true;
 var firstTypeSearch = true;
 
-$("#search").on("click", function () {
-  $(".card").remove();
-  $(".new-slide").remove();
-  var input = $("#input").val();
-  var searchTerm = input.charAt(0).toUpperCase() + input.slice(1);
-  searchTermFilter.push(input, searchTerm);
-});
-
 
 
 $("#search").on("click", function () {
