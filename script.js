@@ -43,7 +43,7 @@ function openNav() {
   document.getElementById("mySidebar").style.marginTop = "70px";
   document.getElementById("collection").style.marginRight = "350px";
   addToDeckToggle = 1; //toggle for card adding to deck
- 
+  
 }
 
 function closeNav() {
@@ -161,7 +161,7 @@ $("#search").on("click", function () {
     display(searchPool);
   }
   else {
-    
+    console.log(searchPool);
     for (var j = 0; j < searchPool.length; j++) {
       if (searchPool[j].type.indexOf(searchTerm) != -1 || searchPool[j].name.indexOf(searchTerm) != -1 || searchPool[j].oracle.indexOf(searchTerm) != -1 || searchPool[j].oracle.search(input) != -1) {
         secondSearch.push({
@@ -413,16 +413,14 @@ function displaySearch(array, arrayOfFilters, array2) {
     }
   }
   display(array2);
-  $(".card").on("click", function () {
-   
-  }); //on click listener for any card on screen
+ 
   $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 
 }
 
 function display(array) {
   cardsFound = array.length;
-  
+ 
   $(".found").text("Cards Found: " + cardsFound);
   numSlide = array.length / 18;
   var slideActive = false;
@@ -448,7 +446,7 @@ function display(array) {
       createImg.attr("style", "background-color:transparent");
 
       createImg.attr("src", array[j].imgUrl);
-     
+      
       createImg.attr("data-cost", array[j].manaCost);
       createImg.attr("data-name", array[j].name);
       for (h = 0; h < array[j].colors.length; h++) {
@@ -456,7 +454,6 @@ function display(array) {
       }
       createImg.addClass("col-md-2 card cardImgs");
       createRow.append(createImg);
-
     }
 
   }
@@ -478,13 +475,9 @@ function API_CALL(url1, url2) {
       method: "GET"
     }).then(function (feed) {
       var newResponseData = feed.data;
-     
       responseData = responseData.concat(newResponseData);
       sortByColor();
-      
-      
       cardsFound = cardPool.length;
-      
       $(".found").text("Cards Found: " + cardsFound);
       numSlide = cardPool.length / 18;
       var slideActive = false;
@@ -508,9 +501,7 @@ function API_CALL(url1, url2) {
         for (var j = i * 18; j < (i + 1) * 18; j++) {
           var createImg = $('<img>');
           createImg.attr("style", "background-color:transparent");
-
           createImg.attr("src", cardPool[j].imgUrl);
-          
           createImg.attr("data-cost", cardPool[j].manaCost);
           createImg.attr("data-name", cardPool[j].name);
           for (h = 0; h < cardPool[j].colors.length; h++) {
@@ -518,16 +509,12 @@ function API_CALL(url1, url2) {
           }
           createImg.addClass("col-md-2 card cardImgs");
           createRow.append(createImg);
-
         }
-
-      }
-      $(".card").on("click", addCardToDeck);
+        $(".card").unbind().click(addCardToDeck);
+      }   
       $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
-
     });
-    //on click listener for any card on screen
-    $(".card").on("click", addCardToDeck);
+    
     $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 
   });
@@ -551,8 +538,7 @@ function addCardToDeck() {
 
   if (addToDeckToggle === 1) {
     var cardChosen = $(this).attr("data-name"); //set button text to be the name of the card
-
-    
+    console.log("Card chosen: " + cardChosen);
     var indexOfCopy = deck.indexOf(cardChosen); //searches through deck array to find if card chosen is same as existing deck card
     if (indexOfCopy < 0) { //if chosen card is not already in deck, add one to the end of the deckCount array
       deckCount.push(1);
