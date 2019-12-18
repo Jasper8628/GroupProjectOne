@@ -24,9 +24,6 @@
    border-color: #fefefe transparent transparent;
  }
  
- li {
-   margin: 2px;
- }
  
  #advancedSearch {
    background: rgba(240, 197, 57, 0.938);
@@ -121,7 +118,9 @@
    font-size: large;
    margin-top: 10px;
  }
- 
+ .carousel-item{
+   height: 100%;
+ }
  .modalAdvanceButtons {
    border: 1px solid white;
    width: max-content;
@@ -328,4 +327,4 @@
      border-color: gold;
      border-radius: .5em;
    }
- }
+ 

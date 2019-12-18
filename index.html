@@ -52,14 +52,16 @@
                 height="25"></button>
           </li>
           <li id="advancedSearch"><button href="#">advanced</button></li>
-          <li><button class="found"><a href="#">Cards Found:</a>  </button></li>
+          <li><button class="found"><a href="#">Cards Found:</a> </button></li>
 
         </ul>
       </div>
       <div class="top-bar-right">
         <ul class="menu">
           <li><button class="button openbtn openDeck" onclick="openNav()">CardDeck</button></li>
-          <li><button  onclick="openFullscreen()"><img width="35" height="35" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD37GaSoL0tgAPRUcyD0CoRkZwjYxLlm9iaUDx_XvIvdkNEsIX&amp;s" alt="Image result for full screen icon"></button></li>
+          <li><button onclick="openFullscreen()"><img width="35" height="35"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD37GaSoL0tgAPRUcyD0CoRkZwjYxLlm9iaUDx_XvIvdkNEsIX&amp;s"
+                alt="Image result for full screen icon"></button></li>
         </ul>
       </div>
     </div>
@@ -95,105 +97,131 @@
     <div class="modal-header">
       <span class="close-btn">&times;</span>
     </div>
-    <div class="modal-content">
-      <h2>Advanced Filters</h2>
-      <div class="iconButtons">
-        <button class="color-filter modal-color-button modalNumButtons" value="W">
-          <img alt="{W}"
-            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/8e/W.svg?version=4cfe7054aba65596dc7cd79cf9d61d01"
-            decoding="async" width="50" height="50">
-        </button>
-        <button class="color-filter modal-color-button modalNumButtons" value="U">
-          <img alt="{U}"
-            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/9/9f/U.svg?version=242e3a0c1616389c9f09510d598dc5c0"
-            width="50" height="50">
-        </button>
-        <button class="color-filter modal-color-button modalNumButtons" value="B">
-          <img alt="{B}"
-            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/2/2f/B.svg?version=019551d4756f33e6432aaa8dcc0966f8"
-            width="50" height="50">
-        </button>
-        <button class="color-filter modal-color-button modalNumButtons" value="R">
-          <img alt="{R}"
-            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/87/R.svg?version=5549fbad7279775e94ad0ae307a289a1"
-            width="50" height="50">
-        </button>
-        <button class="color-filter modal-color-button modalNumButtons" value="G">
-          <img alt="{G}"
-            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
-            width="50" height="50">
-        </button>
-        <button class="color-filter modal-color-button modalNumButtons" value="C">
-          <img alt="{C}"
-            src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
-            width="50" height="50">
-        </button>
-        <button class="multi-color modal-color-button modalNumButtons" value="M">
-          <img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
-            alt="Image result for multi color icon  Magic the gathering mana symbols" width="50" height="50">
-        </button>
-        </br>
-        <button class="modalNumButtons number-filter" value=0>0</button>
-        <button class="modalNumButtons number-filter" value=1>1</button>
-        <button class="modalNumButtons number-filter" value=2>2</button>
-        <button class="modalNumButtons number-filter" value=3>3</button>
-        <button class="modalNumButtons number-filter" value=4>4</button>
-        <button class="modalNumButtons number-filter" value=5>5</button>
-        <button class="modalNumButtons number-filter" value=6>6</button>
-        <button class="modalNumButtons number-filter" value=7>7+</button>
-        </br>
-        <button class="modalAdvanceButtons rarity-filter" value="common">Common</button>
-        <button class="modalAdvanceButtons rarity-filter" value="uncommon">Uncommon</button>
-        <button class="modalAdvanceButtons rarity-filter" value="rare">Rare</button>
-        <button class="modalAdvanceButtons rarity-filter" value="mythic">Mythic Rare</button>
-        </br>
-        <button class="modalAdvanceButtons type-filter" value="Creature">Creature</button>
-        <button class="modalAdvanceButtons type-filter" value="Planeswalker">Planeswalker</button>
-        <button class="modalAdvanceButtons type-filter" value="Instant">Instant</button>
-        <button class="modalAdvanceButtons type-filter" value="Sorcery">Sorcery</button>
-        <button class="modalAdvanceButtons type-filter" value="Enchantment">Enchantment</button>
-        <button class="modalAdvanceButtons type-filter" value="Artifact">Artifact</button>
-        <button class="modalAdvanceButtons type-filter" value="Land">Land</button>
-        </br>
-        <button class="modalAdvanceButtons set-filter" value="%3Adom">Dominaria</button>
-        <button class="modalAdvanceButtons set-filter" value="%3Am19">Core 2019</button>
-        <button class="modalAdvanceButtons set-filter" value="%3Axln">Ixalan</button>
-        <button class="modalAdvanceButtons set-filter" value="%3Arix">Rivals of Ixalan</button>
-        <button class="modalAdvanceButtons set-filter" value="%3Agrn">Guilds of Ravnica</button>
-        <button class="modalAdvanceButtons set-filter" value="%3Arna">Ravnica Allegiance</button>
-        <button class="modalAdvanceButtons set-filter" value="%3Awar">War of the Spark</button>
-        <button id="go" class="modalAdvanceButtons">Go</button>
-        </br>
-        <button id="reset">Reset</button>
+
+    <div id="mySidebar" class="sidebar">
+
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <button class="button saveButton">Save</button>
+      <div class="CardDeck">
+
+        <h4>Card Deck</h4>
+        <div class="deck-collection"></div>
       </div>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  
 
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-        
+    <div class="modal">
+      <div class="modal-header">
+        <span class="close-btn">&times;</span>
+      </div>
+      <div class="modal-content">
+        <h2>Advanced Filters</h2>
+        <div class="iconButtons">
+          <button class="color-filter modal-color-button modalNumButtons" value="W">
+            <img alt="{W}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/8e/W.svg?version=4cfe7054aba65596dc7cd79cf9d61d01"
+              decoding="async" width="50" height="50">
+          </button>
+          <button class="color-filter modal-color-button modalNumButtons" value="U">
+            <img alt="{U}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/9/9f/U.svg?version=242e3a0c1616389c9f09510d598dc5c0"
+              width="50" height="50">
+          </button>
+          <button class="color-filter modal-color-button modalNumButtons" value="B">
+            <img alt="{B}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/2/2f/B.svg?version=019551d4756f33e6432aaa8dcc0966f8"
+              width="50" height="50">
+          </button>
+          <button class="color-filter modal-color-button modalNumButtons" value="R">
+            <img alt="{R}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/87/R.svg?version=5549fbad7279775e94ad0ae307a289a1"
+              width="50" height="50">
+          </button>
+          <button class="color-filter modal-color-button modalNumButtons" value="G">
+            <img alt="{G}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/8/88/G.svg?version=df0df93e1e913211caca79c573e08235"
+              width="50" height="50">
+          </button>
+          <button class="color-filter modal-color-button modalNumButtons" value="C">
+            <img alt="{C}"
+              src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/1/1a/C.svg?version=e56220986714ca2913b90a938b196a9e"
+              width="50" height="50">
+          </button>
+          <button class="multi-color modal-color-button modalNumButtons" value="M">
+            <img src="https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/3/3e/M.svg"
+              alt="Image result for multi color icon  Magic the gathering mana symbols" width="50" height="50">
+          </button>
+          </br>
+          <button class="modalNumButtons number-filter" value=0>0</button>
+          <button class="modalNumButtons number-filter" value=1>1</button>
+          <button class="modalNumButtons number-filter" value=2>2</button>
+          <button class="modalNumButtons number-filter" value=3>3</button>
+          <button class="modalNumButtons number-filter" value=4>4</button>
+          <button class="modalNumButtons number-filter" value=5>5</button>
+          <button class="modalNumButtons number-filter" value=6>6</button>
+          <button class="modalNumButtons number-filter" value=7>7+</button>
+          </br>
+          <button class="modalAdvanceButtons rarity-filter" value="common">Common</button>
+          <button class="modalAdvanceButtons rarity-filter" value="uncommon">Uncommon</button>
+          <button class="modalAdvanceButtons rarity-filter" value="rare">Rare</button>
+          <button class="modalAdvanceButtons rarity-filter" value="mythic">Mythic Rare</button>
+          </br>
+          <button class="modalAdvanceButtons type-filter" value="Creature">Creature</button>
+          <button class="modalAdvanceButtons type-filter" value="Planeswalker">Planeswalker</button>
+          <button class="modalAdvanceButtons type-filter" value="Instant">Instant</button>
+          <button class="modalAdvanceButtons type-filter" value="Sorcery">Sorcery</button>
+          <button class="modalAdvanceButtons type-filter" value="Enchantment">Enchantment</button>
+          <button class="modalAdvanceButtons type-filter" value="Artifact">Artifact</button>
+          <button class="modalAdvanceButtons type-filter" value="Land">Land</button>
+          </br>
+          <button class="modalAdvanceButtons set-filter" value="%3Adom">Dominaria</button>
+          <button class="modalAdvanceButtons set-filter" value="%3Am19">Core 2019</button>
+          <button class="modalAdvanceButtons set-filter" value="%3Axln">Ixalan</button>
+          <button class="modalAdvanceButtons set-filter" value="%3Arix">Rivals of Ixalan</button>
+          <button class="modalAdvanceButtons set-filter" value="%3Agrn">Guilds of Ravnica</button>
+          <button class="modalAdvanceButtons set-filter" value="%3Arna">Ravnica Allegiance</button>
+          <button class="modalAdvanceButtons set-filter" value="%3Awar">War of the Spark</button>
+          <button id="go" class="modalAdvanceButtons">Go</button>
+          </br>
+          <button id="reset">Reset</button>
+        </div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="script.js"></script>
 
-    <script type="text/javascript">
-      $(document).ready(function () {
-      });
+
+
+
+
+
+
     </script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
       crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"></script>
+
+  </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
