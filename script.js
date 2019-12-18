@@ -18,25 +18,26 @@ $(document).click(function (e) {
   }
 
 });
-$(".modalAdvanceButtons").click(function () {
-  $(this).css('color', 'black');
-  $(this).css('border', '.5px solid black')
-});
 
-$(".icons").click(function () {
-  $(this).css('border', '2px solid black');
+$(".modalAdvanceButtons").click(function () {
+  $(this).css('color', 'yellow');
+  $(this).css('border', '.5px solid yellow')
+});
+/*$(".icon").click(function () {
+  $(this).css('border', '2px solid yellow');
   $(this).css('border-radius', '2em');
 });
-$(".listIcons").click(function(){
-  $(this).css('border', '2px solid rgba(240, 197, 57, 0.938)');
+*/
+$(".color-filter").click(function(){
+  $(this).css('border', '2px solid yellow');
   $(this).css('border-radius', '3em');
 })
 
 $(".modalNumButtons").click(function () {
-  $(this).css('color', 'black');
-  $(this).css('border', '1px solid black');
-
+  $(this).css('color', 'yellow');
+  $(this).css('border', '1px solid yellow');
 });
+
 function openNav() {
   document.getElementById("mySidebar").style.width = "350px";
   document.getElementById("mySidebar").style.marginTop = "70px";
@@ -62,12 +63,6 @@ function openFullscreen() {
     elem.msRequestFullscreen();
   }
 }
-
-
-
-
-
-
 
 var apiUrl = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
 var apiUrl2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
