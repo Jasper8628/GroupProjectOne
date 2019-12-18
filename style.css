@@ -2,7 +2,6 @@
    background: #333;
    color: #fefefe;
  }
- 
  .foundation-5-top-bar .menu {
    background: #333;
  }
@@ -10,11 +9,9 @@
  .foundation-5-top-bar .is-dropdown-submenu {
    border: 0;
  }
- 
  .foundation-5-top-bar .is-dropdown-submenu-item.opens-right a::after {
    border-color: transparent transparent transparent #fefefe;
  }
- 
  .foundation-5-top-bar .js-drilldown-back > a::before {
    border-color: transparent #fefefe transparent transparent;
  }
@@ -27,9 +24,6 @@
    border-color: #fefefe transparent transparent;
  }
  
- li {
-   margin: 2px;
- }
  
  #advancedSearch {
    background: rgba(240, 197, 57, 0.938);
@@ -42,8 +36,8 @@
  .cardImgs {
    transition: transform .2s;
    overflow: hidden;
-   margin-top: 20px;
-   margin-bottom: 20px;
+   margin-top: 5px;
+   margin-bottom: 5px;
  }
  
  .cardImgs:hover {
@@ -124,7 +118,9 @@
    font-size: large;
    margin-top: 10px;
  }
- 
+ .carousel-item{
+   height: 100%;
+ }
  .modalAdvanceButtons {
    border: 1px solid white;
    width: max-content;
@@ -287,14 +283,12 @@
    margin-top: 10px;
  }
  
- 
-  
+
    body {
      background-color: black;
    }
-   .carousel-item {
-     height: 100%;
-   }
+ 
+  
    h2 {
      color: white;
    }
