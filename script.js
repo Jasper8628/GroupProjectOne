@@ -583,12 +583,14 @@ function removeFromDeck() {
   if (deckCount[index] === 1) { //if only one copy of that card exists, then remove it from the array and from the UI
     deck.splice(index, 1);
     deckCount.splice(index, 1); //remove deck count element from array
-    $(".card-counter[data-name='" + $(this).text() + "']").remove(); //remove card counter from UI for specific button
+    var str = "" + $(this).text(); 
+    $(`.card-counter[data-name="${str}"]`).remove(); //remove card counter from UI for specific button
     $(this).remove();
   }
   else {
+    var str = "" + $(this).text(); 
     deckCount[index] = deckCount[index] - 1; //if multiple copies of card exist, then remove only one from the existing card count
-    $(".card-counter[data-name='" + $(this).text() + "']").text(deckCount[index]);
+    $(`.card-counter[data-name="${str}"]`).text(deckCount[index]);
   }
 };
 

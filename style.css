@@ -173,6 +173,7 @@
    overflow-x: hidden;
    transition: 0.5s;
    padding-top: 62px;
+   
  }
  
  .sidebar div {
@@ -182,6 +183,7 @@
    color: #818181;
    display: block;
    transition: 0.3s;
+   overflow: auto;
  }
  
  .sidebar div:hover {
@@ -285,19 +287,13 @@
    margin-top: 10px;
  }
  
- @media only screen and (max-width: 1024px) {
-   .mainSearchButton {
-     background: rgba(240, 197, 57, 0.938);
-     border-radius: 1em;
-     color: black;
-     font-display: bolder;
-     font-size: medium;
-   }
+ 
+  
    body {
      background-color: black;
    }
    .carousel-item {
-     height: 70%;
+     height: 100%;
    }
    h2 {
      color: white;
@@ -339,4 +335,4 @@
      border-color: gold;
      border-radius: .5em;
    }
- }
+ 
