@@ -1,39 +1,43 @@
-//opening Modal  the button
 $("#advancedSearch").click(function () {
   openAdvancedSearchModal();
 });
 $(".close-btn").click(function () {
   closeModal();
 });
-//openmodal function
+
 function openAdvancedSearchModal() {
   $(".modal").css("display", "block");
 }
 function closeModal() {
   $(".modal").css("display", "none");
 }
-//closing the modal by clicking anywhere in the page
 
 $(document).click(function (e) {
   if ($(e.target).is(".modal") || ($(e.target).is('body')) || $(e.target).is("#carouselExampleControls")) {
     $(".modal").css("display", "none");
   }
+
 });
-//CSS Toggle
+
 $(".modalAdvanceButtons").click(function () {
   $(this).css('color', 'yellow');
   $(this).css('border', '.5px solid yellow')
 });
-
-$(".color-filter").click(function(){
+/*$(".icon").click(function () {
+  $(this).css('border', '2px solid yellow');
+  $(this).css('border-radius', '2em');
+});
+*/
+$(".color-filter").click(function () {
   $(this).css('border', '2px solid yellow');
   $(this).css('border-radius', '3em');
 })
+
 $(".modalNumButtons").click(function () {
   $(this).css('color', 'yellow');
   $(this).css('border', '1px solid yellow');
 });
-//opening side nav bar
+
 function openNav() {
   document.getElementById("mySidebar").style.width = "350px";
   document.getElementById("mySidebar").style.marginTop = "70px";
@@ -41,13 +45,14 @@ function openNav() {
   addToDeckToggle = 1; //toggle for card adding to deck
   
 }
-//closing the side navbar
+
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("collection").style.marginRight = "auto";
   addToDeckToggle = 0; //toggle for card adding to deck
   
 }
+
 /* Get the documentElement (<html>) to display the page in fullscreen */
 var elem = document.documentElement;
 
@@ -120,6 +125,14 @@ var searchPool = [];
 var secondSearch = []
 var firstSearch = true;
 var firstTypeSearch = true;
+
+$("#search").on("click", function () {
+  $(".card").remove();
+  $(".new-slide").remove();
+  var input = $("#input").val();
+  var searchTerm = input.charAt(0).toUpperCase() + input.slice(1);
+  searchTermFilter.push(input, searchTerm);
+});
 
 
 
@@ -444,10 +457,7 @@ function display(array) {
     }
 
   }
-
   $(".card").on("click", addCardToDeck);
-
-
 }
 function API_CALL(url1, url2) {
   $.ajax({
@@ -552,12 +562,12 @@ function buildDeck() {
     cardCountBtn.text(deckCount[j]);
     cardCountBtn.addClass("btn btn-danger");
     cardCountBtn.css("padding-right: 5px") //cardCountBtn is a counter that tells user how many of the same card is in their deck
-    $(".deck-collection").append(cardCountBtn);
-    $(".deck-collection").append(cardBtn);
-    $(".deck-collection").append($("<p>"));
     cardBtn.addClass("remove-from-deck");
     cardCountBtn.attr("data-name", deck[j]);
     cardCountBtn.addClass("card-counter");
+    $(".deck-collection").append(cardCountBtn);
+    $(".deck-collection").append(cardBtn);
+    $(".deck-collection").append($("<p>"));
     $(".remove-from-deck").unbind().click(removeFromDeck); //on click for each card button, the remove from deck functionality is added
   };
 };
@@ -580,16 +590,12 @@ function removeFromDeck() {
     $(`.card-counter[data-name="${str}"]`).text(deckCount[index]);
   }
 };
+
 $(".saveButton").on("click", function () { //for save deck button
   deckString = JSON.stringify(deck);
   localStorage.setItem("deckString", deckString);
   deckCountString = JSON.stringify(deckCount);
   localStorage.setItem("deckCountString", deckCountString);
 })
-
-
-
-
-
 
 
