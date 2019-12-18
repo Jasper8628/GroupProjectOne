@@ -578,7 +578,6 @@ function removeFromDeck() {
     $(".card-counter[data-name='" + $(this).text() + "']").text(deckCount[index]);
   }
 };
-
 $(".saveButton").on("click", function () { //for save deck button
   deckString = JSON.stringify(deck);
   localStorage.setItem("deckString", deckString);
