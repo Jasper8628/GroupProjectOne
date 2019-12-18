@@ -2,7 +2,6 @@
    background: #333;
    color: #fefefe;
  }
- 
  .foundation-5-top-bar .menu {
    background: #333;
  }
@@ -10,11 +9,9 @@
  .foundation-5-top-bar .is-dropdown-submenu {
    border: 0;
  }
- 
  .foundation-5-top-bar .is-dropdown-submenu-item.opens-right a::after {
    border-color: transparent transparent transparent #fefefe;
  }
- 
  .foundation-5-top-bar .js-drilldown-back > a::before {
    border-color: transparent #fefefe transparent transparent;
  }
@@ -42,8 +39,8 @@
  .cardImgs {
    transition: transform .2s;
    overflow: hidden;
-   margin-top: 20px;
-   margin-bottom: 20px;
+   margin-top: 5px;
+   margin-bottom: 5px;
  }
  
  .cardImgs:hover {
@@ -285,20 +282,12 @@
    margin-top: 10px;
  }
  
- @media only screen and (max-width: 1024px) {
-   .mainSearchButton {
-     background: rgba(240, 197, 57, 0.938);
-     border-radius: 1em;
-     color: black;
-     font-display: bolder;
-     font-size: medium;
-   }
+
    body {
      background-color: black;
    }
-   .carousel-item {
-     height: 70%;
-   }
+ 
+  
    h2 {
      color: white;
    }

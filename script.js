@@ -1,33 +1,30 @@
+//opening Modal  the button
 $("#advancedSearch").click(function () {
   openAdvancedSearchModal();
 });
 $(".close-btn").click(function () {
   closeModal();
 });
-
+//openmodal function
 function openAdvancedSearchModal() {
   $(".modal").css("display", "block");
 }
 function closeModal() {
   $(".modal").css("display", "none");
 }
+//closing the modal by clicking anywhere in the page
 
 $(document).click(function (e) {
   if ($(e.target).is(".modal") || ($(e.target).is('body')) || $(e.target).is("#carouselExampleControls")) {
     $(".modal").css("display", "none");
   }
-
 });
-
+//CSS Toggle
 $(".modalAdvanceButtons").click(function () {
   $(this).css('color', 'yellow');
   $(this).css('border', '.5px solid yellow')
 });
-/*$(".icon").click(function () {
-  $(this).css('border', '2px solid yellow');
-  $(this).css('border-radius', '2em');
-});
-*/
+
 $(".color-filter").click(function(){
   $(this).css('border', '2px solid yellow');
   $(this).css('border-radius', '3em');
@@ -36,13 +33,13 @@ $(".modalNumButtons").click(function () {
   $(this).css('color', 'yellow');
   $(this).css('border', '1px solid yellow');
 });
-
+//opening side nav bar
 function openNav() {
   document.getElementById("mySidebar").style.width = "350px";
   document.getElementById("mySidebar").style.marginTop = "70px";
   document.getElementById("collection").style.marginRight = "350px";
 }
-
+//closing the side navbar
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("collection").style.marginRight = "auto";
