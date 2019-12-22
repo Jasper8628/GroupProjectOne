@@ -43,14 +43,14 @@ function openNav() {
   document.getElementById("mySidebar").style.marginTop = "70px";
   document.getElementById("collection").style.marginRight = "350px";
   addToDeckToggle = 1; //toggle for card adding to deck
-  
+
 }
 
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("collection").style.marginRight = "auto";
   addToDeckToggle = 0; //toggle for card adding to deck
-  
+
 }
 
 /* Get the documentElement (<html>) to display the page in fullscreen */
@@ -179,13 +179,13 @@ function addFilters(buttonClass, filterArray) {
     if (filterArray.indexOf(filter) == -1) {
       //populate 5 filter arrays with values based on which filter button has been selected
       if ($(this).attr("class").indexOf(classColor) != -1) {
-        $("."+filter).attr("style", "border-color: gold");
+        $("." + filter).attr("style", "border-color: gold");
       }
       else {
         $(this).attr("style", "border-color: gold");
       }
-      
-      console.log( $("."+filter).attr("style"));
+
+      console.log($("." + filter).attr("style"));
       console.log(filter);
       if (filter == "7") {
         // special consideration for the option "7+" in the number filter
@@ -197,7 +197,7 @@ function addFilters(buttonClass, filterArray) {
     }
     else {
       if ($(this).attr("class").indexOf(classColor) != -1) {
-        $("."+filter).attr("style", "border-color: white");
+        $("." + filter).attr("style", "border-color: white");
       }
       else {
         // if the same filter has been selected, then the next click will de-select it
@@ -211,11 +211,11 @@ function addFilters(buttonClass, filterArray) {
       else {
         filterArray.splice(filterArray.indexOf(filter), 1);
       }
-      
-    console.log( $("."+filter).attr("style"));
-    console.log(filter);
+
+      console.log($("." + filter).attr("style"));
+      console.log(filter);
     }
-    
+
     if (firstTypeSearch) {
       // if no type search has been performed, the filter buttons will filter all cards
       searchPool = [];
@@ -252,7 +252,7 @@ $("#go").on("click", function () {
 $("#reset").on("click", function () {
   $(".card").remove();
   $(".new-slide").remove();
-  $("button").attr("style","border-color: white");
+  $("button").attr("style", "border-color: white");
   searchPool = [];
   secondSearch = [];
   firstSearch = true;
@@ -465,14 +465,14 @@ function displaySearch(array, arrayOfFilters, array2) {
     }
   }
   display(array2);
- 
+
   $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 
 }
 
 function display(array) {
   cardsFound = array.length;
- 
+
   $(".found").text("Cards Found: " + cardsFound);
   numSlide = array.length / 18;
   var slideActive = false;
@@ -513,7 +513,7 @@ function display(array) {
 
   }
 
-  $(".card").on("click", addCardToDeck);
+  $(".card").on("click", addCardToDeck());
 
 
 }
@@ -523,7 +523,7 @@ function API_CALL(url1, url2) {
     method: "GET"
   }).then(function (response) {
     responseData = response.data;
-    
+
     $.ajax({
       url: url2,
       //the api call only returns 175 results, therefore a second api call for the second page of the same search term is required
@@ -566,10 +566,10 @@ function API_CALL(url1, url2) {
           createRow.append(createImg);
         }
         $(".card").unbind().click(addCardToDeck);
-      }   
+      }
       $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
     });
-    
+
     $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 
   });

@@ -42,8 +42,6 @@
  .cardImgs {
    transition: transform .2s;
    overflow: hidden;
-   margin-top: 20px;
-   margin-bottom: 20px;
  }
  
  .cardImgs:hover {
