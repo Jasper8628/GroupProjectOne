@@ -136,6 +136,9 @@
   button{
     margin:5px;
   }
+  button:focus{
+    border-radius: 50%;
+  }
   .found{
     margin-left: 20px;
   }
