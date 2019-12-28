@@ -633,15 +633,16 @@ function addCardToDeck() {
           "set": $(this).attr("data-set"),
           "setIndex": $(this).attr("data-index"),
           "id": $(this).attr("id"),
-          "type": $(this).attr("data-type")
+          "type": $(this).attr("data-type"),
+          "numCopy": 1
         }
       });
       console.log(deckList); //add chosen card to the end of the deck array
     }
     else {
-      deckCount[indexOfCopy] = deckCount[indexOfCopy] + 1;
-      if (deckCount[indexOfCopy] >= 4 && $(this).attr("data-type").indexOf("Basic Land") == -1) { //dont let there be more than 4 copies of the same card
-        deckCount[indexOfCopy] = 4;
+      deckList[indexOfCopy].cardChosen.numCopy++;
+      if (deckList[indexOfCopy].cardChosen.numCopy >= 4 && $(this).attr("data-type").indexOf("Basic Land") == -1) { //dont let there be more than 4 copies of the same card
+        deckList[indexOfCopy].cardChosen.numCopy = 4;
       }
     }
     buildDeck(); //runs buildDeck function after card has been added to deck array
@@ -664,22 +665,45 @@ function buildDeck() {
     cardBtn.attr("id", deck[j]);
     cardCountBtn.addClass("col-1-md");
     cardCountBtn.addClass("card-counter");
-    cardCountBtn.text(deckCount[j] + "x");
+    cardCountBtn.text(deckList[j].cardChosen.numCopy + "x");
+    cardCountBtn.attr("data-text",deckList[j].cardChosen.numCopy + "x");
     //cardCountBtn is a counter that tells user how many of the same card is in their deck
     $(".deck-collection").append(createRow);
     createRow.append(cardCountBtn);
     createRow.append(cardBtn);
     cardBtn.addClass("remove-from-deck");
     cardCountBtn.addClass(deck[j]);
+    cardCountBtn.attr("data-id", deck[j]);
     cardCountBtn.addClass("card-counter");
     $(".remove-from-deck").unbind().click(removeFromDeck); //on click for each card button, the remove from deck functionality is added
-  };
+  }; 
+  $(".card-counter").on("click", function () {
+    var buttonChosen = $(this).attr("data-id");
+    var indexOfButton = deck.indexOf(buttonChosen);
+    if (deckList[indexOfButton].cardChosen.numCopy >= 4 && $("#" + buttonChosen).attr("data-type").indexOf("Basic Land") == -1) {
+      deckList[indexOfButton].cardChosen.numCopy = 4;
+    }
+    else {
+      deckList[indexOfButton].cardChosen.numCopy = deckList[indexOfButton].cardChosen.numCopy + 1;
+    }
+    $(this).text(deckList[indexOfButton].cardChosen.numCopy + "x");
+    $(this).attr("data-text",deckList[indexOfButton].cardChosen.numCopy + "x" ) ;
+    
+    console.log(deckList[indexOfButton].cardChosen.numCopy+"x"+deckList[indexOfButton].cardChosen.id);
+  });
+  $(".card-counter").hover(function() {
+    $(this).text("+");
+  },
+  function() {
+    var oldText=$(this).attr("data-text");
+    $(this).text(oldText);
+  });
 };
 
 function removeFromDeck() {
   var removedCardName = $(this).attr("id"); //get name of card user wants to remove
   var index = deck.indexOf(removedCardName); //searches deck array for card name
-  if (deckCount[index] === 1) { //if only one copy of that card exists, then remove it from the array and from the UI
+  if (deckList[index].cardChosen.numCopy === 1) { //if only one copy of that card exists, then remove it from the array and from the UI
     deck.splice(index, 1);
     deckCount.splice(index, 1);
     deckList.splice(index, 1); //remove deck count element from array
@@ -688,8 +712,8 @@ function removeFromDeck() {
     $(this).remove();
   }
   else {
-    deckCount[index] = deckCount[index] - 1; //if multiple copies of card exist, then remove only one from the existing card count
-    $("." + removedCardName).text(deckCount[index] + "x");
+    deckList[index].cardChosen.numCopy--; //if multiple copies of card exist, then remove only one from the existing card count
+    $("." + removedCardName).text(deckList[index].cardChosen.numCopy + "x");
   }
 };
 

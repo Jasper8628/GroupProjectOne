@@ -51,7 +51,7 @@
    -o-transform: scale(1.8);
    transform: scale(1.8);
    position: relative;
-   top:80px;
+   top:75px;
    z-index: 1;
  }
  
@@ -200,7 +200,7 @@
    position: relative;
    bottom: 80%;
    Right: 35px;
-   margin-left: 35px;
+   margin-left: 75px;
    width: 100px;
    height: 80;
    background: rgba(240, 197, 57, 0.938);
@@ -365,5 +365,9 @@
      font-size: 24;
      width:25px;
      height:25px;
+   }
+   .card-counter:hover{
+     font-size: 18px;
+     font-weight: 800;
    }
  
