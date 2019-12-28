@@ -79,6 +79,14 @@ var deckList = [];
 var deckCount;
 var addToDeckToggle;
 var deckCountString;
+var cmcLand=[];
+var cmc1=[];
+var cmc2=[];
+var cmc3=[];
+var cmc4=[];
+var cmc5=[];
+var cmc6=[];
+var newDeckList=[];
 
 if (localStorage.getItem("deckString") === null) {
   deck = [];
@@ -159,7 +167,6 @@ $("#search").on("click", function () {
   }
   else {
     // when at least one filter button has been selected, the type search will search in a refined pool defined by the selected filters
-    console.log(searchPool);
     for (var j = 0; j < searchPool.length; j++) {
       if (searchPool[j].type.indexOf(searchTerm) != -1 || searchPool[j].name.indexOf(searchTerm) != -1 || searchPool[j].oracle.indexOf(searchTerm) != -1 || searchPool[j].oracle.search(input) != -1) {
         secondSearch.push({
@@ -193,9 +200,6 @@ function addFilters(buttonClass, filterArray) {
       else {
         $(this).attr("style", "border-color: gold");
       }
-
-      console.log($("." + filter).attr("style"));
-      console.log(filter);
       if (filter == "7") {
         // special consideration for the option "7+" in the number filter
         filterArray.push("7", "8", "9", "10", "11", "12", "13", "14", "15", "16");
@@ -220,9 +224,6 @@ function addFilters(buttonClass, filterArray) {
       else {
         filterArray.splice(filterArray.indexOf(filter), 1);
       }
-
-      console.log($("." + filter).attr("style"));
-      console.log(filter);
     }
 
     if (firstTypeSearch) {
@@ -273,7 +274,6 @@ $("#reset").on("click", function () {
   featureArray = [];
   multiColorFilter.splice(0, multiColorFilter.length);
 
-  console.log(arrayOfFilters);
   display(cardPool);
 });
 
@@ -618,13 +618,38 @@ $(".right").on("click", function () {
 API_CALL(QueryURL, QueryURL2);
 
 /////////////////////////// add card to deck functionality //////////////////////
+function searchJson(array, value) {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i].cardChosen.id === value) {
+      return i;
+    }
+  }
+}
+function sortByCost(){
+  var array=[cmcLand,cmc1,cmc2,cmc3,cmc4,cmc5,cmc6]
+    for(var j=0;j<deckList.length;j++){
+      var value=deckList[j].cardChosen.id;
+      for(var i=0;i<array.length;i++){
+      var index=searchJson(array[i],value);
+      if(index==null && deckList[j].cardChosen.cmc==i){
+        array[i].push(deckList[j]);
+      }
+  }
+  if(searchJson(array[6],value)==null && deckList[j].cardChosen.cmc>6){
+    array[6].push(deckList[j]);
+  }
+}
+  array.splice(0,1);
+  array.push(cmcLand);
+  deckList=array.flat(1);
+}
+
 function addCardToDeck() {
   if (addToDeckToggle === 1) {
     var cardChosen = $(this).attr("id"); //set button text to be the name of the card
-    var indexOfCopy = deck.indexOf(cardChosen); //searches through deck array to find if card chosen is same as existing deck card
-    if (indexOfCopy < 0) { //if chosen card is not already in deck, add one to the end of the deckCount array
-      deckCount.push(1);
-      deck.push(cardChosen);
+    var indexOfCopy = searchJson(deckList, cardChosen); //searches through deck array to find if card chosen is same as existing deck card
+    if (indexOfCopy == null) { //if chosen card is not already in deck, add one to the end of the deckList array
+      //deck.push(cardChosen);
       deckList.push({
         cardChosen: {
           "imgUrl": $(this).attr("src"),
@@ -637,7 +662,6 @@ function addCardToDeck() {
           "numCopy": 1
         }
       });
-      console.log(deckList); //add chosen card to the end of the deck array
     }
     else {
       deckList[indexOfCopy].cardChosen.numCopy++;
@@ -645,12 +669,12 @@ function addCardToDeck() {
         deckList[indexOfCopy].cardChosen.numCopy = 4;
       }
     }
+    sortByCost();
     buildDeck(); //runs buildDeck function after card has been added to deck array
   }
 }
 
 function buildDeck() {
-
   $(".deck-collection").text(""); //clear the temporary built deck every time function is run
   for (var j = 0; j < deckList.length; j++) { //goes through length of deck and creates a button for each card
     var cardBtn = $("<img>");
@@ -662,24 +686,24 @@ function buildDeck() {
     cardBtn.addClass("card-button");
     cardBtn.addClass("col-11-md");
     cardBtn.attr("src", cardImage);
-    cardBtn.attr("id", deck[j]);
+    cardBtn.attr("id", deckList[j].cardChosen.id);
     cardCountBtn.addClass("col-1-md");
     cardCountBtn.addClass("card-counter");
     cardCountBtn.text(deckList[j].cardChosen.numCopy + "x");
-    cardCountBtn.attr("data-text",deckList[j].cardChosen.numCopy + "x");
+    cardCountBtn.attr("data-text", deckList[j].cardChosen.numCopy + "x");
     //cardCountBtn is a counter that tells user how many of the same card is in their deck
     $(".deck-collection").append(createRow);
     createRow.append(cardCountBtn);
     createRow.append(cardBtn);
     cardBtn.addClass("remove-from-deck");
-    cardCountBtn.addClass(deck[j]);
-    cardCountBtn.attr("data-id", deck[j]);
+    cardCountBtn.addClass(deckList[j].cardChosen.id);
+    cardCountBtn.attr("data-id", deckList[j].cardChosen.id);
     cardCountBtn.addClass("card-counter");
     $(".remove-from-deck").unbind().click(removeFromDeck); //on click for each card button, the remove from deck functionality is added
-  }; 
+  };
   $(".card-counter").on("click", function () {
     var buttonChosen = $(this).attr("data-id");
-    var indexOfButton = deck.indexOf(buttonChosen);
+    var indexOfButton = searchJson(deckList, buttonChosen);
     if (deckList[indexOfButton].cardChosen.numCopy >= 4 && $("#" + buttonChosen).attr("data-type").indexOf("Basic Land") == -1) {
       deckList[indexOfButton].cardChosen.numCopy = 4;
     }
@@ -687,32 +711,30 @@ function buildDeck() {
       deckList[indexOfButton].cardChosen.numCopy = deckList[indexOfButton].cardChosen.numCopy + 1;
     }
     $(this).text(deckList[indexOfButton].cardChosen.numCopy + "x");
-    $(this).attr("data-text",deckList[indexOfButton].cardChosen.numCopy + "x" ) ;
-    
-    console.log(deckList[indexOfButton].cardChosen.numCopy+"x"+deckList[indexOfButton].cardChosen.id);
+    $(this).attr("data-text", deckList[indexOfButton].cardChosen.numCopy + "x");
   });
-  $(".card-counter").hover(function() {
+  $(".card-counter").hover(function () {
     $(this).text("+");
   },
-  function() {
-    var oldText=$(this).attr("data-text");
-    $(this).text(oldText);
-  });
+    function () {
+      var oldText = $(this).attr("data-text");
+      $(this).text(oldText);
+    });
 };
 
 function removeFromDeck() {
   var removedCardName = $(this).attr("id"); //get name of card user wants to remove
-  var index = deck.indexOf(removedCardName); //searches deck array for card name
+  var index = searchJson(deckList, removedCardName); //searches deck array for card name
   if (deckList[index].cardChosen.numCopy === 1) { //if only one copy of that card exists, then remove it from the array and from the UI
-    deck.splice(index, 1);
-    deckCount.splice(index, 1);
+    //deck.splice(index, 1);
+    //deckCount.splice(index, 1);
     deckList.splice(index, 1); //remove deck count element from array
     //$(".card-counter[data-name='" + $(this).text() + "']").remove();
     $("." + removedCardName).remove(); //remove card counter from UI for specific button
     $(this).remove();
   }
   else {
-    deckList[index].cardChosen.numCopy--; //if multiple copies of card exist, then remove only one from the existing card count
+    deckList[index].cardChosen.numCopy = deckList[index].cardChosen.numCopy - 1; //if multiple copies of card exist, then remove only one from the existing card count
     $("." + removedCardName).text(deckList[index].cardChosen.numCopy + "x");
   }
 };
@@ -722,7 +744,7 @@ $(".saveButton").on("click", function () { //for save deck button
   localStorage.setItem("deckString", deckString);
   deckCountString = JSON.stringify(deckCount);
   localStorage.setItem("deckCountString", deckCountString);
-})
+});
 
 
 
