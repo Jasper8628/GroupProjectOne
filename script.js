@@ -39,16 +39,19 @@ $(".modalNumButtons").click(function () {
 });
 
 function openNav() {
-  document.getElementById("mySidebar").style.width = "350px";
+  document.getElementById("mySidebar").style.width = "25%";
   document.getElementById("mySidebar").style.marginTop = "70px";
-  document.getElementById("collection").style.marginRight = "350px";
+  document.getElementById("carouselExampleControls").style.marginRight = "350px";
+  document.getElementById("carouselExampleControls").style.width = "75%";
+
   addToDeckToggle = 1; //toggle for card adding to deck
 
 }
 
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("collection").style.marginRight = "auto";
+  document.getElementById("carouselExampleControls").style.marginRight = "auto";
+  document.getElementById("carouselExampleControls").style.width = "100%";
   addToDeckToggle = 0; //toggle for card adding to deck
 
 }
@@ -72,6 +75,7 @@ function openFullscreen() {
 ///////////////// Add to deck part /////////////////
 var deck;
 var deckString;
+var deckList = [];
 var deckCount;
 var addToDeckToggle;
 var deckCountString;
@@ -96,6 +100,7 @@ var apiUrl2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=car
 var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Adom";
 var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e%3Adom"; //first queryURL then depend on user  this will get updated and ajax call will be run again
 var responseData;
+var uniqueID;
 var numSlide;
 var cardsFound = 0;
 var classMulticolor = ".multi-color";
@@ -143,7 +148,9 @@ $("#search").on("click", function () {
           "oracle": responseData[i].oracle_text,
           "type": responseData[i].type_line,
           "cmc": responseData[i].cmc,
-          "rarity": responseData[i].rarity
+          "rarity": responseData[i].rarity,
+          "set": responseData[i].set,
+          "setIndex": responseData[i].collector_number
         });
       }
     }
@@ -163,7 +170,9 @@ $("#search").on("click", function () {
           "oracle": searchPool[j].oracle,
           "type": searchPool[j].type,
           "cmc": searchPool[j].cmc,
-          "rarity": searchPool[j].rarity
+          "rarity": searchPool[j].rarity,
+          "set": searchPool[j].set,
+          "setIndex": searchPool[j].setIndex
         });
       }
     }
@@ -281,7 +290,9 @@ function sortByColor() {
         "manaCost": responseData[i].mana_cost,
         "colors": responseData[i].colors,
         "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc
+        "cmc": responseData[i].cmc,
+        "set": responseData[i].set,
+        "setIndex": responseData[i].collector_number
       });
     }
     else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "U") {
@@ -293,7 +304,9 @@ function sortByColor() {
         "manaCost": responseData[i].mana_cost,
         "colors": responseData[i].colors,
         "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc
+        "cmc": responseData[i].cmc,
+        "set": responseData[i].set,
+        "setIndex": responseData[i].collector_number
       });
     }
     else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "B") {
@@ -305,7 +318,9 @@ function sortByColor() {
         "manaCost": responseData[i].mana_cost,
         "colors": responseData[i].colors,
         "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc
+        "cmc": responseData[i].cmc,
+        "set": responseData[i].set,
+        "setIndex": responseData[i].collector_number
       });
     }
     else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "R") {
@@ -317,7 +332,9 @@ function sortByColor() {
         "manaCost": responseData[i].mana_cost,
         "colors": responseData[i].colors,
         "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc
+        "cmc": responseData[i].cmc,
+        "set": responseData[i].set,
+        "setIndex": responseData[i].collector_number
       });
     }
     else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "G") {
@@ -329,7 +346,9 @@ function sortByColor() {
         "manaCost": responseData[i].mana_cost,
         "colors": responseData[i].colors,
         "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc
+        "cmc": responseData[i].cmc,
+        "set": responseData[i].set,
+        "setIndex": responseData[i].collector_number
       });
     }
     else if (responseData[i].colors.length == 0 && (responseData[i].type_line.indexOf("Artifact") != -1 || responseData[i].type_line.indexOf("Planeswalker") != -1)) {
@@ -341,7 +360,9 @@ function sortByColor() {
         "manaCost": responseData[i].mana_cost,
         "colors": responseData[i].colors,
         "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc
+        "cmc": responseData[i].cmc,
+        "set": responseData[i].set,
+        "setIndex": responseData[i].collector_number
       });
     } else if (responseData[i].colors.length > 1) {
       multiColor.push({
@@ -352,7 +373,9 @@ function sortByColor() {
         "manaCost": responseData[i].mana_cost,
         "colors": responseData[i].colors,
         "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc
+        "cmc": responseData[i].cmc,
+        "set": responseData[i].set,
+        "setIndex": responseData[i].collector_number
       });
     }
     else {
@@ -364,7 +387,9 @@ function sortByColor() {
         "manaCost": responseData[i].mana_cost,
         "colors": responseData[i].colors,
         "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc
+        "cmc": responseData[i].cmc,
+        "set": responseData[i].set,
+        "setIndex": responseData[i].collector_number
       });
     }
   }
@@ -375,6 +400,7 @@ function sortByColor() {
   cardPool = cardPool.concat(multiColor);
   cardPool = cardPool.concat(colorless);
   cardPool = cardPool.concat(lands);
+  console.log(cardPool);
 
 }
 
@@ -459,7 +485,9 @@ function displaySearch(array, arrayOfFilters, array2) {
           "oracle": array[i].oracle,
           "type": array[i].type,
           "cmc": array[i].cmc,
-          "rarity": array[i].rarity
+          "rarity": array[i].rarity,
+          "set": array[i].set,
+          "setIndex": array[i].setIndex
         }
       );
     }
@@ -472,7 +500,6 @@ function displaySearch(array, arrayOfFilters, array2) {
 
 function display(array) {
   cardsFound = array.length;
-
   $(".found").text("Cards Found: " + cardsFound);
   numSlide = array.length / 18;
   var slideActive = false;
@@ -499,23 +526,23 @@ function display(array) {
       //populating carousel slide with 18 cards
       var createImg = $('<img>');
       createImg.attr("style", "background-color:transparent");
-
       createImg.attr("src", array[j].imgUrl);
       //adding usable information for future "on click" events
-      createImg.attr("data-cost", array[j].manaCost);
+      createImg.attr("data-cost", array[j].cmc);
       createImg.attr("data-name", array[j].name);
+      createImg.attr("id", array[j].set + array[j].setIndex);
+      createImg.attr("data-set", array[j].set);
+      createImg.attr("data-index", array[j].setIndex);
+      createImg.attr("data-type", array[j].type);
+
       for (h = 0; h < array[j].colors.length; h++) {
         createImg.addClass(array[j].colors[h]);
       }
       createImg.addClass("col-md-2 card cardImgs");
       createRow.append(createImg);
+      $(".card").unbind().click(addCardToDeck);
     }
-
   }
-
-  $(".card").on("click", addCardToDeck());
-
-
 }
 function API_CALL(url1, url2) {
   $.ajax({
@@ -531,6 +558,7 @@ function API_CALL(url1, url2) {
     }).then(function (feed) {
       var newResponseData = feed.data;
       responseData = responseData.concat(newResponseData);
+      console.log(responseData);
       sortByColor();
       cardsFound = cardPool.length;
       $(".found").text("Cards Found: " + cardsFound);
@@ -557,15 +585,19 @@ function API_CALL(url1, url2) {
           var createImg = $('<img>');
           createImg.attr("style", "background-color:transparent");
           createImg.attr("src", cardPool[j].imgUrl);
-          createImg.attr("data-cost", cardPool[j].manaCost);
+          createImg.attr("data-cost", cardPool[j].cmc);
           createImg.attr("data-name", cardPool[j].name);
+          createImg.attr("id", cardPool[j].set + cardPool[j].setIndex);
+          createImg.attr("data-set", cardPool[j].set);
+          createImg.attr("data-index", cardPool[j].setIndex);
+          createImg.attr("data-type", cardPool[j].type);
           for (h = 0; h < cardPool[j].colors.length; h++) {
             createImg.addClass(cardPool[j].colors[h]);
           }
           createImg.addClass("col-md-2 card cardImgs");
           createRow.append(createImg);
+          $(".card").unbind().click(addCardToDeck);
         }
-        $(".card").unbind().click(addCardToDeck);
       }
       $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
     });
@@ -586,64 +618,78 @@ $(".right").on("click", function () {
 API_CALL(QueryURL, QueryURL2);
 
 /////////////////////////// add card to deck functionality //////////////////////
-
-
-
 function addCardToDeck() {
-
   if (addToDeckToggle === 1) {
-    var cardChosen = $(this).attr("data-name"); //set button text to be the name of the card
-    console.log("Card chosen: " + cardChosen);
+    var cardChosen = $(this).attr("id"); //set button text to be the name of the card
     var indexOfCopy = deck.indexOf(cardChosen); //searches through deck array to find if card chosen is same as existing deck card
     if (indexOfCopy < 0) { //if chosen card is not already in deck, add one to the end of the deckCount array
       deckCount.push(1);
-      deck.push(cardChosen); //add chosen card to the end of the deck array
+      deck.push(cardChosen);
+      deckList.push({
+        cardChosen: {
+          "imgUrl": $(this).attr("src"),
+          "name": $(this).attr("data-name"),
+          "cmc": $(this).attr("data-cost"),
+          "set": $(this).attr("data-set"),
+          "setIndex": $(this).attr("data-index"),
+          "id": $(this).attr("id"),
+          "type": $(this).attr("data-type")
+        }
+      });
+      console.log(deckList); //add chosen card to the end of the deck array
     }
     else {
       deckCount[indexOfCopy] = deckCount[indexOfCopy] + 1;
-      if (deckCount[indexOfCopy] === 5) { //dont let there be more than 4 copies of the same card
+      if (deckCount[indexOfCopy] >= 4 && $(this).attr("data-type").indexOf("Basic Land") == -1) { //dont let there be more than 4 copies of the same card
         deckCount[indexOfCopy] = 4;
       }
     }
     buildDeck(); //runs buildDeck function after card has been added to deck array
   }
-};
+}
 
 function buildDeck() {
 
   $(".deck-collection").text(""); //clear the temporary built deck every time function is run
-  for (var j = 0; j < deck.length; j++) { //goes through length of deck and creates a button for each card
-    var cardBtn = $("<button>");
+  for (var j = 0; j < deckList.length; j++) { //goes through length of deck and creates a button for each card
+    var cardBtn = $("<img>");
     var cardCountBtn = $("<button>");
-    cardBtn.text(deck[j]);
-    cardBtn.addClass("btn btn-dark");
-    cardCountBtn.text(deckCount[j]);
-    cardCountBtn.addClass("btn btn-danger");
-    cardCountBtn.css("padding-right: 5px") //cardCountBtn is a counter that tells user how many of the same card is in their deck
-    $(".deck-collection").append(cardCountBtn);
-    $(".deck-collection").append(cardBtn);
-    $(".deck-collection").append($("<p>"));
+    var createRow = $('<div>');
+    createRow.addClass("row");
+    var cardImage = deckList[j].cardChosen.imgUrl;
+    console.log(cardImage);
+    cardBtn.addClass("card-button");
+    cardBtn.addClass("col-11-md");
+    cardBtn.attr("src", cardImage);
+    cardBtn.attr("id", deck[j]);
+    cardCountBtn.addClass("col-1-md");
+    cardCountBtn.addClass("card-counter");
+    cardCountBtn.text(deckCount[j] + "x");
+    //cardCountBtn is a counter that tells user how many of the same card is in their deck
+    $(".deck-collection").append(createRow);
+    createRow.append(cardCountBtn);
+    createRow.append(cardBtn);
     cardBtn.addClass("remove-from-deck");
-    cardCountBtn.attr("data-name", deck[j]);
+    cardCountBtn.addClass(deck[j]);
     cardCountBtn.addClass("card-counter");
     $(".remove-from-deck").unbind().click(removeFromDeck); //on click for each card button, the remove from deck functionality is added
   };
 };
 
 function removeFromDeck() {
-
-  var removedCardName = $(this).text(); //get name of card user wants to remove
+  var removedCardName = $(this).attr("id"); //get name of card user wants to remove
   var index = deck.indexOf(removedCardName); //searches deck array for card name
-
   if (deckCount[index] === 1) { //if only one copy of that card exists, then remove it from the array and from the UI
     deck.splice(index, 1);
-    deckCount.splice(index, 1); //remove deck count element from array
-    $(".card-counter[data-name='" + $(this).text() + "']").remove(); //remove card counter from UI for specific button
+    deckCount.splice(index, 1);
+    deckList.splice(index, 1); //remove deck count element from array
+    //$(".card-counter[data-name='" + $(this).text() + "']").remove();
+    $("." + removedCardName).remove(); //remove card counter from UI for specific button
     $(this).remove();
   }
   else {
     deckCount[index] = deckCount[index] - 1; //if multiple copies of card exist, then remove only one from the existing card count
-    $(".card-counter[data-name='" + $(this).text() + "']").text(deckCount[index]);
+    $("." + removedCardName).text(deckCount[index] + "x");
   }
 };
 

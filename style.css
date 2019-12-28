@@ -45,12 +45,13 @@
  }
  
  .cardImgs:hover {
-   -webkit-transform: scale(2);
-   -moz-transform: scale(2);
-   -ms-transform: scale(2);
-   -o-transform: scale(2);
-   transform: scale(2);
+   -webkit-transform: scale(1.8);
+   -moz-transform: scale(1.8);
+   -ms-transform: scale(1.8);
+   -o-transform: scale(1.8);
+   transform: scale(1.8);
    position: relative;
+   top:80px;
    z-index: 1;
  }
  
@@ -151,6 +152,9 @@
    font-size: large;
    border-radius: .5em;
  }
+ #search{
+   background-image: url("images.jfif");
+ }
  
  .mainSearchButton, .openbtn{
    background: rgba(240, 197, 57, 0.938);
@@ -163,20 +167,18 @@
  .sidebar {
    height: 100%;
    width: 0;
-   position: fixed;
+   position: absolute;
    z-index: 1;
    top: 0;
    right: 0;
    background-color: #333;
    overflow-x: hidden;
    transition: 0.5s;
-   padding-top: 62px;
  }
  
  .sidebar div {
-   padding: 8px 8px 8px 32px;
    text-decoration: none;
-   font-size: 25px;
+   font-size: 14px;
    color: #818181;
    display: block;
    transition: 0.3s;
@@ -187,18 +189,18 @@
  }
  
  .sidebar .closebtn {
-   position: absolute;
-   top: 0;
+   position: relative;
+   bottom: 80%;
    left: 25px;
    font-size: 36px;
    margin-right: 50px;
  }
  
  .sidebar .saveButton {
-   position: absolute;
-   top: 10px;
-   Right: 25px;
-   margin-left: 50px;
+   position: relative;
+   bottom: 80%;
+   Right: 35px;
+   margin-left: 35px;
    width: 100px;
    height: 80;
    background: rgba(240, 197, 57, 0.938);
@@ -300,7 +302,7 @@
      color: white;
    }
    button {
-     margin: 5px;
+     margin:5px;
    }
    .found {
      margin-left: 20px;
@@ -335,5 +337,33 @@
      border: solid 3px;
      border-color: gold;
      border-radius: .5em;
+   }
+   .btn{
+     border-radius: 10%;
+   }
+   .card-button{
+     margin-top:-8px;
+     margin-left:-5px;
+     width: 240px;
+     height:340px;
+     position: absolute;
+    clip: rect(10px,231px,33px,9px);
+
+       }
+       
+
+   .card-counter{
+     color:black;
+     border:solid grey 2px;
+     border-radius: 30%;
+     background-color: #a5a4a4;
+     margin-right:-1px;
+     margin-top:1px;
+     padding-top:5px;
+     text-align: center;
+     padding-top: 3px;
+     font-size: 24;
+     width:25px;
+     height:25px;
    }
  
