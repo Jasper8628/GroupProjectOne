@@ -79,14 +79,14 @@ var deckList = [];
 var deckCount;
 var addToDeckToggle;
 var deckCountString;
-var cmcLand=[];
-var cmc1=[];
-var cmc2=[];
-var cmc3=[];
-var cmc4=[];
-var cmc5=[];
-var cmc6=[];
-var newDeckList=[];
+var cmcLand = [];
+var cmc1 = [];
+var cmc2 = [];
+var cmc3 = [];
+var cmc4 = [];
+var cmc5 = [];
+var cmc6 = [];
+var arrayOfCmc = [];
 
 if (localStorage.getItem("deckString") === null) {
   deck = [];
@@ -544,6 +544,7 @@ function display(array) {
     }
   }
 }
+
 function API_CALL(url1, url2) {
   $.ajax({
     url: url1,
@@ -625,23 +626,24 @@ function searchJson(array, value) {
     }
   }
 }
-function sortByCost(){
-  var array=[cmcLand,cmc1,cmc2,cmc3,cmc4,cmc5,cmc6]
-    for(var j=0;j<deckList.length;j++){
-      var value=deckList[j].cardChosen.id;
-      for(var i=0;i<array.length;i++){
-      var index=searchJson(array[i],value);
-      if(index==null && deckList[j].cardChosen.cmc==i){
-        array[i].push(deckList[j]);
+function sortByCost() {
+  arrayOfCmc = [];
+  arrayOfCmc.push(cmcLand, cmc1, cmc2, cmc3, cmc4, cmc5, cmc6);
+  for (var j = 0; j < deckList.length; j++) {
+    var value = deckList[j].cardChosen.id;
+    for (var i = 0; i < arrayOfCmc.length; i++) {
+      var index = searchJson(arrayOfCmc[i], value);
+      if (index == null && deckList[j].cardChosen.cmc == i) {
+        arrayOfCmc[i].push(deckList[j]);
       }
+    }
+    if (searchJson(arrayOfCmc[6], value) == null && deckList[j].cardChosen.cmc > 6) {
+      arrayOfCmc[6].push(deckList[j]);
+    }
   }
-  if(searchJson(array[6],value)==null && deckList[j].cardChosen.cmc>6){
-    array[6].push(deckList[j]);
-  }
-}
-  array.splice(0,1);
-  array.push(cmcLand);
-  deckList=array.flat(1);
+  arrayOfCmc.splice(0, 1);
+  arrayOfCmc.push(cmcLand);
+  deckList = arrayOfCmc.flat(1);
 }
 
 function addCardToDeck() {
@@ -671,6 +673,8 @@ function addCardToDeck() {
     }
     sortByCost();
     buildDeck(); //runs buildDeck function after card has been added to deck array
+    console.log(deckList);
+
   }
 }
 
@@ -681,8 +685,8 @@ function buildDeck() {
     var cardCountBtn = $("<button>");
     var createRow = $('<div>');
     createRow.addClass("row");
+    createRow.addClass("row-deck");
     var cardImage = deckList[j].cardChosen.imgUrl;
-    console.log(cardImage);
     cardBtn.addClass("card-button");
     cardBtn.addClass("col-11-md");
     cardBtn.attr("src", cardImage);
@@ -725,10 +729,17 @@ function buildDeck() {
 function removeFromDeck() {
   var removedCardName = $(this).attr("id"); //get name of card user wants to remove
   var index = searchJson(deckList, removedCardName); //searches deck array for card name
-  if (deckList[index].cardChosen.numCopy === 1) { //if only one copy of that card exists, then remove it from the array and from the UI
+  if (deckList[index].cardChosen.numCopy == 1) { //if only one copy of that card exists, then remove it from the array and from the UI
     //deck.splice(index, 1);
     //deckCount.splice(index, 1);
     deckList.splice(index, 1); //remove deck count element from array
+    for (var i = 0; i < arrayOfCmc.length; i++) {
+      var index2 = searchJson(arrayOfCmc[i], removedCardName);
+      if (index2 != null) {
+        arrayOfCmc[i].splice(index2, 1);
+      }
+    }
+    console.log(deckList);
     //$(".card-counter[data-name='" + $(this).text() + "']").remove();
     $("." + removedCardName).remove(); //remove card counter from UI for specific button
     $(this).remove();
