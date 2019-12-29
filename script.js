@@ -80,6 +80,7 @@ var deckCount;
 var addToDeckToggle;
 var deckCountString;
 var cmcLand = [];
+var cmc0=[];
 var cmc1 = [];
 var cmc2 = [];
 var cmc3 = [];
@@ -87,6 +88,14 @@ var cmc4 = [];
 var cmc5 = [];
 var cmc6 = [];
 var arrayOfCmc = [];
+var cmcClass0=".cmc0";
+var cmcClass1=".cmc1";
+var cmcClass2=".cmc2";
+var cmcClass3=".cmc3";
+var cmcClass4=".cmc4";
+var cmcClass5=".cmc5";
+var cmcClass6=".cmc6";
+var cmcClassLand=".cmcLand";
 
 if (localStorage.getItem("deckString") === null) {
   deck = [];
@@ -672,50 +681,54 @@ function addCardToDeck() {
       }
     }
     sortByCost();
-    buildDeck(); //runs buildDeck function after card has been added to deck array
-    console.log(deckList);
-
+    buildDeck(cmc1,cmcClass1); //runs buildDeck function after card has been added to deck array
+    buildDeck(cmc2,cmcClass2);
+    buildDeck(cmc3,cmcClass3);
+    buildDeck(cmc4,cmcClass4);
+    buildDeck(cmc5,cmcClass5);
+    buildDeck(cmc6,cmcClass6);
+    buildDeck(cmcLand,cmcClassLand);
   }
 }
 
-function buildDeck() {
-  $(".deck-collection").text(""); //clear the temporary built deck every time function is run
-  for (var j = 0; j < deckList.length; j++) { //goes through length of deck and creates a button for each card
+function buildDeck(array,cmcClass) {
+  $(cmcClass).text(""); //clear the temporary built deck every time function is run
+  for (var j = 0; j < array.length; j++) { //goes through length of deck and creates a button for each card
     var cardBtn = $("<img>");
     var cardCountBtn = $("<button>");
     var createRow = $('<div>');
     createRow.addClass("row");
     createRow.addClass("row-deck");
-    var cardImage = deckList[j].cardChosen.imgUrl;
+    var cardImage = array[j].cardChosen.imgUrl;
     cardBtn.addClass("card-button");
     cardBtn.addClass("col-11-md");
     cardBtn.attr("src", cardImage);
-    cardBtn.attr("id", deckList[j].cardChosen.id);
+    cardBtn.attr("id", array[j].cardChosen.id);
     cardCountBtn.addClass("col-1-md");
     cardCountBtn.addClass("card-counter");
-    cardCountBtn.text(deckList[j].cardChosen.numCopy + "x");
-    cardCountBtn.attr("data-text", deckList[j].cardChosen.numCopy + "x");
+    cardCountBtn.text(array[j].cardChosen.numCopy + "x");
+    cardCountBtn.attr("data-text", array[j].cardChosen.numCopy + "x");
     //cardCountBtn is a counter that tells user how many of the same card is in their deck
-    $(".deck-collection").append(createRow);
+    $(cmcClass).append(createRow);
     createRow.append(cardCountBtn);
     createRow.append(cardBtn);
     cardBtn.addClass("remove-from-deck");
-    cardCountBtn.addClass(deckList[j].cardChosen.id);
-    cardCountBtn.attr("data-id", deckList[j].cardChosen.id);
+    cardCountBtn.addClass(array[j].cardChosen.id);
+    cardCountBtn.attr("data-id", array[j].cardChosen.id);
     cardCountBtn.addClass("card-counter");
     $(".remove-from-deck").unbind().click(removeFromDeck); //on click for each card button, the remove from deck functionality is added
   };
   $(".card-counter").on("click", function () {
     var buttonChosen = $(this).attr("data-id");
-    var indexOfButton = searchJson(deckList, buttonChosen);
-    if (deckList[indexOfButton].cardChosen.numCopy >= 4 && $("#" + buttonChosen).attr("data-type").indexOf("Basic Land") == -1) {
-      deckList[indexOfButton].cardChosen.numCopy = 4;
+    var indexOfButton = searchJson(array, buttonChosen);
+    if (array[indexOfButton].cardChosen.numCopy >= 4 && $("#" + buttonChosen).attr("data-type").indexOf("Basic Land") == -1) {
+      array[indexOfButton].cardChosen.numCopy = 4;
     }
     else {
-      deckList[indexOfButton].cardChosen.numCopy = deckList[indexOfButton].cardChosen.numCopy + 1;
+      array[indexOfButton].cardChosen.numCopy = array[indexOfButton].cardChosen.numCopy + 1;
     }
-    $(this).text(deckList[indexOfButton].cardChosen.numCopy + "x");
-    $(this).attr("data-text", deckList[indexOfButton].cardChosen.numCopy + "x");
+    $(this).text(array[indexOfButton].cardChosen.numCopy + "x");
+    $(this).attr("data-text", array[indexOfButton].cardChosen.numCopy + "x");
   });
   $(".card-counter").hover(function () {
     $(this).text("+");
