@@ -649,6 +649,7 @@ function sortByCost() {
     if (searchJson(arrayOfCmc[6], value) == null && deckList[j].cardChosen.cmc > 6) {
       arrayOfCmc[6].push(deckList[j]);
     }
+    
   }
   arrayOfCmc.splice(0, 1);
   arrayOfCmc.push(cmcLand);
