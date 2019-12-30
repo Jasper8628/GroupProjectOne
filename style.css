@@ -42,6 +42,8 @@
  .cardImgs {
    transition: transform .2s;
    overflow: hidden;
+   margin-right:15px;
+   margin-left:15px;
  }
  
  .cardImgs:hover {
@@ -167,10 +169,6 @@
  .sidebar {
    height: 100%;
    width: 0;
-   position: absolute;
-   z-index: 1;
-   top: 0;
-   right: 0;
    background-color: #333;
    overflow-x: hidden;
    transition: 0.5s;
@@ -295,9 +293,6 @@
    body {
      background-color: black;
    }
-   .carousel-item {
-     height: 800px;
-   }
    h2 {
      color: white;
    }
@@ -307,6 +302,9 @@
    .found {
      margin-left: 20px;
 
+   }
+   .carousel-item{
+     height:800px;
    }
    .modal-color-button {
      border: solid 5px;
