@@ -303,7 +303,15 @@
      margin-left: 20px;
 
    }
+   .carousel-control-next{
+     width:50px;
+   }
+   .carousel-control-prev{
+     width:50px;
+   }
    .carousel-item{
+     margin:0 auto;
+     
      height:800px;
    }
    .modal-color-button {

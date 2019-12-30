@@ -45,7 +45,7 @@ function openNav() {
   document.getElementById("mySidebar").style.position = "absolute";
   document.getElementById("mySidebar").style.top = "0px";
   document.getElementById("mySidebar").style.right = "0px";
-  document.getElementById("carouselExampleControls").style.marginRight = "350px";
+  //document.getElementById("carouselExampleControls").style.marginRight = "350px";
   document.getElementById("carouselExampleControls").style.width = "75%";
   addToDeckToggle = 1; //toggle for card adding to deck
 }
@@ -73,8 +73,11 @@ function curve_view() {
   document.getElementById("mySidebar").style.width = "100%";
   document.getElementById("mySidebar").style.height = "50%";
   document.getElementById("mySidebar").style.position = "fixed";
-  document.getElementById("mySidebar").style.top = "320px";
+  document.getElementById("mySidebar").style.top = "325px";
   document.getElementById("carouselExampleControls").style.width = "100%";
+  document.getElementById("carouselExampleControls").style.height = "50%";
+  $(".new-col").attr("class", "new-col col-md-4");
+  $(".cmc-col").attr("class", "cmc-col col-md-2");
   addToDeckToggle = 1; //toggle for card adding to deck
 }
 
@@ -83,9 +86,11 @@ function side_view() {
   document.getElementById("mySidebar").style.height = "100%";
   document.getElementById("mySidebar").style.position = "absolute";
   document.getElementById("mySidebar").style.top = "0px";
-  document.getElementById("carouselExampleControls").style.marginRight = "350px";
+  //document.getElementById("carouselExampleControls").style.marginRight = "350px";
   document.getElementById("carouselExampleControls").style.width = "75%";
   document.getElementById("carouselExampleControls").style.height = "100%";
+  $(".new-col").attr("class", "new-col col-md-6");
+  $(".cmc-col").attr("class", "cmc-col col-md-12");
   //document.getElementsByClassName(".col").style.width="16.6%";
   addToDeckToggle = 1; //toggle for card adding to deck
 }
@@ -122,14 +127,14 @@ var cmc4 = [];
 var cmc5 = [];
 var cmc6 = [];
 var arrayOfCmc = [];
-var cmcClass0 = ".cmc0";
-var cmcClass1 = ".cmc1";
-var cmcClass2 = ".cmc2";
-var cmcClass3 = ".cmc3";
-var cmcClass4 = ".cmc4";
-var cmcClass5 = ".cmc5";
-var cmcClass6 = ".cmc6";
-var cmcClassLand = ".cmcLand";
+var cmcClass0 = "#cmc0";
+var cmcClass1 = "#cmc1";
+var cmcClass2 = "#cmc2";
+var cmcClass3 = "#cmc3";
+var cmcClass4 = "#cmc4";
+var cmcClass5 = "#cmc5";
+var cmcClass6 = "#cmc6";
+var cmcClassLand = "#cmcLand";
 
 if (localStorage.getItem("deckString") === null) {
   deck = [];
@@ -565,51 +570,51 @@ function display(array) {
     $(".carousel-inner").append(createCarousel);
     createCarousel.append(createContainer);
     createContainer.append(createRow);
-      var createNewCol1=$('<div>');
-      createNewCol1.addClass("new-col col-md-6");
-      var createNewRow1=$('<div>');
-      createNewRow1.addClass("row");
-      createNewCol1.append(createNewRow1);
-      createRow.append(createNewCol1);
+    var createNewCol1 = $('<div>');
+    createNewCol1.addClass("new-col col-md-6");
+    var createNewRow1 = $('<div>');
+    createNewRow1.addClass("row");
+    createNewCol1.append(createNewRow1);
+    createRow.append(createNewCol1);
 
-      var createNewCol2=$('<div>');
-      createNewCol2.addClass("new-col col-md-6");
-      var createNewRow2=$('<div>');
-      createNewRow2.addClass("row");
-      createNewCol2.append(createNewRow2);
-      createRow.append(createNewCol2);
+    var createNewCol2 = $('<div>');
+    createNewCol2.addClass("new-col col-md-6");
+    var createNewRow2 = $('<div>');
+    createNewRow2.addClass("row");
+    createNewCol2.append(createNewRow2);
+    createRow.append(createNewCol2);
 
-      var createNewCol3=$('<div>');
-      createNewCol3.addClass("new-col col-md-6");
-      var createNewRow3=$('<div>');
-      createNewRow3.addClass("row");
-      createNewCol3.append(createNewRow3);
-      createRow.append(createNewCol3);
+    var createNewCol3 = $('<div>');
+    createNewCol3.addClass("new-col col-md-6");
+    var createNewRow3 = $('<div>');
+    createNewRow3.addClass("row");
+    createNewCol3.append(createNewRow3);
+    createRow.append(createNewCol3);
 
-      var createNewCol4=$('<div>');
-      createNewCol4.addClass("new-col col-md-6");
-      var createNewRow4=$('<div>');
-      createNewRow4.addClass("row");
-      createNewCol4.append(createNewRow4);
-      createRow.append(createNewCol4);
+    var createNewCol4 = $('<div>');
+    createNewCol4.addClass("new-col col-md-6");
+    var createNewRow4 = $('<div>');
+    createNewRow4.addClass("row");
+    createNewCol4.append(createNewRow4);
+    createRow.append(createNewCol4);
 
-      var createNewCol5=$('<div>');
-      createNewCol5.addClass("new-col col-md-6");
-      var createNewRow5=$('<div>');
-      createNewRow5.addClass("row");
-      createNewCol5.append(createNewRow5);
-      createRow.append(createNewCol5);
+    var createNewCol5 = $('<div>');
+    createNewCol5.addClass("new-col col-md-6");
+    var createNewRow5 = $('<div>');
+    createNewRow5.addClass("row");
+    createNewCol5.append(createNewRow5);
+    createRow.append(createNewCol5);
 
-      var createNewCol6=$('<div>');
-      createNewCol6.addClass("new-col col-md-6");
-      var createNewRow6=$('<div>');
-      createNewRow6.addClass("row");
-      createNewCol6.append(createNewRow6);
-      createRow.append(createNewCol6);
+    var createNewCol6 = $('<div>');
+    createNewCol6.addClass("new-col col-md-6");
+    var createNewRow6 = $('<div>');
+    createNewRow6.addClass("row");
+    createNewCol6.append(createNewRow6);
+    createRow.append(createNewCol6);
     for (var k = 0, j = i * 18; k < 18, j < (i + 1) * 18; k++ , j++) {
       //populating carousel slide with 18 cards
       var createImg = $('<img>');
-      var createDiv=$('<div>');
+      var createDiv = $('<div>');
       createDiv.addClass("col-md-4 sub-col");
       createImg.attr("style", "background-color:transparent");
       createImg.attr("src", array[j].imgUrl);
@@ -625,22 +630,22 @@ function display(array) {
       }
       createImg.addClass("card cardImgs");
       createDiv.append(createImg);
-      if(k<3){
+      if (k < 3) {
         createNewRow1.append(createDiv);
       }
-      else if(k<6){
+      else if (k < 6) {
         createNewRow2.append(createDiv);
       }
-      else if(k<9){
+      else if (k < 9) {
         createNewRow3.append(createDiv);
       }
-      else if(k<12){
+      else if (k < 12) {
         createNewRow4.append(createDiv);
       }
-      else if(k<15){
+      else if (k < 15) {
         createNewRow5.append(createDiv);
       }
-      else if(k<18){
+      else if (k < 18) {
         createNewRow6.append(createDiv);
         console.log(k);
       }
@@ -665,52 +670,8 @@ function API_CALL(url1, url2) {
       responseData = responseData.concat(newResponseData);
       console.log(responseData);
       sortByColor();
-      cardsFound = cardPool.length;
-      $(".found").text("Cards Found: " + cardsFound);
-      numSlide = cardPool.length / 18;
-      var slideActive = false;
-      for (var i = 0; i < Math.ceil(numSlide); i++) {
-        var createCarousel = $('<div>');
-        createCarousel.addClass("carousel-item")
-        if (slideActive == false) {
-          createCarousel.addClass("active new-slide");
-          slideActive = true;
-        }
-        else {
-          createCarousel.addClass("new-slide")
-        }
-        var createContainer = $('<div>');
-        var createRow = $('<div>');
-        createContainer.addClass("container-fluid");
-        createRow.addClass("row");
-        $(".carousel-inner").append(createCarousel);
-        createCarousel.append(createContainer);
-        createContainer.append(createRow);
-        for (var j = i * 18; j < (i + 1) * 18; j++) {
-          var createImg = $('<img>');
-          var createDiv = $('<div>');
-          createDiv.addClass("col-md-2");
-          createDiv.attr("style", "width:15%");
-          createImg.attr("style", "background-color:transparent");
-          createImg.attr("src", cardPool[j].imgUrl);
-          createImg.attr("data-cost", cardPool[j].cmc);
-          createImg.attr("data-name", cardPool[j].name);
-          createImg.attr("id", cardPool[j].set + cardPool[j].setIndex);
-          createImg.attr("data-set", cardPool[j].set);
-          createImg.attr("data-index", cardPool[j].setIndex);
-          createImg.attr("data-type", cardPool[j].type);
-          for (h = 0; h < cardPool[j].colors.length; h++) {
-            createImg.addClass(cardPool[j].colors[h]);
-          }
-          createImg.addClass("card cardImgs");
-          createDiv.append(createImg);
-          createRow.append(createDiv);
-
-          $(".card").unbind().click(addCardToDeck);
-        }
-      }
-      $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
-    });
+      display(cardPool);
+     });
 
     $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 
