@@ -69,7 +69,9 @@ $(".curve-view").on("click", function () {
   }
 });
 
+var curveView=true;
 function curve_view() {
+  curveView=false;
   document.getElementById("mySidebar").style.width = "100%";
   document.getElementById("mySidebar").style.height = "50%";
   document.getElementById("mySidebar").style.position = "fixed";
@@ -78,10 +80,12 @@ function curve_view() {
   document.getElementById("carouselExampleControls").style.height = "50%";
   $(".new-col").attr("class", "new-col col-md-4");
   $(".cmc-col").attr("class", "cmc-col col-md-2");
+  $(".curve-view").text("List View");
   addToDeckToggle = 1; //toggle for card adding to deck
 }
 
 function side_view() {
+  curveView=true;
   document.getElementById("mySidebar").style.width = "25%";
   document.getElementById("mySidebar").style.height = "100%";
   document.getElementById("mySidebar").style.position = "absolute";
@@ -91,6 +95,7 @@ function side_view() {
   document.getElementById("carouselExampleControls").style.height = "100%";
   $(".new-col").attr("class", "new-col col-md-6");
   $(".cmc-col").attr("class", "cmc-col col-md-12");
+  $(".curve-view").text("Curve View");
   //document.getElementsByClassName(".col").style.width="16.6%";
   addToDeckToggle = 1; //toggle for card adding to deck
 }
@@ -570,6 +575,9 @@ function display(array) {
     $(".carousel-inner").append(createCarousel);
     createCarousel.append(createContainer);
     createContainer.append(createRow);
+
+    // line 581 to 619 construction of the first level of nested columns
+    //class"new-col" will be used to manipulate column size based on a view format
     var createNewCol1 = $('<div>');
     createNewCol1.addClass("new-col col-md-6");
     var createNewRow1 = $('<div>');
@@ -630,6 +638,9 @@ function display(array) {
       }
       createImg.addClass("card cardImgs");
       createDiv.append(createImg);
+      //line 642 to 658 the second level of the nested columns
+      //each mother column has 3 daughter columns in it
+      //which allows 2 formats for display : 6 columns per row or 9 columns per row
       if (k < 3) {
         createNewRow1.append(createDiv);
       }
@@ -648,6 +659,12 @@ function display(array) {
       else if (k < 18) {
         createNewRow6.append(createDiv);
         console.log(k);
+      }
+      if(curveView==false){
+        $(".new-col").attr("class","new-col col-md-4");
+      }
+      else{
+        $(".new-col").attr("class","new-col col-md-6");
       }
       $(".card").unbind().click(addCardToDeck);
     }
@@ -671,13 +688,8 @@ function API_CALL(url1, url2) {
       console.log(responseData);
       sortByColor();
       display(cardPool);
-     });
-
-    $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
-
+    });
   });
-  $(".card").on("click", addCardToDeck);
-  $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 }
 
 $(".left").on("click", function () {
@@ -690,13 +702,17 @@ API_CALL(QueryURL, QueryURL2);
 
 /////////////////////////// add card to deck functionality //////////////////////
 function searchJson(array, value) {
+  //returns an integer representing the index of any given card in the array based on the card's id
   for (var i = 0; i < array.length; i++) {
     if (array[i].cardChosen.id === value) {
       return i;
     }
   }
 }
+
 function sortByCost() {
+  //similar logic to sortByColor function
+  //but only uses deskList as the source of cards
   arrayOfCmc = [];
   arrayOfCmc.push(cmcLand, cmc1, cmc2, cmc3, cmc4, cmc5, cmc6);
   for (var j = 0; j < deckList.length; j++) {
@@ -710,8 +726,8 @@ function sortByCost() {
     if (searchJson(arrayOfCmc[6], value) == null && deckList[j].cardChosen.cmc > 6) {
       arrayOfCmc[6].push(deckList[j]);
     }
-
   }
+  //re-organize lands to display last in the deckList
   arrayOfCmc.splice(0, 1);
   arrayOfCmc.push(cmcLand);
   deckList = arrayOfCmc.flat(1);
@@ -763,15 +779,14 @@ function buildDeck(array, cmcClass) {
     createRow.addClass("row-deck");
     var cardImage = array[j].cardChosen.imgUrl;
     cardBtn.addClass("card-button");
-    //cardBtn.addClass("col-11-md");
     cardBtn.attr("src", cardImage);
     cardBtn.attr("id", array[j].cardChosen.id);
-    //cardCountBtn.addClass("col-1-md");
     cardCountBtn.addClass("card-counter");
     cardCountBtn.text(array[j].cardChosen.numCopy + "x");
     cardCountBtn.attr("data-text", array[j].cardChosen.numCopy + "x");
     //cardCountBtn is a counter that tells user how many of the same card is in their deck
     $(cmcClass).append(createRow);
+    //line 787 using predeclared strings to allocate createRow to the corresponding div based on the results of the sortByCost function
     createRow.append(cardCountBtn);
     createRow.append(cardBtn);
     cardBtn.addClass("remove-from-deck");
@@ -814,7 +829,6 @@ function removeFromDeck() {
         arrayOfCmc[i].splice(index2, 1);
       }
     }
-    console.log(deckList);
     //$(".card-counter[data-name='" + $(this).text() + "']").remove();
     $("." + removedCardName).remove(); //remove card counter from UI for specific button
     $(this).remove();
