@@ -69,32 +69,35 @@ $(".curve-view").on("click", function () {
   }
 });
 
-var curveView=true;
+var curveView = true;
 function curve_view() {
-  curveView=false;
-  document.getElementById("mySidebar").style.width = "100%";
-  document.getElementById("mySidebar").style.height = "50%";
-  document.getElementById("mySidebar").style.position = "fixed";
-  document.getElementById("mySidebar").style.top = "325px";
+  closeNav();
+  curveView = false;
+  //document.getElementById("my-bottom-bar").style.width = "100%";
+  document.getElementById("my-bottom-bar").style.height = "48%";
+  document.getElementById("my-bottom-bar").style.position = "fixed";
+  document.getElementById("my-bottom-bar").style.bottom = "0";
   document.getElementById("carouselExampleControls").style.width = "100%";
-  document.getElementById("carouselExampleControls").style.height = "50%";
+  $(".carousel-item").css("height","350px");
   $(".new-col").attr("class", "new-col col-md-4");
-  $(".cmc-col").attr("class", "cmc-col col-md-2");
+  //$(".cmc-col").attr("class", "cmc-col col-md-2 ");
   $(".curve-view").text("List View");
   addToDeckToggle = 1; //toggle for card adding to deck
 }
 
 function side_view() {
-  curveView=true;
-  document.getElementById("mySidebar").style.width = "25%";
-  document.getElementById("mySidebar").style.height = "100%";
-  document.getElementById("mySidebar").style.position = "absolute";
-  document.getElementById("mySidebar").style.top = "0px";
+  openNav();
+  curveView = true;
+  //document.getElementById("my-bottom-bar").style.width = "25%";
+  document.getElementById("my-bottom-bar").style.height = "0";
+  //document.getElementById("my-bottom-bar").style.position = "absolute";
+  //document.getElementById("my-bottom-bar").style.top = "0px";
   //document.getElementById("carouselExampleControls").style.marginRight = "350px";
   document.getElementById("carouselExampleControls").style.width = "75%";
-  document.getElementById("carouselExampleControls").style.height = "100%";
+  $(".carousel-item").css("height","800px");
   $(".new-col").attr("class", "new-col col-md-6");
-  $(".cmc-col").attr("class", "cmc-col col-md-12");
+  //$(".cmc-col").attr("class", "cmc-col  col-md-12 ");
+  //$(".cmc-col").attr("class", "cmc-col col-md-12");
   $(".curve-view").text("Curve View");
   //document.getElementsByClassName(".col").style.width="16.6%";
   addToDeckToggle = 1; //toggle for card adding to deck
@@ -132,14 +135,14 @@ var cmc4 = [];
 var cmc5 = [];
 var cmc6 = [];
 var arrayOfCmc = [];
-var cmcClass0 = "#cmc0";
-var cmcClass1 = "#cmc1";
-var cmcClass2 = "#cmc2";
-var cmcClass3 = "#cmc3";
-var cmcClass4 = "#cmc4";
-var cmcClass5 = "#cmc5";
-var cmcClass6 = "#cmc6";
-var cmcClassLand = "#cmcLand";
+var cmcClass0 = "cmc0";
+var cmcClass1 = "cmc1";
+var cmcClass2 = "cmc2";
+var cmcClass3 = "cmc3";
+var cmcClass4 = "cmc4";
+var cmcClass5 = "cmc5";
+var cmcClass6 = "cmc6";
+var cmcClassLand = "cmcLand";
 
 if (localStorage.getItem("deckString") === null) {
   deck = [];
@@ -660,11 +663,11 @@ function display(array) {
         createNewRow6.append(createDiv);
         console.log(k);
       }
-      if(curveView==false){
-        $(".new-col").attr("class","new-col col-md-4");
+      if (curveView == false) {
+        $(".new-col").attr("class", "new-col col-md-4");
       }
-      else{
-        $(".new-col").attr("class","new-col col-md-6");
+      else {
+        $(".new-col").attr("class", "new-col col-md-6");
       }
       $(".card").unbind().click(addCardToDeck);
     }
@@ -759,24 +762,31 @@ function addCardToDeck() {
       }
     }
     sortByCost();
-    buildDeck(cmc1, cmcClass1); //runs buildDeck function after card has been added to deck array
-    buildDeck(cmc2, cmcClass2);
-    buildDeck(cmc3, cmcClass3);
-    buildDeck(cmc4, cmcClass4);
-    buildDeck(cmc5, cmcClass5);
-    buildDeck(cmc6, cmcClass6);
-    buildDeck(cmcLand, cmcClassLand);
   }
+  buildDeck(cmc1, cmcClass1); //runs buildDeck function after card has been added to deck array
+  buildDeck(cmc2, cmcClass2);
+  buildDeck(cmc3, cmcClass3);
+  buildDeck(cmc4, cmcClass4);
+  buildDeck(cmc5, cmcClass5);
+  buildDeck(cmc6, cmcClass6);
+  buildDeck(cmcLand, cmcClassLand);
+  buildCurve(cmc1, cmcClass1);
+  buildCurve(cmc2, cmcClass2);
+  buildCurve(cmc3, cmcClass3);
+  buildCurve(cmc4, cmcClass4);
+  buildCurve(cmc5, cmcClass5);
+  buildCurve(cmc6, cmcClass6);
+
+
 }
 
 function buildDeck(array, cmcClass) {
-  $(cmcClass).text(""); //clear the temporary built deck every time function is run
+  $("#" + cmcClass).text(""); //clear the temporary built deck every time function is run
   for (var j = 0; j < array.length; j++) { //goes through length of deck and creates a button for each card
     var cardBtn = $("<img>");
     var cardCountBtn = $("<button>");
     var createRow = $('<div>');
     createRow.addClass("row");
-    createRow.addClass("row-deck");
     var cardImage = array[j].cardChosen.imgUrl;
     cardBtn.addClass("card-button");
     cardBtn.attr("src", cardImage);
@@ -785,10 +795,10 @@ function buildDeck(array, cmcClass) {
     cardCountBtn.text(array[j].cardChosen.numCopy + "x");
     cardCountBtn.attr("data-text", array[j].cardChosen.numCopy + "x");
     //cardCountBtn is a counter that tells user how many of the same card is in their deck
-    $(cmcClass).append(createRow);
     //line 787 using predeclared strings to allocate createRow to the corresponding div based on the results of the sortByCost function
     createRow.append(cardCountBtn);
     createRow.append(cardBtn);
+    $("#" + cmcClass).append(createRow);
     cardBtn.addClass("remove-from-deck");
     cardCountBtn.addClass(array[j].cardChosen.id);
     cardCountBtn.attr("data-id", array[j].cardChosen.id);
@@ -814,7 +824,44 @@ function buildDeck(array, cmcClass) {
       var oldText = $(this).attr("data-text");
       $(this).text(oldText);
     });
-};
+}
+
+function buildCurve(array, cmcClass) {
+  var zIndex = 0;
+  var numSpacing = 0;
+  $("." + cmcClass).text(""); //clear the temporary built deck every time function is run
+  for (var j = 0; j < array.length; j++) {
+    var spacing = numSpacing + "px";
+    var copySpacing=numSpacing+25+"px";//goes through length of deck and creates a button for each card
+    var cardBtn = $("<img>");
+    var numCopy = $('<span>');
+    numCopy.addClass("copy-text");
+    numCopy.addClass(array[j].cardChosen.id);
+    var cardCountBtn = $("<button>");
+    var cardImage = array[j].cardChosen.imgUrl;
+    cardBtn.attr("src", cardImage);
+    cardBtn.attr("id", array[j].cardChosen.id);
+    $("." + cmcClass).append(cardBtn);
+    if (array[j].cardChosen.numCopy > 1) {
+      numCopy.text("X"+array[j].cardChosen.numCopy);
+      $("." + cmcClass).append(numCopy);
+      numCopy.css("position","absolute");
+      numCopy.css("top",copySpacing);
+      numCopy.css("z-index",zIndex+1);
+      numSpacing=numSpacing+25;
+    }
+    cardBtn.addClass("remove-from-deck");
+    cardBtn.css("position", "absolute");
+    cardBtn.css("top", spacing);
+    cardBtn.css("z-index", zIndex);
+    cardCountBtn.addClass(array[j].cardChosen.id);
+    zIndex++;
+    numSpacing = numSpacing + 30;
+    console.log(spacing);
+    $(".remove-from-deck").unbind().click(removeFromDeck);
+    //on click for each card button, the remove from deck functionality is added
+  }
+}
 
 function removeFromDeck() {
   var removedCardName = $(this).attr("id"); //get name of card user wants to remove

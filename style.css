@@ -42,8 +42,6 @@
  .cardImgs {
    transition: transform .2s;
    overflow: hidden;
-   margin-right:15px;
-   margin-left:15px;
  }
  
  .cardImgs:hover {
@@ -53,7 +51,7 @@
    -o-transform: scale(1.8);
    transform: scale(1.8);
    position: relative;
-   top:75px;
+   top:33%;
    z-index: 1;
  }
  
@@ -173,12 +171,28 @@
    overflow-x: hidden;
    transition: 0.5s;
  }
+ .bottom-bar {
+   height: 0;
+   width: 100%;
+   background-color: #333;
+   overflow-x: hidden;
+   transition: 0.5s;
+ }
+ .cmc-col{
+   margin:0 auto;
+ }
  
  .sidebar div {
+   display:block;
    text-decoration: none;
    font-size: 14px;
    color: #818181;
-   display: block;
+   transition: 0.3s;
+ }
+ .bottom-bar div {
+   text-decoration: none;
+   font-size: 14px;
+   color: #818181;
    transition: 0.3s;
  }
  
@@ -192,6 +206,10 @@
    left: 25px;
    font-size: 36px;
    margin-right: 50px;
+ }
+ .bottom-bar button{
+   margin-top: 100px;
+
  }
  
  .sidebar .saveButton {
@@ -304,12 +322,15 @@
 
    }
    .carousel-control-next{
+     z-index: 101;
      width:50px;
    }
    .carousel-control-prev{
+     z-index: 101;
      width:50px;
    }
    .carousel-item{
+     z-index: 100;
      margin:0 auto;
      
      height:800px;
@@ -375,5 +396,12 @@
    .card-counter:hover{
      font-size: 18px;
      font-weight: 800;
+   }
+   .copy-text{
+     color:rgb(3, 128, 211);
+     font-size: 24px;
+     font-weight: 700;
+     text-align: right;
+     margin-left: 75%;
    }
  
