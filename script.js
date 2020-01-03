@@ -665,9 +665,11 @@ function display(array) {
       }
       if (curveView == false) {
         $(".new-col").attr("class", "new-col col-md-4");
+        $(".carousel-item").css("height","350px");
       }
       else {
         $(".new-col").attr("class", "new-col col-md-6");
+        $(".carousel-item").css("height","800px");
       }
       $(".card").unbind().click(addCardToDeck);
     }
