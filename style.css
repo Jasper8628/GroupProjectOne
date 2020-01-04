@@ -181,7 +181,11 @@
  .cmc-col{
    margin:0 auto;
  }
- 
+ .curve-col{
+   padding-right: 10px;
+   padding-left: 10px;
+ }
+
  .sidebar div {
    display:block;
    text-decoration: none;
@@ -398,10 +402,14 @@
      font-weight: 800;
    }
    .copy-text{
-     color:rgb(3, 128, 211);
+     color:rgb(3, 86, 211);
      font-size: 24px;
      font-weight: 700;
      text-align: right;
-     margin-left: 75%;
+     margin-left: 60%;
+   }
+   .deck-count{
+     color:white;
+     margin-left: 50px;
    }
  

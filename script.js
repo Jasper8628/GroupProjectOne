@@ -20,7 +20,7 @@ $(document).click(function (e) {
 });
 
 $(".modalAdvanceButtons").click(function () {
-  $(this).css('color', 'yellow');
+  //$(this).css('color', 'yellow');
   $(this).css('border', '.5px solid yellow')
 });
 /*$(".icon").click(function () {
@@ -78,7 +78,7 @@ function curve_view() {
   document.getElementById("my-bottom-bar").style.position = "fixed";
   document.getElementById("my-bottom-bar").style.bottom = "0";
   document.getElementById("carouselExampleControls").style.width = "100%";
-  $(".carousel-item").css("height","350px");
+  $(".carousel-item").css("height", "350px");
   $(".new-col").attr("class", "new-col col-md-4");
   //$(".cmc-col").attr("class", "cmc-col col-md-2 ");
   $(".curve-view").text("List View");
@@ -94,7 +94,7 @@ function side_view() {
   //document.getElementById("my-bottom-bar").style.top = "0px";
   //document.getElementById("carouselExampleControls").style.marginRight = "350px";
   document.getElementById("carouselExampleControls").style.width = "75%";
-  $(".carousel-item").css("height","800px");
+  $(".carousel-item").css("height", "800px");
   $(".new-col").attr("class", "new-col col-md-6");
   //$(".cmc-col").attr("class", "cmc-col  col-md-12 ");
   //$(".cmc-col").attr("class", "cmc-col col-md-12");
@@ -135,6 +135,7 @@ var cmc4 = [];
 var cmc5 = [];
 var cmc6 = [];
 var arrayOfCmc = [];
+var arrayOfCmcClass = [];
 var cmcClass0 = "cmc0";
 var cmcClass1 = "cmc1";
 var cmcClass2 = "cmc2";
@@ -307,15 +308,29 @@ $(".set-filter").on("click", function () {
   var filter = $(this).attr("value");
   apiUrl = apiUrl + filter;
   apiUrl2 = apiUrl2 + filter;
-});
-
-$("#go").on("click", function () {
-  $(".card").remove();
-  $(".new-slide").remove();
+  white = [];
+  blue = [];
+  black = [];
+  red = [];
+  green = [];
+  colorless = [];
+  multiColor = [];
+  lands = [];
+  cardPool = [];
+  reset();
+  $(".set-filter").css("border", "solid 3px");
+  $(".set-filter").css("border-color", "white");
+  $(this).css("border", "solid 3px");
+  $(this).css("border-color", "gold");
   API_CALL(apiUrl, apiUrl2);
 });
 
+
 $("#reset").on("click", function () {
+  reset();
+});
+
+function reset() {
   $(".card").remove();
   $(".new-slide").remove();
   $("button").attr("style", "border-color: white");
@@ -329,9 +344,8 @@ $("#reset").on("click", function () {
   typeFilter.splice(0, typeFilter.length);
   featureArray = [];
   multiColorFilter.splice(0, multiColorFilter.length);
-
   display(cardPool);
-});
+}
 
 function sortByColor() {
   // placing mono-colored cards first then in the order of "white" ,"blue","black","red","green","multicolor","colorless" and "lands"
@@ -456,7 +470,6 @@ function sortByColor() {
   cardPool = cardPool.concat(multiColor);
   cardPool = cardPool.concat(colorless);
   cardPool = cardPool.concat(lands);
-  console.log(cardPool);
 
 }
 
@@ -661,15 +674,14 @@ function display(array) {
       }
       else if (k < 18) {
         createNewRow6.append(createDiv);
-        console.log(k);
       }
       if (curveView == false) {
         $(".new-col").attr("class", "new-col col-md-4");
-        $(".carousel-item").css("height","350px");
+        $(".carousel-item").css("height", "350px");
       }
       else {
         $(".new-col").attr("class", "new-col col-md-6");
-        $(".carousel-item").css("height","800px");
+        $(".carousel-item").css("height", "800px");
       }
       $(".card").unbind().click(addCardToDeck);
     }
@@ -691,6 +703,12 @@ function API_CALL(url1, url2) {
       var newResponseData = feed.data;
       responseData = responseData.concat(newResponseData);
       console.log(responseData);
+      for(i=0;i<responseData.length;i++){
+        if(responseData[i].colors==null){
+        console.log(responseData[i].name);
+
+        }
+      }
       sortByColor();
       display(cardPool);
     });
@@ -699,9 +717,12 @@ function API_CALL(url1, url2) {
 
 $(".left").on("click", function () {
   $("#carouselExampleControls").carousel("prev");
+  $("#carouselExampleControls").carousel("pause");
+
 });
 $(".right").on("click", function () {
   $("#carouselExampleControls").carousel("next");
+  $("#carouselExampleControls").carousel("pause");
 });
 API_CALL(QueryURL, QueryURL2);
 
@@ -715,13 +736,18 @@ function searchJson(array, value) {
   }
 }
 
+var deckCount = 0;
 function sortByCost() {
+  deckCount = 0;
   //similar logic to sortByColor function
   //but only uses deskList as the source of cards
   arrayOfCmc = [];
   arrayOfCmc.push(cmcLand, cmc1, cmc2, cmc3, cmc4, cmc5, cmc6);
   for (var j = 0; j < deckList.length; j++) {
     var value = deckList[j].cardChosen.id;
+    var numCopy = deckList[j].cardChosen.numCopy;
+    deckCount = deckCount + numCopy;
+    $(".deck-count").text(deckCount + "/60");
     for (var i = 0; i < arrayOfCmc.length; i++) {
       var index = searchJson(arrayOfCmc[i], value);
       if (index == null && deckList[j].cardChosen.cmc == i) {
@@ -764,22 +790,32 @@ function addCardToDeck() {
       }
     }
     sortByCost();
+    buildDeck(cmc1, cmcClass1); //runs buildDeck function after card has been added to deck array
+    buildDeck(cmc2, cmcClass2);
+    buildDeck(cmc3, cmcClass3);
+    buildDeck(cmc4, cmcClass4);
+    buildDeck(cmc5, cmcClass5);
+    buildDeck(cmc6, cmcClass6);
+    buildDeck(cmcLand, cmcClassLand);
+    buildCurve(cmc1, cmcClass1);
+    buildCurve(cmc2, cmcClass2);
+    buildCurve(cmc3, cmcClass3);
+    buildCurve(cmc4, cmcClass4);
+    buildCurve(cmc5, cmcClass5);
+    buildCurve(cmc6, cmcClass6);
+    $("." + cardChosen).css("border", "solid 3px gold");
+    setTimeout(function () {
+      $("." + cardChosen).css("border", "none");
+    }, 1000);
+    if (indexOfCopy != null) {
+      if (deckList[indexOfCopy].cardChosen.numCopy >= 4 && $(this).attr("data-type").indexOf("Basic Land") == -1) {
+        $("." + cardChosen).css("border", "solid 3px red");
+      }
+      setTimeout(function () {
+        $("." + cardChosen).css("border", "none");
+      }, 1000);
+    }
   }
-  buildDeck(cmc1, cmcClass1); //runs buildDeck function after card has been added to deck array
-  buildDeck(cmc2, cmcClass2);
-  buildDeck(cmc3, cmcClass3);
-  buildDeck(cmc4, cmcClass4);
-  buildDeck(cmc5, cmcClass5);
-  buildDeck(cmc6, cmcClass6);
-  buildDeck(cmcLand, cmcClassLand);
-  buildCurve(cmc1, cmcClass1);
-  buildCurve(cmc2, cmcClass2);
-  buildCurve(cmc3, cmcClass3);
-  buildCurve(cmc4, cmcClass4);
-  buildCurve(cmc5, cmcClass5);
-  buildCurve(cmc6, cmcClass6);
-
-
 }
 
 function buildDeck(array, cmcClass) {
@@ -834,38 +870,60 @@ function buildCurve(array, cmcClass) {
   $("." + cmcClass).text(""); //clear the temporary built deck every time function is run
   for (var j = 0; j < array.length; j++) {
     var spacing = numSpacing + "px";
-    var copySpacing=numSpacing+25+"px";//goes through length of deck and creates a button for each card
+    var copySpacing = numSpacing + 15 + "px";//goes through length of deck and creates a button for each card
     var cardBtn = $("<img>");
     var numCopy = $('<span>');
+    var createRow = $('<div>');
+    createRow.addClass("row");
     numCopy.addClass("copy-text");
     numCopy.addClass(array[j].cardChosen.id);
     var cardCountBtn = $("<button>");
     var cardImage = array[j].cardChosen.imgUrl;
     cardBtn.attr("src", cardImage);
     cardBtn.attr("id", array[j].cardChosen.id);
-    $("." + cmcClass).append(cardBtn);
+    createRow.append(cardBtn);
     if (array[j].cardChosen.numCopy > 1) {
-      numCopy.text("X"+array[j].cardChosen.numCopy);
-      $("." + cmcClass).append(numCopy);
-      numCopy.css("position","absolute");
-      numCopy.css("top",copySpacing);
-      numCopy.css("z-index",zIndex+1);
-      numSpacing=numSpacing+25;
+      numCopy.text("X" + array[j].cardChosen.numCopy);
+      createRow.append(numCopy);
+      numCopy.css("position", "absolute");
+      numCopy.css("top", copySpacing);
+      numCopy.css("z-index", zIndex + 1);
+      numSpacing = numSpacing + 18;
     }
+    $("." + cmcClass).append(createRow);
     cardBtn.addClass("remove-from-deck");
+    cardBtn.addClass("card-curve");
+    cardBtn.addClass("col-md-11");
     cardBtn.css("position", "absolute");
     cardBtn.css("top", spacing);
     cardBtn.css("z-index", zIndex);
     cardCountBtn.addClass(array[j].cardChosen.id);
     zIndex++;
-    numSpacing = numSpacing + 30;
-    console.log(spacing);
+    numSpacing = numSpacing + 25;
+
+    $(".remove-from-deck").hover(function () {
+      var hoverImg = $('<img>');
+      var hoverUrl = $(this).attr("src");
+      hoverImg.attr("src", hoverUrl);
+      hoverImg.addClass("temp-img");
+      $(".hover-div").append(hoverImg);
+      $(".hover-div").css("z-index", 200);
+      $(".hover-div").css("position", "relative");
+      $(".hover-div").css("bottom", "50%");
+      console.log(hoverUrl);
+    },
+      function () {
+        $(".temp-img").remove();
+      });
     $(".remove-from-deck").unbind().click(removeFromDeck);
     //on click for each card button, the remove from deck functionality is added
   }
 }
 
 function removeFromDeck() {
+  deckCount = deckCount - 1;
+  $(".deck-count").text(deckCount + "/60");
+  arrayOfCmcClass.push(cmcClass1, cmcClass2, cmcClass3, cmcClass4, cmcClass5, cmcClass6, cmcClassLand);
   var removedCardName = $(this).attr("id"); //get name of card user wants to remove
   var index = searchJson(deckList, removedCardName); //searches deck array for card name
   if (deckList[index].cardChosen.numCopy == 1) { //if only one copy of that card exists, then remove it from the array and from the UI
