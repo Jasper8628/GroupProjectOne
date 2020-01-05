@@ -146,17 +146,31 @@ var cmcClass6 = "cmc6";
 var cmcClassLand = "cmcLand";
 
 if (localStorage.getItem("deckString") === null) {
-  deck = [];
-  deckCount = [];
-
+  deckList = [];
 }
 else {
+  deckList=JSON.parse(localStorage.getItem("deckString"));
+  cmc1 = JSON.parse(localStorage.getItem("cmc1"));
+  cmc2 = JSON.parse(localStorage.getItem("cmc2"));
+  cmc3 = JSON.parse(localStorage.getItem("cmc3"));
+  cmc4 = JSON.parse(localStorage.getItem("cmc4"));
+  cmc5 = JSON.parse(localStorage.getItem("cmc5"));
+  cmc6 = JSON.parse(localStorage.getItem("cmc6"));
+  cmcLand = JSON.parse(localStorage.getItem("cmcLand"));
 
-  deckString = localStorage.getItem("deckString");
-  deckCountString = localStorage.getItem("deckCountString");
-  deck = JSON.parse(deckString);
-  deckCount = JSON.parse(deckCountString);
-  buildDeck(); //build first deck using local storage
+  buildDeck(cmc1, cmcClass1); //runs buildDeck function after card has been added to deck array
+  buildDeck(cmc2, cmcClass2);
+  buildDeck(cmc3, cmcClass3);
+  buildDeck(cmc4, cmcClass4);
+  buildDeck(cmc5, cmcClass5);
+  buildDeck(cmc6, cmcClass6);
+  buildDeck(cmcLand, cmcClassLand);
+  buildCurve(cmc1, cmcClass1);
+  buildCurve(cmc2, cmcClass2);
+  buildCurve(cmc3, cmcClass3);
+  buildCurve(cmc4, cmcClass4);
+  buildCurve(cmc5, cmcClass5);
+  buildCurve(cmc6, cmcClass6);
 };
 /////////////////////////////////////
 
@@ -703,10 +717,10 @@ function API_CALL(url1, url2) {
       var newResponseData = feed.data;
       responseData = responseData.concat(newResponseData);
       console.log(responseData);
-      for(i=0;i<responseData.length;i++){
-        if(responseData[i].colors==null){
-        console.log(responseData[i].name);
-
+      for (i = 0; i < responseData.length; i++) {
+        if (responseData[i].colors == null) {
+          console.log(responseData[i].name);
+          responseData.splice(i, 1);
         }
       }
       sortByColor();
@@ -789,7 +803,7 @@ function addCardToDeck() {
         deckList[indexOfCopy].cardChosen.numCopy = 4;
       }
     }
-    sortByCost();
+    //sortByCost();
     buildDeck(cmc1, cmcClass1); //runs buildDeck function after card has been added to deck array
     buildDeck(cmc2, cmcClass2);
     buildDeck(cmc3, cmcClass3);
@@ -816,10 +830,12 @@ function addCardToDeck() {
       }, 1000);
     }
   }
+  console.log(deckList);
 }
 
 function buildDeck(array, cmcClass) {
-  $("#" + cmcClass).text(""); //clear the temporary built deck every time function is run
+  $("#" + cmcClass).text("");
+  sortByCost();//clear the temporary built deck every time function is run
   for (var j = 0; j < array.length; j++) { //goes through length of deck and creates a button for each card
     var cardBtn = $("<img>");
     var cardCountBtn = $("<button>");
@@ -947,10 +963,52 @@ function removeFromDeck() {
 };
 
 $(".saveButton").on("click", function () { //for save deck button
-  deckString = JSON.stringify(deck);
+  var deckString = JSON.stringify(deckList);
   localStorage.setItem("deckString", deckString);
-  deckCountString = JSON.stringify(deckCount);
-  localStorage.setItem("deckCountString", deckCountString);
+
+  var cmc1Str = JSON.stringify(cmc1);
+  localStorage.setItem("cmc1", cmc1Str);
+  console.log(cmc1Str);
+
+  var cmc2Str = JSON.stringify(cmc2);
+  localStorage.setItem("cmc2", cmc2Str);
+
+  var cmc3Str = JSON.stringify(cmc3);
+  localStorage.setItem("cmc3", cmc3Str);
+
+  var cmc4Str = JSON.stringify(cmc4);
+  localStorage.setItem("cmc4", cmc4Str);
+
+  var cmc5Str = JSON.stringify(cmc5);
+  localStorage.setItem("cmc5", cmc5Str);
+
+  var cmc6Str = JSON.stringify(cmc6);
+  localStorage.setItem("cmc6", cmc6Str);
+
+  var cmcLandStr = JSON.stringify(cmcLand);
+  localStorage.setItem("cmcLand", cmcLandStr);
+});
+$(".export").on("click", function () {
+  var el = $('<textarea>');
+  var text = [];
+  for (var i = 0; i < deckList.length; i++) {
+    var entry = [];
+    var numCopy = deckList[i].cardChosen.numCopy;
+    var name = deckList[i].cardChosen.name;
+    var setName = deckList[i].cardChosen.set;
+    var setIndex = deckList[i].cardChosen.setIndex;
+    entry.push(numCopy, " ", name, " ", "(", setName, ")", " ", setIndex);
+    text.push(entry.join(""));
+  }
+  for(var j=0;j<text.length;j++){
+    el.val(el.val()+"\n"+text[j]);
+  }
+  $("body").append(el);
+  el.select();
+  document.execCommand("copy");
+  console.log(el.val());
+  el.remove();
+
 });
 
 
