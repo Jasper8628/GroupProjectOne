@@ -75,14 +75,18 @@ var curveView = true;
 function curve_view() {
   closeNav();
   curveView = false;
-  //document.getElementById("my-bottom-bar").style.width = "100%";
+  buildCurve(cmc1, cmcClass1);
+  buildCurve(cmc2, cmcClass2);
+  buildCurve(cmc3, cmcClass3);
+  buildCurve(cmc4, cmcClass4);
+  buildCurve(cmc5, cmcClass5);
+  buildCurve(cmc6, cmcClass6);
   document.getElementById("my-bottom-bar").style.height = "48%";
   document.getElementById("my-bottom-bar").style.position = "fixed";
   document.getElementById("my-bottom-bar").style.bottom = "0";
   document.getElementById("carouselExampleControls").style.width = "100%";
   $(".carousel-item").css("height", "350px");
   $(".new-col").attr("class", "new-col col-md-4");
-  //$(".cmc-col").attr("class", "cmc-col col-md-2 ");
   $(".curve-view").text("List View");
   $(".export-bottom").css("visibility","visible");
   addToDeckToggle = 1; //toggle for card adding to deck
@@ -91,19 +95,19 @@ function curve_view() {
 function side_view() {
   openNav();
   curveView = true;
-  //document.getElementById("my-bottom-bar").style.width = "25%";
+  buildDeck(cmc1, cmcClass1); 
+  buildDeck(cmc2, cmcClass2);
+  buildDeck(cmc3, cmcClass3);
+  buildDeck(cmc4, cmcClass4);
+  buildDeck(cmc5, cmcClass5);
+  buildDeck(cmc6, cmcClass6);
+  buildDeck(cmcLand, cmcClassLand);
   document.getElementById("my-bottom-bar").style.height = "0";
-  //document.getElementById("my-bottom-bar").style.position = "absolute";
-  //document.getElementById("my-bottom-bar").style.top = "0px";
-  //document.getElementById("carouselExampleControls").style.marginRight = "350px";
   document.getElementById("carouselExampleControls").style.width = "75%";
   $(".carousel-item").css("height", "800px");
   $(".new-col").attr("class", "new-col col-md-6");
-  //$(".cmc-col").attr("class", "cmc-col  col-md-12 ");
-  //$(".cmc-col").attr("class", "cmc-col col-md-12");
   $(".curve-view").text("Curve View");
   $(".export-bottom").css("visibility","collapse");
-  //document.getElementsByClassName(".col").style.width="16.6%";
   addToDeckToggle = 1; //toggle for card adding to deck
 }
 
@@ -892,32 +896,6 @@ function buildDeck(array, cmcClass) {
       var oldText = $(this).attr("data-text");
       $(this).text(oldText);
     });
-  $(".card-list").hover(function () {
-    var position = $(this).parent().position();
-    console.log(position.left);
-    var top = position.top;
-    var hoverImg = $('<img>');
-    var hoverUrl = $(this).attr("src");
-    hoverImg.attr("src", hoverUrl);
-    //hoverImg.css("border-right","solid 8px grey");
-    //hoverImg.css("border-bottom","solid 8px grey");
-    hoverImg.addClass("temp-img");
-    $(".hover-div").append(hoverImg);
-    $(".hover-div").css("z-index", 200);
-    $(".hover-div").css("position", "absolute");
-    $(".hover-div").css("right", "100px");
-    $(".hover-div").css("top", top);
-    $(".hover-div").css("height", "80px");
-    $(".hover-div").css("width", "280px");
-    $(".hover-div").css("transition", "0.3s");
-
-    console.log(hoverUrl);
-  },
-    function () {
-      $(this).stop();
-      $(".temp-img").remove();
-      $(".hover-div").css("transition", "0.5s");
-    });
 }
 
 function buildCurve(array, cmcClass) {
@@ -963,7 +941,6 @@ function buildCurve(array, cmcClass) {
   }
   $(".card-curve").hover(function () {
     var position = $(this).parent().position();
-    console.log(position.left);
     var left = position.left;
     var hoverImg = $('<img>');
     var hoverUrl = $(this).attr("src");
@@ -972,20 +949,20 @@ function buildCurve(array, cmcClass) {
     //hoverImg.css("border-bottom","solid 8px grey");
     hoverImg.addClass("temp-img");
     $(".hover-div").append(hoverImg);
+    $(".hover-div").css("visibility", "visible");
     $(".hover-div").css("z-index", 200);
     $(".hover-div").css("position", "absolute");
     $(".hover-div").css("left", left);
     $(".hover-div").css("top", "0px");
-    $(".hover-div").css("height", "80px");
-    $(".hover-div").css("width", "280px");
+    $(".hover-div").css("height", "70px");
+    $(".hover-div").css("width", "270px");
     $(".hover-div").css("transition", "0.3s");
-
-    console.log(hoverUrl);
   },
     function () {
       $(this).stop();
       $(".temp-img").remove();
       $(".hover-div").css("transition", "0.5s");
+      $(".hover-div").css("visibility", "collapse");
     });
 }
 

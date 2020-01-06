@@ -425,5 +425,6 @@
      bottom:20px;
      right:50px;
      visibility: hidden;
+     z-index: 100;
    }
  
