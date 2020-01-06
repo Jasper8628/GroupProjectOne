@@ -355,7 +355,7 @@ $("#reset").on("click", function () {
 function reset() {
   $(".card").remove();
   $(".new-slide").remove();
-  $("button").attr("style", "border-color: white");
+  $("button").css("border-color", " white");
   searchPool = [];
   secondSearch = [];
   firstSearch = true;
@@ -367,6 +367,9 @@ function reset() {
   featureArray = [];
   multiColorFilter.splice(0, multiColorFilter.length);
   display(cardPool);
+  if(curveView==false){
+    $(".export-bottom").css("visibility","visible");
+  }
 }
 
 function sortByColor() {
