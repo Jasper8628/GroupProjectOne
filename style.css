@@ -216,7 +216,7 @@
 
  }
  
- .sidebar .saveButton {
+  .saveButton {
    position: relative;
    bottom: 80%;
    Right: 35px;
@@ -334,10 +334,11 @@
      width:50px;
    }
    .carousel-item{
-     z-index: 100;
      margin:0 auto;
-     
      height:800px;
+   }
+   .carousel-item:hover{
+     z-index: 100;
    }
    .modal-color-button {
      border: solid 5px;
@@ -402,6 +403,7 @@
      font-weight: 800;
    }
    .copy-text{
+     
      color:rgb(3, 86, 211);
      font-size: 24px;
      font-weight: 700;
@@ -411,5 +413,17 @@
    .deck-count{
      color:white;
      margin-left: 50px;
+   }
+   .curve-col{
+     pointer-events: none;
+   }
+   .remove-from-deck{
+     pointer-events: all;
+   }
+   .export-bottom{
+     position:fixed;
+     bottom:20px;
+     right:50px;
+     visibility: hidden;
    }
  
