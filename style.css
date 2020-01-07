@@ -32,8 +32,7 @@
  }
  
  #advancedSearch {
-   background: rgba(240, 197, 57, 0.938);
-   border-radius: 1em;
+   border-radius: 50%;
    color: black;
    font-display: bolder;
    font-size: medium;
@@ -153,10 +152,18 @@
    border-radius: .5em;
  }
  #search{
-   background-image: url("images.jfif");
+   background-color:#333;
+   border-radius: 50%;
+ }
+ #search button{
+   background-color: #333;
+   border:solid 3px black;
+ }
+ #input{
+   margin-right: 0px;
  }
  
- .mainSearchButton, .openbtn{
+  .openbtn{
    background: rgba(240, 197, 57, 0.938);
    border-radius: 1em;
    color: black;
@@ -305,13 +312,7 @@
    margin-top: 10px;
  }
  
-   .mainSearchButton {
-     background: rgba(240, 197, 57, 0.938);
-     border-radius: 1em;
-     color: black;
-     font-display: bolder;
-     font-size: medium;
-   }
+   
    body {
      background-color: black;
    }

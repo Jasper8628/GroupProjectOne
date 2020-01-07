@@ -38,6 +38,20 @@ $(".modalNumButtons").click(function () {
 });
 
 function openNav() {
+  curveView = true;
+  buildDeck(cmc1, cmcClass1);
+  buildDeck(cmc2, cmcClass2);
+  buildDeck(cmc3, cmcClass3);
+  buildDeck(cmc4, cmcClass4);
+  buildDeck(cmc5, cmcClass5);
+  buildDeck(cmc6, cmcClass6);
+  buildDeck(cmcLand, cmcClassLand);
+  document.getElementById("my-bottom-bar").style.height = "0";
+  document.getElementById("carouselExampleControls").style.width = "75%";
+  $(".carousel-item").css("height", "800px");
+  $(".new-col").attr("class", "new-col col-md-6");
+  $(".curve-view").text("Curve View");
+  $(".export-bottom").css("visibility", "collapse");
   document.getElementById("mySidebar").style.width = "25%";
   document.getElementById("mySidebar").style.height = "100%";
   //document.getElementById("mySidebar").style.marginTop = "70px";
