@@ -169,7 +169,7 @@
    overflow-x: hidden;
    transition: 0.5s;
    padding-top: 62px;
-  overflow: auto;
+  
  }
  
  .sidebar div {
@@ -179,6 +179,7 @@
    color: #818181;
    display: block;
    transition: 0.3s;
+   overflow: auto;
  }
  
  .sidebar div:hover {
@@ -328,4 +329,6 @@
      border-color: gold;
      border-radius: .5em;
    }
+
+  
  

@@ -25,7 +25,7 @@ $(".modalAdvanceButtons").click(function () {
   $(this).css('border', '.5px solid yellow')
 });
 
-$(".color-filter").click(function(){
+$(".color-filter").click(function () {
   $(this).css('border', '2px solid yellow');
   $(this).css('border-radius', '3em');
 })
@@ -34,19 +34,36 @@ $(".modalNumButtons").click(function () {
   $(this).css('border', '1px solid yellow');
 });
 //opening side nav bar
+var x = window.matchMedia("(max-width: 1024px)"); //defining max width for the screen
+var navbarOpen = false; // flag for the side nav
 function openNav() {
-  document.getElementById("mySidebar").style.width = "350px";
-  document.getElementById("mySidebar").style.marginTop = "70px";
-  document.getElementById("collection").style.marginRight = "350px";
-  addToDeckToggle = 1; //toggle for card adding to deck
-  
+  if (navbarOpen == false) {
+    if (x.matches) {
+      document.getElementById("mySidebar").style.width = "300px";
+      document.getElementById("mySidebar").style.marginTop = "100px";
+      document.getElementById("collection").style.marginRight = "200px";
+      navbarOpen = true;
+      addToDeckToggle = 1;
+    }
+    else {
+      document.getElementById("mySidebar").style.width = "350px";
+      document.getElementById("mySidebar").style.marginTop = "70px";
+      document.getElementById("collection").style.marginRight = "350px";
+      navbarOpen = true;
+      addToDeckToggle = 1;//toggle for card adding to deck
+    }
+  }
+  else if (navbarOpen == true) {
+    closeNav();
+  }
 }
 //closing the side navbar
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("collection").style.marginRight = "auto";
+  navbarOpen = false;
   addToDeckToggle = 0; //toggle for card adding to deck
-  
+
 }
 /* Get the documentElement (<html>) to display the page in fullscreen */
 var elem = document.documentElement;
@@ -400,14 +417,14 @@ function displaySearch(array, arrayOfFilters, array2) {
     }
   }
   display(array2);
- 
+
   $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 
 }
 
 function display(array) {
   cardsFound = array.length;
- 
+
   $(".found").text("Cards Found: " + cardsFound);
   numSlide = array.length / 18;
   var slideActive = false;
@@ -433,7 +450,7 @@ function display(array) {
       createImg.attr("style", "background-color:transparent");
 
       createImg.attr("src", array[j].imgUrl);
-      
+
       createImg.attr("data-cost", array[j].manaCost);
       createImg.attr("data-name", array[j].name);
       for (h = 0; h < array[j].colors.length; h++) {
@@ -455,7 +472,7 @@ function API_CALL(url1, url2) {
     method: "GET"
   }).then(function (response) {
     responseData = response.data;
-    
+
     $.ajax({
       url: url2,
       //the api call only returns 175 results, therefore a second api call for the second page of the same search term is required
@@ -494,14 +511,14 @@ function API_CALL(url1, url2) {
           for (h = 0; h < cardPool[j].colors.length; h++) {
             createImg.addClass(cardPool[j].colors[h]);
           }
-          createImg.addClass("col-md-2 card cardImgs");
+          createImg.addClass("col-md-6 col-lg-2 card cardImgs");
           createRow.append(createImg);
         }
         $(".card").unbind().click(addCardToDeck);
-      }   
+      }
       $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
     });
-    
+
     $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 
   });
