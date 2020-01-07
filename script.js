@@ -11,11 +11,11 @@ function openAdvancedSearchModal() {
 function closeModal() {
   $("#modal").css("display", "none");
 }
-$(".export").on("click",function(){
-  $("#message").css("display","block");
+$(".export").on("click", function () {
+  $("#message").css("display", "block");
 })
-$(".modal-message").on("click",function(){
-  $("#message").css("display","none");
+$(".modal-message").on("click", function () {
+  $("#message").css("display", "none");
 })
 
 $(document).click(function (e) {
@@ -85,14 +85,14 @@ function curve_view() {
   $(".carousel-item").css("height", "350px");
   $(".new-col").attr("class", "new-col col-md-4");
   $(".curve-view").text("List View");
-  $(".export-bottom").css("visibility","visible");
+  $(".export-bottom").css("visibility", "visible");
   addToDeckToggle = 1; //toggle for card adding to deck
 }
 
 function side_view() {
   openNav();
   curveView = true;
-  buildDeck(cmc1, cmcClass1); 
+  buildDeck(cmc1, cmcClass1);
   buildDeck(cmc2, cmcClass2);
   buildDeck(cmc3, cmcClass3);
   buildDeck(cmc4, cmcClass4);
@@ -104,7 +104,7 @@ function side_view() {
   $(".carousel-item").css("height", "800px");
   $(".new-col").attr("class", "new-col col-md-6");
   $(".curve-view").text("Curve View");
-  $(".export-bottom").css("visibility","collapse");
+  $(".export-bottom").css("visibility", "collapse");
   addToDeckToggle = 1; //toggle for card adding to deck
 }
 
@@ -364,8 +364,8 @@ function reset() {
   featureArray = [];
   multiColorFilter.splice(0, multiColorFilter.length);
   display(cardPool);
-  if(curveView==false){
-    $(".export-bottom").css("visibility","visible");
+  if (curveView == false) {
+    $(".export-bottom").css("visibility", "visible");
   }
 }
 
@@ -760,15 +760,20 @@ function searchJson(array, value) {
 }
 
 var deckCount = 0;
-function countDeck(){
-  deckCount = 0;
-  for(var i=0;i<deckList.length;i++){
+function countDeck() {
+  if (localStorage.getItem("deck-count") != null) {
+    deckCount = localStorage.getItem("deck-count");
+  }
+  else {
+    deckCount = 0;
+  }
+  for (var i = 0; i < deckList.length; i++) {
     var numCopy = deckList[i].cardChosen.numCopy;
     deckCount = deckCount + numCopy;
     $(".deck-count").text(deckCount + "/60 Cards");
-    
+
   }
-  
+
 }
 function sortByCost() {
   countDeck();
@@ -963,6 +968,7 @@ function buildCurve(array, cmcClass) {
 }
 
 function removeFromDeck() {
+  countDeck();
   deckCount = deckCount - 1;
   $(".deck-count").text(deckCount + "/60");
   arrayOfCmcClass.push(cmcClass1, cmcClass2, cmcClass3, cmcClass4, cmcClass5, cmcClass6, cmcClassLand);
@@ -989,6 +995,7 @@ function removeFromDeck() {
 };
 
 $(".saveButton").on("click", function () { //for save deck button
+  localStorage.setItem("deck-count", deckCount);
   var deckString = JSON.stringify(deckList);
   localStorage.setItem("deckString", deckString);
 
