@@ -584,6 +584,7 @@ function displaySearch(array, arrayOfFilters, array2) {
     }
   }
   display(array2);
+  $("#carouselExampleControls").carousel("pause");
 
   $(".remove-from-deck").unbind().click(removeFromDeck);  //remove from deck on click listener added to buttons
 
@@ -761,20 +762,14 @@ function searchJson(array, value) {
 
 var deckCount = 0;
 function countDeck() {
-  if (localStorage.getItem("deck-count") != null) {
-    deckCount = localStorage.getItem("deck-count");
-  }
-  else {
-    deckCount = 0;
-  }
+  deckCount = 0;
   for (var i = 0; i < deckList.length; i++) {
     var numCopy = deckList[i].cardChosen.numCopy;
     deckCount = deckCount + numCopy;
     $(".deck-count").text(deckCount + "/60 Cards");
-
   }
-
 }
+
 function sortByCost() {
   countDeck();
   //similar logic to sortByColor function
