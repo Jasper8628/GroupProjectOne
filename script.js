@@ -16,18 +16,11 @@ $(document).click(function (e) {
   if ($(e.target).is(".modal") || ($(e.target).is('body')) || $(e.target).is("#carouselExampleControls")) {
     $(".modal").css("display", "none");
   }
-
 });
 
 $(".modalAdvanceButtons").click(function () {
-  //$(this).css('color', 'yellow');
   $(this).css('border', '.5px solid yellow')
 });
-/*$(".icon").click(function () {
-  $(this).css('border', '2px solid yellow');
-  $(this).css('border-radius', '2em');
-});
-*/
 $(".color-filter").click(function () {
   $(this).css('border', '2px solid yellow');
   $(this).css('border-radius', '3em');
@@ -37,8 +30,6 @@ $(".modalNumButtons").click(function () {
   $(this).css('color', 'yellow');
   $(this).css('border', '1px solid yellow');
 });
-
-
 
 function openNav() {
   document.getElementById("mySidebar").style.width = "25%";
@@ -127,7 +118,7 @@ function openFullscreen() {
 }
 
 
-///////////////// Add to deck part /////////////////
+///////////////// Add to deck variables /////////////////
 var deck;
 var deckString;
 var deckList = [];
@@ -945,13 +936,10 @@ function buildCurve(array, cmcClass) {
   $(".card-curve").hover(function () {
     var position = $(this).parent().position();
     var left = position.left;
-    var hoverImg = $('<img>');
     var hoverUrl = $(this).attr("src");
-    hoverImg.attr("src", hoverUrl);
+    $(".temp-img").attr("src", hoverUrl);
     //hoverImg.css("border-right","solid 8px grey");
     //hoverImg.css("border-bottom","solid 8px grey");
-    hoverImg.addClass("temp-img");
-    $(".hover-div").append(hoverImg);
     $(".hover-div").css("visibility", "visible");
     $(".hover-div").css("z-index", 200);
     $(".hover-div").css("position", "absolute");
@@ -963,7 +951,6 @@ function buildCurve(array, cmcClass) {
   },
     function () {
       $(this).stop();
-      $(".temp-img").remove();
       $(".hover-div").css("transition", "0.5s");
       $(".hover-div").css("visibility", "collapse");
     });
