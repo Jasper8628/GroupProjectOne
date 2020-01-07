@@ -6,11 +6,17 @@ $(".close-btn").click(function () {
 });
 
 function openAdvancedSearchModal() {
-  $(".modal").css("display", "block");
+  $("#modal").css("display", "block");
 }
 function closeModal() {
-  $(".modal").css("display", "none");
+  $("#modal").css("display", "none");
 }
+$(".export").on("click",function(){
+  $("#message").css("display","block");
+})
+$(".modal-message").on("click",function(){
+  $("#message").css("display","none");
+})
 
 $(document).click(function (e) {
   if ($(e.target).is(".modal") || ($(e.target).is('body')) || $(e.target).is("#carouselExampleControls")) {

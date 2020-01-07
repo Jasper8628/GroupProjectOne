@@ -95,7 +95,7 @@
 
     <div id="mySidebar" class="sidebar">
       <button class="button curve-view">Curve-View</button>
-      <span class="deck-count">/60</span>
+      <span class="deck-count">0/60 Cards</span>
       <div class=" container ">
         <div class="row">
           <div id="cmc1" class="cmc-col col-md-12">
@@ -119,7 +119,7 @@
     </div>
 
     <div id="my-bottom-bar" class="bottom-bar">
-      <span class="deck-count">/60 Cards</span>
+      <span class="deck-count">0/60 Cards</span>
       <div class=" container ">
         <div class="row">
           <div class="cmc1 col-md-2 curve-col">
@@ -144,7 +144,14 @@
     </div>
   </div>
 
-  <div class="modal">
+  <div class="modal" id="message">
+    <div class="modal-content">
+      <h5>Deck list copied to clipboard</h5>
+      <button class="modal-message">OK</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
     <div class="modal-header">
       <span class="close-btn">&times;</span>
     </div>

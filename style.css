@@ -427,4 +427,16 @@
      visibility: hidden;
      z-index: 100;
    }
+   #message{
+     position: absolute;
+     top:-120px;
+     height:200px;
+     width:100%;
+     color:white;
+   }
+   .modal-message{
+     margin:0 auto;
+     width:80px;
+     height:50px;
+   }
  
