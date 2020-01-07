@@ -367,6 +367,7 @@ function reset() {
   $(".card").remove();
   $(".new-slide").remove();
   $("button").css("border-color", " white");
+  $(".mainSearchButton").css("border-color", " black");
   searchPool = [];
   secondSearch = [];
   firstSearch = true;
