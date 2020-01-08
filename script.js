@@ -284,7 +284,7 @@ function addFilters(buttonClass, filterArray) {
     var filter = $(this).attr("value");
     if (filterArray.indexOf(filter) == -1) {
       //populate 5 filter arrays with values based on which filter button has been selected
-      if ($(this).attr("class").indexOf(classColor) != -1) {
+      if ($(this).attr("class").indexOf("tag-color") != -1) {
         $("." + filter).attr("style", "border-color: gold");
       }
       else {
@@ -299,7 +299,7 @@ function addFilters(buttonClass, filterArray) {
       }
     }
     else {
-      if ($(this).attr("class").indexOf(classColor) != -1) {
+      if ($(this).attr("class").indexOf("tag-color") != -1) {
         $("." + filter).attr("style", "border-color: white");
       }
       else {
