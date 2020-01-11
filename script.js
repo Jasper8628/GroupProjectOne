@@ -195,8 +195,8 @@ else {
 
 var apiUrl = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
 var apiUrl2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
-var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Am20";
-var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e%3Am20"; //first queryURL then depend on user  this will get updated and ajax call will be run again
+var QueryURL = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e%3Athb";
+var QueryURL2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e%3Athb"; //first queryURL then depend on user  this will get updated and ajax call will be run again
 var responseData;
 var uniqueID;
 var numSlide;
