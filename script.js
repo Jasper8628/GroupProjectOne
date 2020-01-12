@@ -138,7 +138,7 @@ function openFullscreen() {
 }
 
 
-///////////////// Add to deck variables /////////////////
+///////////////// Add to deck variables Natalie's part /////////////////
 var deck;
 var deckString;
 var deckList = [];
@@ -146,7 +146,7 @@ var deckCount;
 var addToDeckToggle;
 var deckCountString;
 var cmcLand = [];
-var cmc0 = [];
+var cmc0 = []; //cmc means converted mana cost
 var cmc1 = [];
 var cmc2 = [];
 var cmc3 = [];
@@ -155,7 +155,7 @@ var cmc5 = [];
 var cmc6 = [];
 var arrayOfCmc = [];
 var arrayOfCmcClass = [];
-var cmcClass0 = "cmc0";
+var cmcClass0 = "cmc0"; // a "#" or "." can be added to create selectors
 var cmcClass1 = "cmc1";
 var cmcClass2 = "cmc2";
 var cmcClass3 = "cmc3";
@@ -177,7 +177,7 @@ else {
   cmc6 = JSON.parse(localStorage.getItem("cmc6"));
   cmcLand = JSON.parse(localStorage.getItem("cmcLand"));
 
-  buildDeck(cmc1, cmcClass1); //runs buildDeck function after card has been added to deck array
+  buildDeck(cmc1, cmcClass1); //runs buildDeck function after card has been added to deck arrays
   buildDeck(cmc2, cmcClass2);
   buildDeck(cmc3, cmcClass3);
   buildDeck(cmc4, cmcClass4);
@@ -191,7 +191,7 @@ else {
   buildCurve(cmc5, cmcClass5);
   buildCurve(cmc6, cmcClass6);
 };
-/////////////////////////////////////
+////////////////////// Search method Jasper's part ///////////////
 
 var apiUrl = "https://api.scryfall.com/cards/search?order=cmc&unique=cards&q=e"
 var apiUrl2 = "https://api.scryfall.com/cards/search?order=cmc&page=2&unique=cards&q=e"
@@ -238,6 +238,7 @@ $("#search").on("click", function () {
     searchPool = [];
     for (var i = 0; i < responseData.length; i++) {
       if (responseData[i].type_line == null || responseData[i].name == null || responseData[i].oracle_text == null) {
+        //temperary bypass of the double-faced card issue (explained in readme)
         console.log(responseData[i].name);
         console.log(responseData[i].type_line);
         console.log(responseData[i].oracle_text);
@@ -393,19 +394,20 @@ function reset() {
 }
 
 function sortByColor() {
-  for (var j = 0; j < responseData.length; j++) {
-    if (responseData[j].colors == null) {
-      console.log(responseData[j].name);
-      console.log(responseData[j].card_faces[0].colors);
-      // responseData.splice(j, 1);
-    }
-  }
+  /*   for (var j = 0; j < responseData.length; j++) {
+      if (responseData[j].colors == null) {
+        console.log(responseData[j].name);
+        console.log(responseData[j].card_faces[0].colors);
+        // responseData.splice(j, 1);
+      }
+    } */
   // placing mono-colored cards first then in the order of "white" ,"blue","black","red","green","multicolor","colorless" and "lands"
   for (var i = 0; i < responseData.length; i++) {
     function pushTo(array) {
       array.push({
         //attaching all searchable key words to each card in the json format
         "imgUrl": responseData[i].image_uris.border_crop,
+        "imgUrl2": responseData[i].image_uris.border_crop,
         "name": responseData[i].name,
         "type": responseData[i].type_line,
         "oracle": responseData[i].oracle_text,
@@ -419,7 +421,7 @@ function sortByColor() {
     }
     function pushFaceTo(array) {
       array.push({
-        //attaching all searchable key words to each card in the json format
+        //laying the ground work to fixing doube-faced card issue
         "imgUrl": responseData[i].card_faces[0].image_uris.border_crop,
         "imgUrl2": responseData[i].card_faces[1].image_uris.border_crop,
         "name": responseData[i].card_faces[0].name,
@@ -564,13 +566,14 @@ function displaySearch(array, arrayOfFilters, array2) {
         }
       }
     }
-    console.log(counter);
+    // console.log(counter);
     // line 353-370: only when all 5 filters return positive will the the card be picked by the search method for display
     if (counter == 5) {
       cardsFound++;
       array2.push(
         {
           "imgUrl": array[i].imgUrl,
+          "imgUrl2": array[i].imgUrl2,
           "name": array[i].name,
           "manaCost": array[i].manaCost,
           "colors": array[i].colors,
@@ -660,54 +663,58 @@ function display(array) {
     createNewCol6.append(createNewRow6);
     createRow.append(createNewCol6);
     for (var k = 0, j = i * 18; k < 18, j < (i + 1) * 18; k++ , j++) {
-      //populating carousel slide with 18 cards
-      var createImg = $('<img>');
-      var createDiv = $('<div>');
-      createDiv.addClass("col-md-4 sub-col");
-      createImg.attr("style", "background-color:transparent");
-      createImg.attr("src", array[j].imgUrl);
-      //adding usable information for future "on click" events
-      createImg.attr("data-cost", array[j].cmc);
-      createImg.attr("data-name", array[j].name);
-      createImg.attr("id", array[j].set + array[j].setIndex);
-      createImg.attr("data-set", array[j].set);
-      createImg.attr("data-index", array[j].setIndex);
-      createImg.attr("data-type", array[j].type);
-      for (h = 0; h < array[j].colors.length; h++) {
-        createImg.addClass(array[j].colors[h]);
+      if (j <array.length) {
+        //populating carousel slide with 18 cards
+        var createImg = $('<img>');
+        var createDiv = $('<div>');
+        createDiv.addClass("col-md-4 sub-col");
+        createImg.attr("style", "background-color:transparent");
+        createImg.attr("src", array[j].imgUrl);
+        createImg.attr("data-src", array[j].imgUrl2);
+        //adding usable information for future "on click" events
+        createImg.attr("data-cost", array[j].cmc);
+        createImg.attr("data-name", array[j].name);
+        createImg.attr("id", array[j].set + array[j].setIndex);
+        createImg.attr("data-set", array[j].set);
+        createImg.attr("data-index", array[j].setIndex);
+        createImg.attr("data-type", array[j].type);
+        for (h = 0; h < array[j].colors.length; h++) {
+          createImg.addClass(array[j].colors[h]);
+        }
+        createImg.addClass("card cardImgs");
+        createDiv.append(createImg);
+        //line 642 to 658 the second level of the nested columns
+        //each mother column has 3 daughter columns in it
+        //which allows 2 formats for display : 6 columns per row or 9 columns per row
+        if (k < 3) {
+          createNewRow1.append(createDiv);
+        }
+        else if (k < 6) {
+          createNewRow2.append(createDiv);
+        }
+        else if (k < 9) {
+          createNewRow3.append(createDiv);
+        }
+        else if (k < 12) {
+          createNewRow4.append(createDiv);
+        }
+        else if (k < 15) {
+          createNewRow5.append(createDiv);
+        }
+        else if (k < 18) {
+          createNewRow6.append(createDiv);
+        }
+        if (curveView == false) {
+          $(".new-col").attr("class", "new-col col-md-4");
+          $(".carousel-item").css("height", "350px");
+        }
+        else {
+          $(".new-col").attr("class", "new-col col-md-6");
+          $(".carousel-item").css("height", "800px");
+        }
+        $(".card").unbind().click(addCardToDeck);
+
       }
-      createImg.addClass("card cardImgs");
-      createDiv.append(createImg);
-      //line 642 to 658 the second level of the nested columns
-      //each mother column has 3 daughter columns in it
-      //which allows 2 formats for display : 6 columns per row or 9 columns per row
-      if (k < 3) {
-        createNewRow1.append(createDiv);
-      }
-      else if (k < 6) {
-        createNewRow2.append(createDiv);
-      }
-      else if (k < 9) {
-        createNewRow3.append(createDiv);
-      }
-      else if (k < 12) {
-        createNewRow4.append(createDiv);
-      }
-      else if (k < 15) {
-        createNewRow5.append(createDiv);
-      }
-      else if (k < 18) {
-        createNewRow6.append(createDiv);
-      }
-      if (curveView == false) {
-        $(".new-col").attr("class", "new-col col-md-4");
-        $(".carousel-item").css("height", "350px");
-      }
-      else {
-        $(".new-col").attr("class", "new-col col-md-6");
-        $(".carousel-item").css("height", "800px");
-      }
-      $(".card").unbind().click(addCardToDeck);
     }
   }
   $("#carouselExampleControls").carousel("pause");
@@ -745,7 +752,7 @@ $(".right").on("click", function () {
 });
 API_CALL(QueryURL, QueryURL2);
 
-/////////////////////////// add card to deck functionality //////////////////////
+/////////////////////////// add card to deck functionality  Natalie's part //////////////////////
 function searchJson(array, value) {
   //returns an integer representing the index of any given card in the array based on the card's id
   for (var i = 0; i < array.length; i++) {
@@ -799,6 +806,7 @@ function addCardToDeck() {
       deckList.push({
         cardChosen: {
           "imgUrl": $(this).attr("src"),
+          "imgUrl2": $(this).attr("data-src"),
           "name": $(this).attr("data-name"),
           "cmc": $(this).attr("data-cost"),
           "set": $(this).attr("data-set"),
@@ -842,7 +850,6 @@ function addCardToDeck() {
       }, 1000);
     }
   }
-  console.log(deckList);
 }
 
 function buildDeck(array, cmcClass) {
@@ -908,7 +915,9 @@ function buildCurve(array, cmcClass) {
     numCopy.addClass(array[j].cardChosen.id);
     var cardCountBtn = $("<button>");
     var cardImage = array[j].cardChosen.imgUrl;
+    var cardBack = array[j].cardChosen.imgUrl2;
     cardBtn.attr("src", cardImage);
+    cardBtn.attr("data-src", cardBack);
     cardBtn.attr("id", array[j].cardChosen.id);
     //createRow.append(cardBtn);
     if (array[j].cardChosen.numCopy > 1) {
@@ -1029,9 +1038,7 @@ $(".export").on("click", function () {
   $("body").append(el);
   el.select();
   document.execCommand("copy");
-  console.log(el.val());
   el.remove();
-
 });
 
 
