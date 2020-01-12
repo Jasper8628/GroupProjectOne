@@ -237,7 +237,13 @@ $("#search").on("click", function () {
     // when no filter button has been selected, the type search will search from all of the cards
     searchPool = [];
     for (var i = 0; i < responseData.length; i++) {
-      if (responseData[i].type_line.indexOf(searchTerm) != -1 || responseData[i].name.indexOf(searchTerm) != -1 || responseData[i].oracle_text.indexOf(searchTerm) != -1 || responseData[i].oracle_text.search(input) != -1) {
+      if (responseData[i].type_line == null || responseData[i].name == null || responseData[i].oracle_text == null) {
+        console.log(responseData[i].name);
+        console.log(responseData[i].type_line);
+        console.log(responseData[i].oracle_text);
+        console.log(responseData[i]);
+      }
+      else if (responseData[i].type_line.indexOf(searchTerm) != -1 || responseData[i].name.indexOf(searchTerm) != -1 || responseData[i].oracle_text.indexOf(searchTerm) != -1 || responseData[i].oracle_text.search(input) != -1) {
         searchPool.push({
           "imgUrl": responseData[i].image_uris.border_crop,
           "name": responseData[i].name,
@@ -258,19 +264,21 @@ $("#search").on("click", function () {
   else {
     // when at least one filter button has been selected, the type search will search in a refined pool defined by the selected filters
     for (var j = 0; j < searchPool.length; j++) {
-      if (searchPool[j].type.indexOf(searchTerm) != -1 || searchPool[j].name.indexOf(searchTerm) != -1 || searchPool[j].oracle.indexOf(searchTerm) != -1 || searchPool[j].oracle.search(input) != -1) {
-        secondSearch.push({
-          "imgUrl": searchPool[j].imgUrl,
-          "name": searchPool[j].name,
-          "manaCost": searchPool[j].manaCost,
-          "colors": searchPool[j].colors,
-          "oracle": searchPool[j].oracle,
-          "type": searchPool[j].type,
-          "cmc": searchPool[j].cmc,
-          "rarity": searchPool[j].rarity,
-          "set": searchPool[j].set,
-          "setIndex": searchPool[j].setIndex
-        });
+      if (searchPool[j].oracle != null) {
+        if (searchPool[j].type.indexOf(searchTerm) != -1 || searchPool[j].name.indexOf(searchTerm) != -1 || searchPool[j].oracle.indexOf(searchTerm) != -1 || searchPool[j].oracle.search(input) != -1) {
+          secondSearch.push({
+            "imgUrl": searchPool[j].imgUrl,
+            "name": searchPool[j].name,
+            "manaCost": searchPool[j].manaCost,
+            "colors": searchPool[j].colors,
+            "oracle": searchPool[j].oracle,
+            "type": searchPool[j].type,
+            "cmc": searchPool[j].cmc,
+            "rarity": searchPool[j].rarity,
+            "set": searchPool[j].set,
+            "setIndex": searchPool[j].setIndex
+          });
+        }
       }
     }
     display(secondSearch);
@@ -385,10 +393,17 @@ function reset() {
 }
 
 function sortByColor() {
+  for (var j = 0; j < responseData.length; j++) {
+    if (responseData[j].colors == null) {
+      console.log(responseData[j].name);
+      console.log(responseData[j].card_faces[0].colors);
+      // responseData.splice(j, 1);
+    }
+  }
   // placing mono-colored cards first then in the order of "white" ,"blue","black","red","green","multicolor","colorless" and "lands"
   for (var i = 0; i < responseData.length; i++) {
-    if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "W") {
-      white.push({
+    function pushTo(array) {
+      array.push({
         //attaching all searchable key words to each card in the json format
         "imgUrl": responseData[i].image_uris.border_crop,
         "name": responseData[i].name,
@@ -402,102 +417,73 @@ function sortByColor() {
         "setIndex": responseData[i].collector_number
       });
     }
-    else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "U") {
-      blue.push({
-        "imgUrl": responseData[i].image_uris.border_crop,
-        "name": responseData[i].name,
-        "type": responseData[i].type_line,
-        "oracle": responseData[i].oracle_text,
-        "manaCost": responseData[i].mana_cost,
-        "colors": responseData[i].colors,
+    function pushFaceTo(array) {
+      array.push({
+        //attaching all searchable key words to each card in the json format
+        "imgUrl": responseData[i].card_faces[0].image_uris.border_crop,
+        "imgUrl2": responseData[i].card_faces[1].image_uris.border_crop,
+        "name": responseData[i].card_faces[0].name,
+        "type": responseData[i].card_faces[0].type_line,
+        "oracle": responseData[i].card_faces[0].oracle_text,
+        "manaCost": responseData[i].card_faces[0].mana_cost,
+        "colors": responseData[i].card_faces[0].colors,
         "rarity": responseData[i].rarity,
         "cmc": responseData[i].cmc,
         "set": responseData[i].set,
         "setIndex": responseData[i].collector_number
-      });
+      })
     }
-    else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "B") {
-      black.push({
-        "imgUrl": responseData[i].image_uris.border_crop,
-        "name": responseData[i].name,
-        "type": responseData[i].type_line,
-        "oracle": responseData[i].oracle_text,
-        "manaCost": responseData[i].mana_cost,
-        "colors": responseData[i].colors,
-        "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc,
-        "set": responseData[i].set,
-        "setIndex": responseData[i].collector_number
-      });
-    }
-    else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "R") {
-      red.push({
-        "imgUrl": responseData[i].image_uris.border_crop,
-        "name": responseData[i].name,
-        "type": responseData[i].type_line,
-        "oracle": responseData[i].oracle_text,
-        "manaCost": responseData[i].mana_cost,
-        "colors": responseData[i].colors,
-        "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc,
-        "set": responseData[i].set,
-        "setIndex": responseData[i].collector_number
-      });
-    }
-    else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "G") {
-      green.push({
-        "imgUrl": responseData[i].image_uris.border_crop,
-        "name": responseData[i].name,
-        "type": responseData[i].type_line,
-        "oracle": responseData[i].oracle_text,
-        "manaCost": responseData[i].mana_cost,
-        "colors": responseData[i].colors,
-        "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc,
-        "set": responseData[i].set,
-        "setIndex": responseData[i].collector_number
-      });
-    }
-    else if (responseData[i].colors.length == 0 && (responseData[i].type_line.indexOf("Artifact") != -1 || responseData[i].type_line.indexOf("Planeswalker") != -1)) {
-      colorless.push({
-        "imgUrl": responseData[i].image_uris.border_crop,
-        "name": responseData[i].name,
-        "type": responseData[i].type_line,
-        "oracle": responseData[i].oracle_text,
-        "manaCost": responseData[i].mana_cost,
-        "colors": responseData[i].colors,
-        "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc,
-        "set": responseData[i].set,
-        "setIndex": responseData[i].collector_number
-      });
-    } else if (responseData[i].colors.length > 1) {
-      multiColor.push({
-        "imgUrl": responseData[i].image_uris.border_crop,
-        "name": responseData[i].name,
-        "type": responseData[i].type_line,
-        "oracle": responseData[i].oracle_text,
-        "manaCost": responseData[i].mana_cost,
-        "colors": responseData[i].colors,
-        "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc,
-        "set": responseData[i].set,
-        "setIndex": responseData[i].collector_number
-      });
+    if (responseData[i].colors != null) {
+      if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "W") {
+        pushTo(white);
+      }
+      else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "U") {
+        pushTo(blue);
+      }
+      else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "B") {
+        pushTo(black);
+      }
+      else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "R") {
+        pushTo(red);
+      }
+      else if (responseData[i].colors.length == 1 && responseData[i].colors[0] == "G") {
+        pushTo(green);
+      }
+      else if (responseData[i].colors.length == 0 && (responseData[i].type_line.indexOf("Artifact") != -1 || responseData[i].type_line.indexOf("Planeswalker") != -1)) {
+        pushTo(colorless);
+      }
+      else if (responseData[i].colors.length > 1) {
+        pushTo(multiColor);
+      }
+      else {
+        pushTo(lands);
+      }
     }
     else {
-      lands.push({
-        "imgUrl": responseData[i].image_uris.border_crop,
-        "name": responseData[i].name,
-        "type": responseData[i].type_line,
-        "oracle": responseData[i].oracle_text,
-        "manaCost": responseData[i].mana_cost,
-        "colors": responseData[i].colors,
-        "rarity": responseData[i].rarity,
-        "cmc": responseData[i].cmc,
-        "set": responseData[i].set,
-        "setIndex": responseData[i].collector_number
-      });
+      if (responseData[i].card_faces[0].colors.length == 1 && responseData[i].card_faces[0].colors[0] == "W") {
+        pushFaceTo(white);
+      }
+      else if (responseData[i].card_faces[0].colors.length == 1 && responseData[i].card_faces[0].colors[0] == "U") {
+        pushFaceTo(blue);
+      }
+      else if (responseData[i].card_faces[0].colors.length == 1 && responseData[i].card_faces[0].colors[0] == "B") {
+        pushFaceTo(black);
+      }
+      else if (responseData[i].card_faces[0].colors.length == 1 && responseData[i].card_faces[0].colors[0] == "R") {
+        pushFaceTo(red);
+      }
+      else if (responseData[i].card_faces[0].colors.length == 1 && responseData[i].card_faces[0].colors[0] == "G") {
+        pushFaceTo(green);
+      }
+      else if (responseData[i].card_faces[0].colors.length == 0 && (responseData[i].type_line.indexOf("Artifact") != -1 || responseData[i].type_line.indexOf("Planeswalker") != -1)) {
+        pushFaceTo(colorless);
+      }
+      else if (responseData[i].card_faces[0].colors.length > 1) {
+        pushFaceTo(multiColor);
+      }
+      else {
+        pushFaceTo(lands);
+      }
     }
   }
   cardPool = white.concat(blue);
@@ -742,12 +728,6 @@ function API_CALL(url1, url2) {
       var newResponseData = feed.data;
       responseData = responseData.concat(newResponseData);
       console.log(responseData);
-      for (i = 0; i < responseData.length; i++) {
-        if (responseData[i].colors == null) {
-          console.log(responseData[i].name);
-          responseData.splice(i, 1);
-        }
-      }
       sortByColor();
       display(cardPool);
     });
